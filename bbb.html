@@ -9,7 +9,6 @@
 <style>
 :root{
   --bg0:#050102; --bg1:#0b0304;
-  --card:rgba(255,255,255,.06);
   --line:rgba(255,90,90,.22);
   --line2:rgba(255,90,90,.32);
   --txt:#fff1f1;
@@ -30,21 +29,18 @@ body{
     radial-gradient(900px 540px at 80% 10%, rgba(255,0,0,.10), transparent 60%),
     linear-gradient(180deg, var(--bg0), var(--bg1));
 }
-.wrap{width:min(1100px,100%);margin:0 auto}
+.wrap{width:min(1180px,100%);margin:0 auto}
 .top{
   display:flex;align-items:center;justify-content:space-between;gap:12px;
   margin-bottom:14px;
 }
-.brand{
-  display:flex;align-items:center;gap:10px;
-}
+.brand{display:flex;align-items:center;gap:10px}
 .brand .logo{
   width:44px;height:44px;border-radius:14px;
   background:rgba(255,255,255,.06);
   border:1px solid var(--line2);
   display:grid;place-items:center;
-  overflow:hidden;
-  box-shadow:var(--shadow);
+  overflow:hidden; box-shadow:var(--shadow);
 }
 .brand .logo img{width:100%;height:100%;object-fit:cover}
 .brand .t b{display:block;font-size:14px}
@@ -57,7 +53,7 @@ body{
   border:1px solid var(--line2);
   background:rgba(0,0,0,.18);
   font-size:12px;color:var(--muted);
-  user-select:none;
+  user-select:none;white-space:nowrap;
 }
 .dot{width:8px;height:8px;border-radius:99px;background:var(--ok);box-shadow:0 0 18px rgba(54,211,153,.6)}
 .dot.bad{background:var(--bad);box-shadow:0 0 18px rgba(255,90,90,.6)}
@@ -72,12 +68,11 @@ body{
 .cardHead{
   padding:16px;
   border-bottom:1px solid var(--line);
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
   flex-wrap:wrap;
 }
 .hTitle{font-weight:1000;font-size:16px}
-.hSub{font-size:12px;color:rgba(255,210,210,.55);margin-top:4px}
-.leftHead{display:flex;flex-direction:column}
+.hSub{font-size:12px;color:rgba(255,210,210,.55);margin-top:4px;line-height:1.55}
 
 .controls{
   display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end;
@@ -90,6 +85,8 @@ body{
   outline:none;
   min-width:220px;
 }
+.input.small{min-width:180px}
+.input.full{min-width:min(560px,92vw)}
 .btn{
   border:none;cursor:pointer;
   border-radius:var(--r14);
@@ -99,18 +96,11 @@ body{
   user-select:none;
 }
 .btn:active{transform:scale(.99)}
+.btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
 .btnGhost{
   background:rgba(255,255,255,.06);
   color:var(--txt);
   border:1px solid rgba(255,90,90,.18);
-}
-.btnOk{
-  color:#08140f;
-  background:linear-gradient(135deg,#58f0b6,#1bbf7a);
-}
-.btnBad{
-  color:#21090b;
-  background:linear-gradient(135deg,#ff8a8f,#ff2b2b);
 }
 .btnMain{
   color:#fff;
@@ -119,29 +109,35 @@ body{
 
 .body{padding:14px}
 
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+@media (max-width:860px){
+  .grid2{grid-template-columns:1fr}
+}
+
+.panel{
+  border:1px solid rgba(255,90,90,.18);
+  background:rgba(0,0,0,.18);
+  border-radius:var(--r16);
+  padding:12px;
+}
+
 .tableWrap{
   overflow:auto;
   border:1px solid rgba(255,90,90,.18);
   border-radius:var(--r16);
   background:rgba(0,0,0,.18);
+  margin-top:12px;
 }
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:980px;
-}
-th,td{
-  padding:12px 12px;
-  border-bottom:1px solid rgba(255,90,90,.12);
-  vertical-align:top;
-}
+table{width:100%;border-collapse:collapse;min-width:980px}
+th,td{padding:12px;border-bottom:1px solid rgba(255,90,90,.12);vertical-align:top}
 th{
-  text-align:left;
-  font-size:12px;
-  color:rgba(255,210,210,.70);
-  position:sticky; top:0;
-  background:rgba(0,0,0,.55);
-  backdrop-filter: blur(8px);
+  text-align:left;font-size:12px;color:rgba(255,210,210,.70);
+  position:sticky;top:0;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(8px);
 }
 td{font-size:13px;color:rgba(255,240,240,.92)}
 .mini{font-size:11px;color:rgba(255,210,210,.55)}
@@ -196,75 +192,104 @@ td{font-size:13px;color:rgba(255,240,240,.92)}
       </div>
       <div class="t">
         <b>Rumruay365 Admin</b>
-        <span>อนุมัติสิทธิ์ทายผลบอล (PENDING → APPROVED)</span>
+        <span>แอดมินกรอก Web App + Admin Key เอง แล้วกด “เชื่อมต่อ”</span>
       </div>
     </div>
 
     <div class="chips">
-      <div class="chip" title="สถานะเชื่อมต่อ"><span id="dot" class="dot"></span><span id="conn">พร้อมใช้งาน</span></div>
-      <div class="chip" title="จำนวนรออนุมัติ">คิวรอ: <b id="pendingCount">0</b></div>
-      <div class="chip" title="อัปเดตล่าสุด">อัปเดต: <b id="lastUpdate">—</b></div>
+      <div class="chip"><span id="dot" class="dot bad"></span><span id="conn">ยังไม่เชื่อมต่อ</span></div>
+      <div class="chip">คิวรอ: <b id="pendingCount">0</b></div>
+      <div class="chip">อัปเดต: <b id="lastUpdate">—</b></div>
     </div>
   </div>
 
   <section class="card">
     <div class="cardHead">
-      <div class="leftHead">
-        <div class="hTitle">รายการคำขอสิทธิ์</div>
-        <div class="hSub">กด “อนุมัติ” เพื่อปลดล็อกให้ลูกค้าทายได้ (1 คน/1 เครื่อง)</div>
+      <div>
+        <div class="hTitle">ตั้งค่าหน้าแอดมิน</div>
+        <div class="hSub">
+          1) ใส่ลิงก์ Web App (Apps Script) <br>
+          2) ใส่ Admin Key <br>
+          3) กด “เชื่อมต่อ” แล้วค่อยใช้งานอนุมัติ/ปฏิเสธ
+        </div>
       </div>
 
       <div class="controls">
-        <input id="q" class="input" placeholder="ค้นหาเบอร์/Device/สถานะ เช่น 063... / PENDING">
-        <select id="filter" class="input" style="min-width:180px">
-          <option value="ALL">แสดงทั้งหมด</option>
-          <option value="PENDING" selected>เฉพาะ PENDING</option>
-          <option value="APPROVED">เฉพาะ APPROVED</option>
-          <option value="REJECTED">เฉพาะ REJECTED</option>
-          <option value="USED">เฉพาะ USED</option>
-          <option value="BLOCKED">เฉพาะ BLOCKED</option>
-        </select>
         <label class="chip" style="cursor:pointer">
           <input id="auto" type="checkbox" checked style="accent-color:#ff2b2b">
           รีเฟรชออโต้ 10 วิ
         </label>
-        <button id="btnRefresh" class="btn btnMain">🔄 รีเฟรช</button>
+        <button id="btnConnect" class="btn btnMain">🔌 เชื่อมต่อ</button>
+        <button id="btnClear" class="btn btnGhost">🧹 ล้างค่า</button>
       </div>
     </div>
 
     <div class="body">
+      <div class="grid2">
+        <div class="panel">
+          <div class="mini" style="margin-bottom:6px">Web App URL (Deploy → Web app)</div>
+          <input id="web" class="input full" placeholder="https://script.google.com/macros/s/....../exec">
+          <div class="mini" style="margin-top:10px;margin-bottom:6px">Admin Key</div>
+          <input id="key" class="input full" placeholder="ใส่ Admin Key" type="password" autocomplete="off">
+          <div class="mini" style="margin-top:10px">
+            ✅ ระบบจะบันทึกค่าไว้ในเครื่อง (LocalStorage) เพื่อไม่ต้องกรอกใหม่ทุกครั้ง
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="mini" style="margin-bottom:6px">ค้นหา</div>
+          <input id="q" class="input full" placeholder="ค้นหาเบอร์/Device/สถานะ เช่น 063... / PENDING" disabled>
+
+          <div class="mini" style="margin-top:10px;margin-bottom:6px">ตัวกรอง</div>
+          <select id="filter" class="input full" disabled>
+            <option value="ALL">แสดงทั้งหมด</option>
+            <option value="PENDING" selected>เฉพาะ PENDING</option>
+            <option value="APPROVED">เฉพาะ APPROVED</option>
+            <option value="REJECTED">เฉพาะ REJECTED</option>
+            <option value="USED">เฉพาะ USED</option>
+            <option value="BLOCKED">เฉพาะ BLOCKED</option>
+          </select>
+
+          <div class="controls" style="margin-top:10px;justify-content:flex-start">
+            <button id="btnRefresh" class="btn btnMain" disabled>🔄 รีเฟรช</button>
+          </div>
+          <div class="mini" style="margin-top:10px">
+            * ปุ่มอนุมัติ/ปฏิเสธจะใช้งานได้เมื่อ “เชื่อมต่อ” แล้วเท่านั้น
+          </div>
+        </div>
+      </div>
+
       <div class="tableWrap">
         <table>
           <thead>
             <tr>
               <th style="width:160px">เบอร์</th>
-              <th style="width:210px">Device</th>
+              <th style="width:220px">Device</th>
               <th style="width:120px">สถานะ</th>
               <th style="width:180px">เวลา</th>
               <th>หมายเหตุ</th>
-              <th style="width:230px">จัดการ</th>
+              <th style="width:250px">จัดการ</th>
             </tr>
           </thead>
           <tbody id="rows">
-            <tr><td colspan="6" class="mini">ยังไม่มีข้อมูล</td></tr>
+            <tr><td colspan="6" class="mini">ยังไม่เชื่อมต่อ</td></tr>
           </tbody>
         </table>
       </div>
 
       <div id="msg"></div>
-
-      <div class="alert" style="margin-top:12px">
-        <b>หมายเหตุ:</b> หน้านี้ต้องใช้ <b>ADMIN_KEY</b> ถูกต้อง ถ้าไม่ตรงระบบจะไม่ให้กดอนุมัติ/ปฏิเสธ
-      </div>
     </div>
   </section>
 </div>
 
 <script>
-/* ================== CONFIG (แก้ตรงนี้) ================== */
-const WEB_APP_URL = "ใส่ลิงก์ Web App ของคุณตรงนี้";
-const ADMIN_KEY   = "ใส่รหัสแอดมินตรงนี้"; // แนะนำยาวๆเดาไม่ออก เช่น 40+ ตัว
-/* ========================================================= */
+const LS_WEB = "RR365_ADMIN_WEBAPP";
+const LS_KEY = "RR365_ADMIN_KEY";
+
+let WEB_APP_URL = "";
+let ADMIN_KEY   = "";
+let cache = [];
+let timer = null;
 
 const $ = (id)=>document.getElementById(id);
 
@@ -305,8 +330,6 @@ function stBadge(st){
 
 function norm(s){ return String(s||"").toLowerCase().trim(); }
 
-let cache=[];
-
 function render(){
   const q = norm($("q").value);
   const f = $("filter").value;
@@ -340,6 +363,7 @@ function render(){
     const note = x.note || "";
     const canApprove = (st==="PENDING");
     const canReject  = (st==="PENDING");
+
     return `
       <tr>
         <td><b>${u}</b></td>
@@ -363,11 +387,8 @@ async function refresh(){
   $("btnRefresh").disabled = true;
   $("btnRefresh").innerHTML = `<span class="spin"></span>กำลังโหลด...`;
   try{
-    // ✅ ต้องมีฝั่ง Code.gs รองรับ action นี้
     const data = await post({action:"admin_list", adminKey: ADMIN_KEY});
     if(!data.ok) throw new Error(data.msg || "โหลดไม่สำเร็จ");
-
-    // คาดหวัง data.items เป็น array
     cache = Array.isArray(data.items) ? data.items : [];
     setConn(true, "พร้อมใช้งาน");
     alertBox("ok", `โหลดสำเร็จ: ${cache.length} รายการ`);
@@ -384,11 +405,7 @@ async function refresh(){
 async function approve(username, deviceId){
   if(!confirm(`ยืนยันอนุมัติเบอร์ ${username} ?`)) return;
   try{
-    const data = await post({
-      action:"admin_approve",
-      adminKey: ADMIN_KEY,
-      username, deviceId
-    });
+    const data = await post({action:"admin_approve", adminKey: ADMIN_KEY, username, deviceId});
     if(!data.ok) throw new Error(data.msg||"อนุมัติไม่สำเร็จ");
     alertBox("ok", data.msg || "อนุมัติสำเร็จ");
     await refresh();
@@ -401,12 +418,7 @@ async function reject(username, deviceId){
   const reason = prompt("เหตุผลปฏิเสธ (ใส่หรือเว้นว่างได้):","ไม่ผ่านเงื่อนไข");
   if(reason===null) return;
   try{
-    const data = await post({
-      action:"admin_reject",
-      adminKey: ADMIN_KEY,
-      username, deviceId,
-      reason
-    });
+    const data = await post({action:"admin_reject", adminKey: ADMIN_KEY, username, deviceId, reason});
     if(!data.ok) throw new Error(data.msg||"ปฏิเสธไม่สำเร็จ");
     alertBox("ok", data.msg || "ปฏิเสธสำเร็จ");
     await refresh();
@@ -423,21 +435,83 @@ function copyText(t){
   });
 }
 
-$("btnRefresh").addEventListener("click", refresh);
-$("q").addEventListener("input", render);
-$("filter").addEventListener("change", render);
+function enableAdminUI(on){
+  $("q").disabled = !on;
+  $("filter").disabled = !on;
+  $("btnRefresh").disabled = !on;
+  if(on){
+    $("rows").innerHTML = `<tr><td colspan="6" class="mini">พร้อมใช้งาน กด “รีเฟรช” เพื่อโหลดรายการ</td></tr>`;
+  }else{
+    $("rows").innerHTML = `<tr><td colspan="6" class="mini">ยังไม่เชื่อมต่อ</td></tr>`;
+  }
+}
 
-let timer=null;
 function startAuto(){
   clearInterval(timer);
   if($("auto").checked){
-    timer=setInterval(refresh, 10000);
+    timer = setInterval(()=>{ if(WEB_APP_URL && ADMIN_KEY) refresh(); }, 10000);
   }
 }
+
+$("btnConnect").addEventListener("click", async ()=>{
+  const w = $("web").value.trim();
+  const k = $("key").value.trim();
+
+  if(!w || !w.startsWith("http")) return alertBox("err","กรุณาใส่ Web App URL ให้ถูกต้อง");
+  if(!k || k.length < 8) return alertBox("err","กรุณาใส่ Admin Key (แนะนำยาวๆ 20+ ตัว)");
+
+  WEB_APP_URL = w;
+  ADMIN_KEY = k;
+
+  localStorage.setItem(LS_WEB, WEB_APP_URL);
+  localStorage.setItem(LS_KEY, ADMIN_KEY);
+
+  enableAdminUI(true);
+  setConn(false, "กำลังเชื่อมต่อ...");
+
+  await refresh();
+  startAuto();
+});
+
+$("btnClear").addEventListener("click", ()=>{
+  if(!confirm("ล้างค่า Web App + Admin Key ในเครื่องนี้?")) return;
+  localStorage.removeItem(LS_WEB);
+  localStorage.removeItem(LS_KEY);
+  $("web").value = "";
+  $("key").value = "";
+  WEB_APP_URL = "";
+  ADMIN_KEY = "";
+  cache = [];
+  enableAdminUI(false);
+  setConn(false, "ยังไม่เชื่อมต่อ");
+  $("pendingCount").textContent = "0";
+  $("lastUpdate").textContent = "—";
+  alertBox("ok","ล้างค่าแล้ว");
+  clearInterval(timer);
+});
+
+$("btnRefresh").addEventListener("click", refresh);
+$("q").addEventListener("input", render);
+$("filter").addEventListener("change", render);
 $("auto").addEventListener("change", startAuto);
 
-// โหลดครั้งแรก
-refresh().then(startAuto);
+// โหลดค่าที่เคยบันทึกไว้
+(function init(){
+  const w = localStorage.getItem(LS_WEB) || "";
+  const k = localStorage.getItem(LS_KEY) || "";
+  $("web").value = w;
+  $("key").value = k;
+
+  if(w && k){
+    WEB_APP_URL = w;
+    ADMIN_KEY = k;
+    enableAdminUI(true);
+    setConn(false,"กำลังเชื่อมต่อ...");
+    refresh().then(startAuto);
+  }else{
+    enableAdminUI(false);
+  }
+})();
 </script>
 </body>
 </html>
