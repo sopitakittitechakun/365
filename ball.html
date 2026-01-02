@@ -67,16 +67,15 @@ body{
 .btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
 .btnGhost{background:rgba(255,255,255,.06);color:var(--txt);border:1px solid rgba(255,90,90,.18)}
 .btnPrimary{flex:1;min-width:240px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 18px 40px rgba(255,43,43,.15)}
+.choiceGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px;border-radius:var(--r16);border:1px dashed rgba(255,90,90,.35);background:rgba(0,0,0,.22)}
+.choice3{grid-template-columns:1fr 1fr 1fr}
+.choiceBtn{border:1px solid rgba(255,90,90,.22);background:rgba(255,255,255,.06);color:var(--txt);padding:12px 10px;border-radius:var(--r14);cursor:pointer;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px;transition:.15s ease}
+.choiceBtn.active{border-color:rgba(54,211,153,.55);box-shadow:0 0 0 4px rgba(54,211,153,.14);background:rgba(54,211,153,.10)}
 .scoreBox{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;padding:12px;border-radius:var(--r16);border:1px dashed rgba(255,90,90,.35);background:rgba(0,0,0,.22)}
 .scoreCtrl{display:flex;align-items:center;gap:8px;justify-content:center}
 .scoreInput{width:66px;text-align:center;font-size:22px;font-weight:1000;padding:10px 0;border-radius:var(--r14);border:1px solid rgba(255,90,90,.35);background:rgba(0,0,0,.35);color:#fff}
 .scBtn{width:44px;height:44px;border-radius:var(--r14);border:1px solid rgba(255,90,90,.22);background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:22px;font-weight:1000;cursor:pointer;box-shadow:0 8px 20px rgba(255,0,0,.35)}
 .scBtn:active{transform:scale(.95)}
-.scBtn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
-.choiceGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px;border-radius:var(--r16);border:1px dashed rgba(255,90,90,.35);background:rgba(0,0,0,.22)}
-.choice3{grid-template-columns:1fr 1fr 1fr}
-.choiceBtn{border:1px solid rgba(255,90,90,.22);background:rgba(255,255,255,.06);color:var(--txt);padding:12px 10px;border-radius:var(--r14);cursor:pointer;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px;transition:.15s ease}
-.choiceBtn.active{border-color:rgba(54,211,153,.55);box-shadow:0 0 0 4px rgba(54,211,153,.14);background:rgba(54,211,153,.10)}
 .alert{margin-top:12px;padding:12px;border-radius:var(--r16);border:1px solid rgba(255,90,90,.18);background:rgba(0,0,0,.18);font-size:13px;line-height:1.55}
 .ok{border-color:rgba(54,211,153,.28);background:rgba(54,211,153,.10)}
 .err{border-color:rgba(255,90,90,.30);background:rgba(255,90,90,.10)}
@@ -102,7 +101,7 @@ body{
       <h2 class="title">ทายผลบอล (เช็คสิทธิ์ก่อน)</h2>
       <div class="sub">
         ใส่เบอร์ → เช็คสิทธิ์ → ผ่านแล้วค่อยทาย → ส่งผลลงชีท<br>
-        * ถ้าต้องการทายใหม่: แอดมินลบแถวในชีท Predictions แล้วค่อยเช็คสิทธิ์ใหม่
+        * ทายใหม่ได้เมื่อแอดมินลบแถวในชีท Predictions แล้วเช็คสิทธิ์ใหม่
       </div>
 
       <div class="matchBar">
@@ -178,7 +177,7 @@ body{
 
 <script>
 /* ================== CONFIG ================== */
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw_yfMkWpe2pg24rdmgmwu8DAkkpJKz7veiyQFANFuGvmgw7By_PI2NtXLu7VeiHfmHxQ/exec"; // /exec
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwcEEyZ3qO-ElA_9JjlrxyUlCqSGgNsS9Lbzgb6OBXQpHwJZyt9_pHyfVuLEs4WGFognA/exec"; // /exec
 const HOME_NAME = "สเปอร์ส";
 const AWAY_NAME = "ลิเวอร์พูล";
 const HOME_LOGO = "https://media.api-sports.io/football/teams/47.png";
@@ -242,8 +241,8 @@ function setChoiceActive(groupEl, key, value){
     b.classList.toggle("active", v === value);
   });
 }
-function setKick(v){ localStorage.setItem(LS_KICK, v); setChoiceActive($("kickGrid"), "kick", v); }
-function setFirst(v){ localStorage.setItem(LS_FIRST, v); setChoiceActive($("firstGrid"), "first", v); }
+function setKick(v){ localStorage.setItem(LS_KICK, v); setChoiceActive($("kickGrid"), "kick", v); refreshSubmit(); }
+function setFirst(v){ localStorage.setItem(LS_FIRST, v); setChoiceActive($("firstGrid"), "first", v); refreshSubmit(); }
 function getKick(){ return localStorage.getItem(LS_KICK) || ""; }
 function getFirst(){ return localStorage.getItem(LS_FIRST) || ""; }
 
@@ -260,14 +259,12 @@ $("asMinus").addEventListener("click", ()=>changeScore("as",-1));
 $("asPlus").addEventListener("click",  ()=>changeScore("as", 1));
 
 $("kickGrid").addEventListener("click", (e)=>{
-  const b = e.target.closest(".choiceBtn"); if(!b) return;
+  const b=e.target.closest(".choiceBtn"); if(!b) return;
   setKick(b.dataset.kick);
-  refreshSubmit();
 });
 $("firstGrid").addEventListener("click", (e)=>{
-  const b = e.target.closest(".choiceBtn"); if(!b) return;
+  const b=e.target.closest(".choiceBtn"); if(!b) return;
   setFirst(b.dataset.first);
-  refreshSubmit();
 });
 
 function refreshSubmit(){
@@ -275,7 +272,9 @@ function refreshSubmit(){
   const kickOk = (getKick()==="HOME" || getKick()==="AWAY");
   const firstOk = (getFirst()==="HOME" || getFirst()==="AWAY" || getFirst()==="NONE");
   $("btnSubmit").disabled = !(ok && kickOk && firstOk);
-  $("btnSubmit").textContent = ok ? ( (kickOk && firstOk) ? "✅ ส่งคำทาย" : "⚠️ เลือกเขี่ยก่อน/ยิงก่อนให้ครบ" ) : "⛔ ต้องเช็คสิทธิ์ก่อน";
+  $("btnSubmit").textContent = ok
+    ? ((kickOk && firstOk) ? "✅ ส่งคำทาย" : "⚠️ เลือกเขี่ยก่อน/ยิงก่อนให้ครบ")
+    : "⛔ ต้องเช็คสิทธิ์ก่อน";
 }
 
 function getPhone(){
@@ -284,7 +283,7 @@ function getPhone(){
   return $("phone").value;
 }
 
-/* init */
+/* init ui */
 $("homeName").textContent = HOME_NAME;
 $("awayName").textContent = AWAY_NAME;
 $("kickHomeTxt").textContent = HOME_NAME;
@@ -294,13 +293,11 @@ $("firstAwayTxt").textContent = AWAY_NAME;
 
 $("homeLogo").src = HOME_LOGO;
 $("awayLogo").src = AWAY_LOGO;
-$("homeLogo").onerror=function(){this.onerror=null; this.src="https://ramruay365.co/wp-content/uploads/2025/12/1735020594-1.png";}
-$("awayLogo").onerror=function(){this.onerror=null; this.src="https://ramruay365.co/wp-content/uploads/2025/12/1735020594-1.png";}
 
 setTop("warn","รอเช็คสิทธิ์");
 refreshSubmit();
 
-/* check eligibility */
+/* check */
 $("btnCheck").addEventListener("click", async ()=>{
   const phone = getPhone();
   if(!isValidPhone(phone)) return showMsg("err","กรุณากรอกเบอร์ให้ถูกต้อง (เช่น 096xxxxxxx)");
@@ -321,9 +318,9 @@ $("btnCheck").addEventListener("click", async ()=>{
     }
     refreshSubmit();
   }catch(e){
+    localStorage.setItem(LS_OK, "0");
     showMsg("err","เชื่อมต่อไม่สำเร็จ ตรวจสอบ Web App / Deploy / เน็ต");
     setTop("bad","เชื่อมต่อไม่ได้");
-    localStorage.setItem(LS_OK, "0");
     refreshSubmit();
   }finally{
     setLoading($("btnCheck"), false);
@@ -337,6 +334,7 @@ $("f").addEventListener("submit", async (e)=>{
   const phone = getPhone();
   if(!isValidPhone(phone)) return showMsg("err","กรุณากรอกเบอร์ให้ถูกต้อง");
   if(localStorage.getItem(LS_OK)!=="1") return showMsg("warn","ต้องเช็คสิทธิ์ผ่านก่อน");
+
   const kick = getKick();
   const first = getFirst();
   if(!(kick==="HOME"||kick==="AWAY")) return showMsg("warn","กรุณาเลือกทีมเขี่ยก่อน");
@@ -358,8 +356,7 @@ $("f").addEventListener("submit", async (e)=>{
     if(data.ok){
       showMsg("ok", data.msg || "ส่งสำเร็จ ✅");
       setTop("ok","ส่งแล้ว");
-      // ✅ หลังส่ง ให้ล็อกจนกว่าจะลบในชีท (ลูกค้าจะกดเช็คสิทธิ์อีกครั้ง แล้วจะเจอ “ส่งแล้ว”)
-      localStorage.setItem(LS_OK, "0");
+      localStorage.setItem(LS_OK, "0"); // ล็อกจนกว่าจะลบในชีท
     }else{
       showMsg("warn", data.msg || "ส่งไม่สำเร็จ");
       setTop("warn","ส่งไม่สำเร็จ");
@@ -379,9 +376,6 @@ $("f").addEventListener("submit", async (e)=>{
 $("btnClear").addEventListener("click", ()=>{
   $("msg").innerHTML="";
   setTop("warn","รอเช็คสิทธิ์");
-  // ไม่ล้างตัวเลือกไว้ก็ได้ แต่ถ้าอยากล้างด้วยให้เปิด 2 บรรทัดนี้
-  // localStorage.removeItem(LS_KICK); localStorage.removeItem(LS_FIRST);
-  // localStorage.removeItem(LS_OK);
   refreshSubmit();
 });
 </script>
