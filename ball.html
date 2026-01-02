@@ -15,7 +15,7 @@
     --muted:rgba(255,210,210,.75);
     --muted2:rgba(255,210,210,.55);
     --accent:#ff2b2b; --accent2:#b80000;
-    --ok:#36d399; --bad:#ff5a5f;
+    --ok:#36d399; --bad:#ff5a5f; --warn:#ffcc66;
     --shadow:0 22px 70px rgba(0,0,0,.65);
     --shadow2:0 12px 40px rgba(0,0,0,.45);
     --r14:14px; --r16:16px; --r20:20px;
@@ -34,20 +34,10 @@
       linear-gradient(180deg, var(--bg0), var(--bg1));
     overflow-x:hidden;
   }
-
-  /* กันธีม WP มายุ่ง */
-  .rr365-scope{
-    isolation:isolate;
-    position:relative;
-    z-index:9999;
-  }
-
+  .rr365-scope{isolation:isolate;position:relative;z-index:9999}
   .wrap{width:min(980px,100%);margin:0 auto;position:relative}
 
-  .topbar{
-    display:flex;align-items:center;justify-content:space-between;gap:12px;
-    margin-bottom:14px;
-  }
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
   .brand{display:flex;align-items:center;gap:12px}
   .brand .logo{
     width:44px;height:44px;border-radius:14px;
@@ -72,6 +62,8 @@
     user-select:none;white-space:nowrap;
   }
   .dot{width:8px;height:8px;border-radius:99px;background:var(--ok);box-shadow:0 0 18px rgba(54,211,153,.65)}
+  .dot.warn{background:var(--warn);box-shadow:0 0 18px rgba(255,204,102,.6)}
+  .dot.bad{background:var(--bad);box-shadow:0 0 18px rgba(255,90,90,.6)}
 
   .card{
     border-radius:var(--r20);
@@ -116,6 +108,8 @@
     gap:14px;
     align-items:center;
   }
+
+  /* ✅ โลโก้ “อยู่ในกรอบ/ไม่เพี้ยน” */
   .badge{
     width:96px;height:96px;border-radius:20px;
     margin:0 auto;
@@ -127,13 +121,16 @@
     overflow:hidden;
   }
   .badge img{
-    width:100%;height:100%;
-    object-fit:contain;object-position:center;
-    max-width:66%;max-height:66%;
-    transform:translateY(2px);
-    filter:none;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    object-position:center;
+    max-width:72%;
+    max-height:72%;
     display:block;
+    transform:translateY(2px);
   }
+
   .teamName{
     margin-top:8px;font-size:12px;color:rgba(255,235,235,.92);
     text-align:center;
@@ -162,8 +159,6 @@
   }
   .input::placeholder{color:rgba(255,210,210,.42)}
   .input:focus{border-color:rgba(255,43,43,.85);box-shadow:0 0 0 4px rgba(255,43,43,.22)}
-
-  /* ✅ FIX เข้มสุด: กันคลิก/พิมพ์ไม่ได้จาก overlay WP */
   #user{
     position:relative;
     z-index:999999;
@@ -196,6 +191,10 @@
     flex:1;min-width:240px;color:#fff;
     background:linear-gradient(135deg,var(--accent),var(--accent2));
     box-shadow:0 18px 40px rgba(255,43,43,.15);
+  }
+  .btnDanger{
+    background:linear-gradient(135deg,#ff8a8f,#ff2b2b);
+    color:#1f0b0c;
   }
 
   .scoreBox{
@@ -244,6 +243,7 @@
   }
   .ok{border-color:rgba(54,211,153,.28);background:rgba(54,211,153,.10)}
   .err{border-color:rgba(255,90,90,.30);background:rgba(255,90,90,.10)}
+  .warn{border-color:rgba(255,204,102,.35);background:rgba(255,204,102,.12)}
   .alertLine{display:flex;gap:10px;align-items:flex-start}
   .ico{
     width:24px;height:24px;border-radius:10px;
@@ -275,12 +275,13 @@
         </div>
         <div class="t">
           <b>Rumruay365</b>
-          <span>ทายผลบอล • ขอสิทธิ์ได้ครั้งเดียว</span>
+          <span>ทายผลบอล • 1 คน / 1 เครื่อง</span>
         </div>
       </div>
+
       <div class="chip">
-        <span class="dot"></span>
-        <span id="rr365Status">พร้อมใช้งาน</span>
+        <span id="dot" class="dot warn"></span>
+        <span id="rr365Status">ยังไม่เช็ค</span>
       </div>
     </div>
 
@@ -331,6 +332,7 @@
               <button type="button" class="btn btnGhost" id="btnReq">🧾 ขอสิทธิ์ (ครั้งเดียว)</button>
               <button type="button" class="btn btnGhost" id="btnStatus">🔄 เช็คสถานะ</button>
               <button type="reset"  class="btn btnGhost" id="btnReset">ล้างค่า</button>
+              <button type="button" class="btn btnDanger" id="btnUnlock">🧹 รีเซ็ตเครื่องนี้ (ปลดล็อก)</button>
             </div>
 
             <div class="hint">
@@ -386,9 +388,15 @@ const AWAY_LOGO = "https://media.api-sports.io/football/teams/40.png";
 
 const $ = (id)=>document.getElementById(id);
 
+function setTopStatus(type, text){
+  $("rr365Status").textContent = text;
+  const dot = $("dot");
+  dot.className = "dot" + (type==="ok" ? "" : type==="bad" ? " bad" : " warn");
+}
+
 function showMsg(type, text){
-  const cls = (type==="ok") ? "alert ok" : "alert err";
-  const ico = (type==="ok") ? "✅" : "⚠️";
+  const cls = type==="ok" ? "alert ok" : type==="warn" ? "alert warn" : "alert err";
+  const ico = type==="ok" ? "✅" : type==="warn" ? "🟡" : "⚠️";
   $("msg").innerHTML = `
     <div class="${cls}">
       <div class="alertLine">
@@ -396,7 +404,6 @@ function showMsg(type, text){
         <div>${text}</div>
       </div>
     </div>`;
-  $("rr365Status").textContent = (type==="ok") ? "พร้อมใช้งาน" : "โปรดตรวจสอบ";
 }
 
 // ===== deviceId =====
@@ -413,17 +420,11 @@ function getDeviceId(){
 const deviceId=getDeviceId();
 $("devMini").textContent = deviceId.slice(0,8)+"…";
 
-// ===== local lock: ขอสิทธิ์ครั้งเดียว =====
-const LS_REQ_KEY  = "RR365_REQ_SENT_" + deviceId;
+// ===== local keys (ไม่ใช้ล็อกปุ่มแล้ว แต่ใช้จำค่า) =====
 const LS_USER_KEY = "RR365_LAST_USER_" + deviceId;
+const LS_LAST_SERVER_STATUS = "RR365_LAST_STATUS_" + deviceId;
 
-function hasRequestedLocally(){ return localStorage.getItem(LS_REQ_KEY) === "1"; }
-function setRequestedLocally(username){
-  localStorage.setItem(LS_REQ_KEY, "1");
-  localStorage.setItem(LS_USER_KEY, username);
-}
-
-// ===== FIX: บังคับปลดล็อกช่องเบอร์ =====
+// ===== FIX: ปลดล็อกช่องเบอร์ =====
 function forceEnablePhoneInput(){
   const u = $("user");
   if(!u) return;
@@ -437,24 +438,19 @@ setTimeout(forceEnablePhoneInput, 0);
 window.addEventListener("pageshow", forceEnablePhoneInput);
 document.addEventListener("visibilitychange", ()=>{ if(!document.hidden) forceEnablePhoneInput(); });
 
-// ===== sanitize เบอร์ (แก้ปัญหาพิมพ์แล้วไม่ผ่าน) =====
+// ===== sanitize เบอร์ =====
 function onlyDigits(s){ return String(s||"").replace(/[^\d]/g,""); }
 function getPhone(){
   const raw = $("user").value;
   const d = onlyDigits(raw);
-  // sync กลับไปให้เห็นชัด
   $("user").value = d;
   return d;
 }
-// เงื่อนไขเบอร์: ต้องขึ้นต้น 0 และยาว 9-10 หลัก (ไทยส่วนใหญ่ 10)
 function isValidPhoneDigits(d){
   return /^0\d{8,9}$/.test(d);
 }
-
-// บังคับให้พิมพ์ได้แต่ตัวเลข
 $("user").addEventListener("input", ()=>{
   const d = getPhone();
-  // กันเกิน 10-11 เผื่อบางคนพิมพ์เกิน
   if(d.length > 10) $("user").value = d.slice(0,10);
 });
 
@@ -469,7 +465,7 @@ $("closeText").textContent = ADMIN_CLOSE_TEXT;
 $("homeLogo").onerror=function(){this.onerror=null; this.src="https://ramruay365.co/wp-content/uploads/2025/12/1735020594-1.png";}
 $("awayLogo").onerror=function(){this.onerror=null; this.src="https://ramruay365.co/wp-content/uploads/2025/12/1735020594-1.png";}
 
-// ===== spinner =====
+// ===== spinner score =====
 function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
 function changeScore(id, step){
   const el=$(id);
@@ -494,14 +490,26 @@ $("asMinus").addEventListener("click", ()=>changeScore("as",-1));
 $("asPlus").addEventListener("click",  ()=>changeScore("as", 1));
 
 function setStatus(st){
+  st = String(st||"NONE").toUpperCase();
   $("stText").textContent = st;
+  localStorage.setItem(LS_LAST_SERVER_STATUS, st);
+
+  // ค่า default
+  lockScoreUI(true);
+  $("btnSend").disabled = true;
+  $("btnSend").textContent = "⛔ รอแอดมินอนุมัติ";
+
+  // สำคัญ: ปุ่มขอสิทธิ์ “เปิดได้เสมอ” ยกเว้น server บอกว่าไม่ควร
+  $("btnReq").disabled = false;
+  $("btnReq").textContent = "🧾 ขอสิทธิ์ (ครั้งเดียว)";
 
   if(st === "APPROVED"){
     lockScoreUI(false);
     $("btnSend").disabled=false;
     $("btnSend").textContent="✅ ส่งคำทาย";
     $("btnReq").disabled=true;
-    $("btnReq").textContent="🧾 ส่งคำขอแล้ว (ห้ามส่งซ้ำ)";
+    $("btnReq").textContent="✅ อนุมัติแล้ว";
+    setTopStatus("ok","อนุมัติแล้ว");
     return;
   }
 
@@ -512,6 +520,7 @@ function setStatus(st){
     $("user").disabled=true;
     $("btnReq").disabled=true;
     $("btnStatus").disabled=true;
+    setTopStatus("ok","ใช้สิทธิ์แล้ว");
     return;
   }
 
@@ -521,19 +530,28 @@ function setStatus(st){
     $("btnSend").textContent="⛔ รอแอดมินอนุมัติ";
     $("btnReq").disabled=true;
     $("btnReq").textContent="🧾 ส่งคำขอแล้ว (ห้ามส่งซ้ำ)";
+    setTopStatus("warn","รออนุมัติ");
     return;
   }
 
-  lockScoreUI(true);
-  $("btnSend").disabled=true;
-  $("btnSend").textContent="⛔ รอแอดมินอนุมัติ";
-  if(hasRequestedLocally()){
+  if(st === "BLOCKED"){
     $("btnReq").disabled=true;
-    $("btnReq").textContent="🧾 ส่งคำขอแล้ว (ห้ามส่งซ้ำ)";
-  }else{
-    $("btnReq").disabled=false;
-    $("btnReq").textContent="🧾 ขอสิทธิ์ (ครั้งเดียว)";
+    $("btnReq").textContent="⛔ ถูกบล็อก";
+    $("btnSend").disabled=true;
+    $("btnSend").textContent="⛔ ถูกบล็อก";
+    setTopStatus("bad","ถูกบล็อก");
+    return;
   }
+
+  if(st === "REJECTED"){
+    $("btnReq").disabled=true;
+    $("btnReq").textContent="⛔ ถูกปฏิเสธ";
+    setTopStatus("bad","ถูกปฏิเสธ");
+    return;
+  }
+
+  // NONE
+  setTopStatus("warn","พร้อมใช้งาน");
 }
 
 async function post(body){
@@ -562,52 +580,60 @@ function setLoading(btn, on, text){
   const lastUser = localStorage.getItem(LS_USER_KEY) || "";
   if(lastUser) $("user").value = lastUser;
 
-  if(hasRequestedLocally()){
-    $("btnReq").disabled = true;
-    $("btnReq").textContent = "🧾 ส่งคำขอแล้ว (ห้ามส่งซ้ำ)";
-  }
+  const lastSt = localStorage.getItem(LS_LAST_SERVER_STATUS) || "NONE";
+  setStatus(lastSt);
+
   forceEnablePhoneInput();
 })();
-setStatus("NONE");
 
-// ขอสิทธิ์
+// ขอสิทธิ์ (อิง server เป็นหลัก)
 $("btnReq").addEventListener("click", async ()=>{
   const phone = getPhone();
 
   if(!isValidPhoneDigits(phone)){
+    setTopStatus("bad","ตรวจสอบเบอร์");
     return showMsg("err","กรุณากรอกเบอร์ให้ถูกต้อง (เช่น 096xxxxxxx)");
   }
   if(!WEB_APP_URL || WEB_APP_URL.includes("ใส่ลิงก์")){
+    setTopStatus("bad","ยังไม่ใส่ลิงก์");
     return showMsg("err","ยังไม่ได้ใส่ WEB_APP_URL");
-  }
-  if(hasRequestedLocally()){
-    return showMsg("err","ส่งคำขอไปแล้ว (ห้ามส่งซ้ำ) กรุณากดเช็คสถานะ");
   }
 
   setLoading($("btnReq"), true, "กำลังส่งคำขอ...");
   try{
     const data = await post({action:"request", username: phone, deviceId, userAgent:navigator.userAgent});
 
+    // บันทึกเบอร์ล่าสุด
+    localStorage.setItem(LS_USER_KEY, phone);
+
     if(data.ok){
-      showMsg("ok", data.msg);
-      setRequestedLocally(phone);
+      showMsg("ok", data.msg || "ส่งคำขอสำเร็จ");
       setStatus(data.status || "PENDING");
     }else{
-      const st = data.status || "";
-      if(String(data.msg||"").includes("ห้ามส่งซ้ำ") || st==="PENDING" || st==="APPROVED" || st==="USED"){
-        setRequestedLocally(phone);
-        $("btnReq").disabled = true;
-        $("btnReq").textContent = "🧾 ส่งคำขอแล้ว (ห้ามส่งซ้ำ)";
+      // ถ้า server ตอบว่า NONE/ไม่พบ ให้ “ยังขอใหม่ได้”
+      const st = String(data.status||"NONE").toUpperCase();
+      showMsg("warn", data.msg || "ไม่สำเร็จ (ลองใหม่ได้)");
+      setStatus(st);
+      if(st === "NONE"){
+        // เปิดให้กดขออีกได้
+        $("btnReq").disabled = false;
+        $("btnReq").textContent = "🧾 ขอสิทธิ์ (ครั้งเดียว)";
       }
-      showMsg("err", data.msg || "ไม่สำเร็จ");
-      if(st) setStatus(st);
     }
   }catch(e){
+    setTopStatus("bad","เชื่อมต่อไม่ได้");
     showMsg("err","เชื่อมต่อไม่สำเร็จ ตรวจสอบ Web App / Deploy / อินเทอร์เน็ต");
   }finally{
-    if(!hasRequestedLocally()){
+    // ป้องกันติดค้างปุ่ม
+    if($("btnReq").disabled === true && $("stText").textContent === "NONE"){
+      $("btnReq").disabled = false;
+      $("btnReq").textContent = "🧾 ขอสิทธิ์ (ครั้งเดียว)";
+    }else if($("stText").textContent === "NONE"){
       setLoading($("btnReq"), false);
-      $("btnReq").textContent="🧾 ขอสิทธิ์ (ครั้งเดียว)";
+      $("btnReq").textContent = "🧾 ขอสิทธิ์ (ครั้งเดียว)";
+    }
+    if($("stText").textContent !== "PENDING" && $("stText").textContent !== "APPROVED"){
+      setLoading($("btnReq"), false);
     }
   }
 });
@@ -617,24 +643,28 @@ $("btnStatus").addEventListener("click", async ()=>{
   const phone = getPhone();
 
   if(!isValidPhoneDigits(phone)){
+    setTopStatus("bad","ตรวจสอบเบอร์");
     return showMsg("err","กรุณากรอกเบอร์ให้ถูกต้อง (เช่น 096xxxxxxx)");
   }
   if(!WEB_APP_URL || WEB_APP_URL.includes("ใส่ลิงก์")){
+    setTopStatus("bad","ยังไม่ใส่ลิงก์");
     return showMsg("err","ยังไม่ได้ใส่ WEB_APP_URL");
   }
 
   setLoading($("btnStatus"), true, "กำลังเช็ค...");
   try{
     const data = await post({action:"status", username: phone, deviceId, userAgent:navigator.userAgent});
+    localStorage.setItem(LS_USER_KEY, phone);
+
     if(data.ok){
-      showMsg("ok", data.msg);
-      setRequestedLocally(phone); // เคยมีแล้ว = ล็อก request
-      setStatus(data.status || "PENDING");
+      showMsg("ok", data.msg || "เช็คสถานะสำเร็จ");
+      setStatus(data.status || "APPROVED");
     }else{
-      showMsg("err", data.msg || "เช็คไม่สำเร็จ");
+      showMsg("warn", data.msg || "ยังไม่พบข้อมูล (กดขอสิทธิ์ก่อน)");
       setStatus(data.status || "NONE");
     }
   }catch(e){
+    setTopStatus("bad","เชื่อมต่อไม่ได้");
     showMsg("err","เชื่อมต่อไม่สำเร็จ");
   }finally{
     setLoading($("btnStatus"), false);
@@ -649,9 +679,11 @@ $("f").addEventListener("submit", async (e)=>{
   const phone = getPhone();
 
   if(!isValidPhoneDigits(phone)){
+    setTopStatus("bad","ตรวจสอบเบอร์");
     return showMsg("err","กรุณากรอกเบอร์ให้ถูกต้อง (เช่น 096xxxxxxx)");
   }
   if(!WEB_APP_URL || WEB_APP_URL.includes("ใส่ลิงก์")){
+    setTopStatus("bad","ยังไม่ใส่ลิงก์");
     return showMsg("err","ยังไม่ได้ใส่ WEB_APP_URL");
   }
 
@@ -667,32 +699,46 @@ $("f").addEventListener("submit", async (e)=>{
     });
 
     if(data.ok){
-      showMsg("ok", data.msg);
+      showMsg("ok", data.msg || "ส่งคำทายสำเร็จ");
       setStatus("USED");
     }else{
       showMsg("err", data.msg || "ส่งไม่สำเร็จ");
-      if(data.status === "USED") setStatus("USED");
-      else{
-        $("btnSend").disabled=false;
-        $("btnSend").textContent="✅ ส่งคำทาย";
-      }
+      setStatus(data.status || $("stText").textContent);
     }
   }catch(e){
+    setTopStatus("bad","ส่งไม่สำเร็จ");
     showMsg("err","ส่งไม่สำเร็จ ตรวจสอบ Web App / Deploy / อินเทอร์เน็ต");
-    $("btnSend").disabled=false;
-    $("btnSend").textContent="✅ ส่งคำทาย";
+  }finally{
+    if($("stText").textContent === "APPROVED"){
+      setLoading($("btnSend"), false);
+      $("btnSend").textContent="✅ ส่งคำทาย";
+    }
   }
 });
 
-// ล้างค่า (ไม่ล้างล็อก request)
+// ล้างค่า (ไม่ลบการล็อกฝั่ง server)
 $("btnReset").addEventListener("click", ()=>{
   setTimeout(()=>{
     $("msg").innerHTML="";
     forceEnablePhoneInput();
-    // รีเซ็ตสกอร์กลับ 0 (แต่ยังล็อกตามสถานะ)
     $("hs").value="0";
     $("as").value="0";
   },0);
+});
+
+// ✅ รีเซ็ตเครื่องนี้ (ปลดล็อกกรณีติดค้างแบบในรูป)
+$("btnUnlock").addEventListener("click", ()=>{
+  if(!confirm("ยืนยันรีเซ็ตเครื่องนี้? (ปลดล็อกที่ติดค้างในเครื่องนี้เท่านั้น)")) return;
+  localStorage.removeItem(LS_USER_KEY);
+  localStorage.removeItem(LS_LAST_SERVER_STATUS);
+  $("user").disabled=false;
+  $("btnStatus").disabled=false;
+  $("user").value="";
+  $("hs").value="0";
+  $("as").value="0";
+  $("msg").innerHTML="";
+  setStatus("NONE");
+  showMsg("ok","รีเซ็ตเครื่องนี้แล้ว ✅ ตอนนี้สามารถกด “ขอสิทธิ์” ใหม่ได้");
 });
 </script>
 </body>
