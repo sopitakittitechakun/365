@@ -3,10 +3,9 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>ทายผลบอล | รอแอดมินอนุมัติ</title>
+<title>ทายผลบอล | เช็คสิทธิ์ก่อนทาย</title>
 <meta name="color-scheme" content="dark"/>
 <style>
-/* (สไตล์เดิม + เพิ่มสไตล์ตัวเลือก) */
 :root{
   --bg0:#060102; --bg1:#0b0304;
   --line:rgba(255,90,90,.22);
@@ -35,146 +34,54 @@ body{
 .wrap{width:min(980px,100%);margin:0 auto}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
 .brand{display:flex;align-items:center;gap:12px}
-.brand .logo{
-  width:44px;height:44px;border-radius:14px;
-  background:rgba(255,255,255,.06);
-  border:1px solid var(--line2);
-  display:grid;place-items:center;overflow:hidden;
-  box-shadow:var(--shadow2);
-}
+.brand .logo{width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid var(--line2);display:grid;place-items:center;overflow:hidden;box-shadow:var(--shadow2)}
 .brand .logo img{width:100%;height:100%;object-fit:cover}
 .brand .t b{font-size:14px}
 .brand .t span{display:block;font-size:12px;color:var(--muted2)}
-.chip{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:10px 12px;border-radius:999px;
-  border:1px solid var(--line2);
-  background:rgba(0,0,0,.18);
-  box-shadow:var(--shadow2);
-  font-size:12px;color:var(--muted);
-  user-select:none;white-space:nowrap;
-}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:999px;border:1px solid var(--line2);background:rgba(0,0,0,.18);box-shadow:var(--shadow2);font-size:12px;color:var(--muted);user-select:none;white-space:nowrap}
 .dot{width:8px;height:8px;border-radius:99px;background:var(--ok);box-shadow:0 0 18px rgba(54,211,153,.65)}
 .dot.warn{background:var(--warn);box-shadow:0 0 18px rgba(255,204,102,.6)}
 .dot.bad{background:var(--bad);box-shadow:0 0 18px rgba(255,90,90,.6)}
-.card{
-  border-radius:var(--r20);
-  background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
-  border:1px solid var(--line);
-  box-shadow:var(--shadow);
-  overflow:hidden;
-  backdrop-filter:blur(10px);
-}
-.head{
-  padding:18px;border-bottom:1px solid var(--line);
-  background:
-    radial-gradient(700px 260px at 50% 0%, rgba(255,43,43,.22), transparent 65%),
-    linear-gradient(180deg, rgba(0,0,0,.22), transparent);
-  text-align:center;
-}
+.card{border-radius:var(--r20);background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;backdrop-filter:blur(10px)}
+.head{padding:18px;border-bottom:1px solid var(--line);background:radial-gradient(700px 260px at 50% 0%, rgba(255,43,43,.22), transparent 65%),linear-gradient(180deg, rgba(0,0,0,.22), transparent);text-align:center}
 .heroLogo{display:flex;justify-content:center;margin-bottom:12px}
-.heroLogo .pill{
-  padding:12px 16px;border-radius:999px;
-  border:1px solid rgba(255,90,90,.28);
-  background:rgba(0,0,0,.18);
-  box-shadow:0 14px 40px rgba(0,0,0,.45);
-}
+.heroLogo .pill{padding:12px 16px;border-radius:999px;border:1px solid rgba(255,90,90,.28);background:rgba(0,0,0,.18);box-shadow:0 14px 40px rgba(0,0,0,.45)}
 .heroLogo img{width:170px;max-width:78vw;height:auto;display:block;filter:drop-shadow(0 0 18px rgba(255,0,0,.45))}
 .title{margin:0;font-weight:1000;font-size:26px}
 .sub{margin-top:8px;font-size:13px;color:var(--muted);line-height:1.55}
-.matchBar{
-  margin-top:14px;
-  border-radius:var(--r16);
-  border:1px solid rgba(255,90,90,.24);
-  background:rgba(0,0,0,.22);
-  padding:14px;
-}
+.matchBar{margin-top:14px;border-radius:var(--r16);border:1px solid rgba(255,90,90,.24);background:rgba(0,0,0,.22);padding:14px}
 .teams{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center}
-.badge{
-  width:96px;height:96px;border-radius:20px;margin:0 auto;
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,90,90,.28);
-  box-shadow:0 14px 40px rgba(0,0,0,.45);
-  display:grid;place-items:center;aspect-ratio:1/1;overflow:hidden;
-}
-.badge img{
-  width:100%;height:100%;
-  object-fit:contain;object-position:center;
-  max-width:72%;max-height:72%;
-  display:block;transform:translateY(2px);
-}
+.badge{width:96px;height:96px;border-radius:20px;margin:0 auto;background:rgba(255,255,255,.05);border:1px solid rgba(255,90,90,.28);box-shadow:0 14px 40px rgba(0,0,0,.45);display:grid;place-items:center;aspect-ratio:1/1;overflow:hidden}
+.badge img{width:100%;height:100%;object-fit:contain;object-position:center;max-width:72%;max-height:72%;display:block;transform:translateY(2px)}
 .teamName{margin-top:8px;font-size:12px;text-align:center;color:rgba(255,235,235,.92)}
 .vs{font-weight:1100;letter-spacing:2px;font-size:18px;color:rgba(255,200,200,.88);user-select:none}
 .body{padding:18px}
 .row{margin-bottom:14px}
 .label{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--muted);font-size:13px;margin-bottom:8px}
 .mini{font-size:11px;color:rgba(255,210,210,.55)}
-.input{
-  width:100%;padding:13px;border-radius:var(--r14);
-  border:1px solid rgba(255,90,90,.22);
-  background:rgba(0,0,0,.24);
-  color:var(--txt);outline:none;font-size:14px;transition:.2s ease;
-}
+.input{width:100%;padding:13px;border-radius:var(--r14);border:1px solid rgba(255,90,90,.22);background:rgba(0,0,0,.24);color:var(--txt);outline:none;font-size:14px;transition:.2s ease}
 .input:focus{border-color:rgba(255,43,43,.85);box-shadow:0 0 0 4px rgba(255,43,43,.22)}
-.input::placeholder{color:rgba(255,210,210,.42)}
 .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
 .btn{cursor:pointer;border:none;border-radius:var(--r14);padding:12px 14px;font-weight:950;font-size:14px;transition:.18s ease;user-select:none}
 .btn:active{transform:translateY(1px) scale(.99)}
 .btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
 .btnGhost{background:rgba(255,255,255,.06);color:var(--txt);border:1px solid rgba(255,90,90,.18)}
 .btnPrimary{flex:1;min-width:240px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 18px 40px rgba(255,43,43,.15)}
-.btnDanger{background:linear-gradient(135deg,#ff8a8f,#ff2b2b);color:#1f0b0c}
-.scoreBox{
-  display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;
-  padding:12px;border-radius:var(--r16);
-  border:1px dashed rgba(255,90,90,.35);
-  background:rgba(0,0,0,.22);
-}
+.scoreBox{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;padding:12px;border-radius:var(--r16);border:1px dashed rgba(255,90,90,.35);background:rgba(0,0,0,.22)}
 .scoreCtrl{display:flex;align-items:center;gap:8px;justify-content:center}
-.scoreInput{
-  width:66px;text-align:center;font-size:22px;font-weight:1000;
-  padding:10px 0;border-radius:var(--r14);
-  border:1px solid rgba(255,90,90,.35);
-  background:rgba(0,0,0,.35);color:#fff;
-}
-.scBtn{
-  width:44px;height:44px;border-radius:var(--r14);
-  border:1px solid rgba(255,90,90,.22);
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#fff;font-size:22px;font-weight:1000;
-  cursor:pointer;box-shadow:0 8px 20px rgba(255,0,0,.35);
-}
+.scoreInput{width:66px;text-align:center;font-size:22px;font-weight:1000;padding:10px 0;border-radius:var(--r14);border:1px solid rgba(255,90,90,.35);background:rgba(0,0,0,.35);color:#fff}
+.scBtn{width:44px;height:44px;border-radius:var(--r14);border:1px solid rgba(255,90,90,.22);background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:22px;font-weight:1000;cursor:pointer;box-shadow:0 8px 20px rgba(255,0,0,.35)}
 .scBtn:active{transform:scale(.95)}
 .scBtn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
-.hint{margin-top:10px;font-size:12px;color:rgba(255,220,220,.62);line-height:1.45}
-
-.choiceGrid{
-  display:grid;grid-template-columns:1fr 1fr;gap:10px;
-  padding:12px;border-radius:var(--r16);
-  border:1px dashed rgba(255,90,90,.35);
-  background:rgba(0,0,0,.22);
-}
+.choiceGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px;border-radius:var(--r16);border:1px dashed rgba(255,90,90,.35);background:rgba(0,0,0,.22)}
 .choice3{grid-template-columns:1fr 1fr 1fr}
-.choiceBtn{
-  border:1px solid rgba(255,90,90,.22);
-  background:rgba(255,255,255,.06);
-  color:var(--txt);
-  padding:12px 10px;border-radius:var(--r14);
-  cursor:pointer;font-weight:900;font-size:13px;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  transition:.15s ease;
-}
-.choiceBtn:active{transform:scale(.99)}
-.choiceBtn.active{
-  border-color:rgba(54,211,153,.55);
-  box-shadow:0 0 0 4px rgba(54,211,153,.14);
-  background:rgba(54,211,153,.10);
-}
+.choiceBtn{border:1px solid rgba(255,90,90,.22);background:rgba(255,255,255,.06);color:var(--txt);padding:12px 10px;border-radius:var(--r14);cursor:pointer;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px;transition:.15s ease}
+.choiceBtn.active{border-color:rgba(54,211,153,.55);box-shadow:0 0 0 4px rgba(54,211,153,.14);background:rgba(54,211,153,.10)}
 .alert{margin-top:12px;padding:12px;border-radius:var(--r16);border:1px solid rgba(255,90,90,.18);background:rgba(0,0,0,.18);font-size:13px;line-height:1.55}
 .ok{border-color:rgba(54,211,153,.28);background:rgba(54,211,153,.10)}
 .err{border-color:rgba(255,90,90,.30);background:rgba(255,90,90,.10)}
 .warn{border-color:rgba(255,204,102,.35);background:rgba(255,204,102,.12)}
-.spin{width:16px;height:16px;border-radius:99px;border:2px solid rgba(255,255,255,.25);border-top-color: rgba(255,255,255,.95);display:inline-block; animation:rot .7s linear infinite;vertical-align:-3px;margin-right:8px}
+.spin{width:16px;height:16px;border-radius:99px;border:2px solid rgba(255,255,255,.25);border-top-color: rgba(255,255,255,.95);display:inline-block;animation:rot .7s linear infinite;vertical-align:-3px;margin-right:8px}
 @keyframes rot{to{transform:rotate(360deg)}}
 </style>
 </head>
@@ -184,18 +91,18 @@ body{
   <div class="topbar">
     <div class="brand">
       <div class="logo"><img src="https://ramruay365.co/wp-content/uploads/2025/12/1735020594-1.png" alt="RR365"></div>
-      <div class="t"><b>Rumruay365</b><span>ทายผลบอล • อนุมัติในชีท</span></div>
+      <div class="t"><b>Rumruay365</b><span>เช็คสิทธิ์ก่อนทาย • ส่งลงชีท</span></div>
     </div>
-    <div class="chip"><span id="dot" class="dot warn"></span><span id="rrStatus">ยังไม่เช็ค</span></div>
+    <div class="chip"><span id="dot" class="dot warn"></span><span id="rrStatus">รอเช็คสิทธิ์</span></div>
   </div>
 
   <section class="card">
     <div class="head">
       <div class="heroLogo"><div class="pill"><img src="https://ramruay365.co/wp-content/uploads/2025/12/1735020594-1.png" alt="ร่ำรวย365"></div></div>
-      <h2 class="title">ทายผลบอล (รออนุมัติ)</h2>
+      <h2 class="title">ทายผลบอล (เช็คสิทธิ์ก่อน)</h2>
       <div class="sub">
-        ขั้นตอน: กรอกเบอร์ → ขอสิทธิ์/เช็คสถานะ → แอดมินอนุมัติในชีท → อนุมัติแล้วค่อยทายได้<br>
-        ปิดรับคำทาย: วันนี้ 23:59 น.
+        ใส่เบอร์ → เช็คสิทธิ์ → ผ่านแล้วค่อยทาย → ส่งผลลงชีท<br>
+        * ถ้าต้องการทายใหม่: แอดมินลบแถวในชีท Predictions แล้วค่อยเช็คสิทธิ์ใหม่
       </div>
 
       <div class="matchBar">
@@ -210,7 +117,6 @@ body{
             <div class="teamName" id="awayName">ลิเวอร์พูล</div>
           </div>
         </div>
-        <div class="hint" style="margin-top:10px">สถานะ: <b id="stText">NONE</b></div>
       </div>
     </div>
 
@@ -218,29 +124,22 @@ body{
       <form id="f" autocomplete="off">
         <div class="row">
           <div class="label"><span>เบอร์โทรที่สมัคร</span><span class="mini">เครื่อง: <b id="devMini">—</b></span></div>
-          <input class="input" id="user" type="tel" inputmode="numeric" autocomplete="tel"
-                 placeholder="เช่น 096xxxxxxx" maxlength="12" required>
+          <input class="input" id="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="เช่น 096xxxxxxx" maxlength="12" required>
 
           <div class="btns">
-            <button type="button" class="btn btnGhost" id="btnReq">🧾 ขอสิทธิ์ (ครั้งเดียว)</button>
-            <button type="button" class="btn btnGhost" id="btnStatus">🔄 เช็คสถานะ</button>
-            <button type="reset"  class="btn btnGhost">ล้างค่า</button>
-            <button type="button" class="btn btnDanger" id="btnUnlock">🧹 รีเซ็ตเครื่องนี้</button>
+            <button type="button" class="btn btnGhost" id="btnCheck">✅ เช็คสิทธิ์</button>
+            <button type="reset" class="btn btnGhost" id="btnClear">ล้างค่า</button>
           </div>
-          <div class="hint">* 1 คน / 1 เครื่อง (ผิดปกติจะ BLOCKED)</div>
         </div>
 
-        <!-- ✅ เพิ่ม: ทีมไหนเขี่ยก่อน -->
         <div class="row">
           <div class="label"><span>ทีมไหนเขี่ยก่อน</span><span class="mini">เลือก 1 ทีม</span></div>
           <div class="choiceGrid" id="kickGrid">
             <button type="button" class="choiceBtn" data-kick="HOME" id="kickHome">🏁 <span id="kickHomeTxt">สเปอร์ส</span></button>
             <button type="button" class="choiceBtn" data-kick="AWAY" id="kickAway">🏁 <span id="kickAwayTxt">ลิเวอร์พูล</span></button>
           </div>
-          <div class="hint">* ต้องเลือกก่อน ถึงจะส่งคำทายได้</div>
         </div>
 
-        <!-- ✅ เพิ่ม: ทีมไหนยิงก่อน -->
         <div class="row">
           <div class="label"><span>ทีมไหนยิงก่อน</span><span class="mini">เลือก 1 ตัวเลือก</span></div>
           <div class="choiceGrid choice3" id="firstGrid">
@@ -248,27 +147,26 @@ body{
             <button type="button" class="choiceBtn" data-first="AWAY" id="firstAway">⚽ <span id="firstAwayTxt">ลิเวอร์พูล</span></button>
             <button type="button" class="choiceBtn" data-first="NONE" id="firstNone">🚫 ไม่มีประตู</button>
           </div>
-          <div class="hint">* ถ้าคิดว่า 0-0 เลือก “ไม่มีประตู” ได้</div>
         </div>
 
-        <!-- สกอร์เดิม -->
         <div class="row">
-          <div class="label"><span>ทายสกอร์ (เลื่อนตัวเลข)</span><span class="mini">ทายได้ครั้งเดียว</span></div>
+          <div class="label"><span>ทายสกอร์ (เลื่อนตัวเลข)</span><span class="mini">ส่งได้เมื่อเช็คสิทธิ์ผ่าน</span></div>
           <div class="scoreBox">
             <div class="scoreCtrl">
               <button type="button" class="scBtn" id="hsMinus">−</button>
-              <input class="scoreInput" id="hs" type="number" value="0" min="0" max="99" readonly disabled>
+              <input class="scoreInput" id="hs" type="number" value="0" min="0" max="99" readonly>
               <button type="button" class="scBtn" id="hsPlus">+</button>
             </div>
             <div class="vs" style="font-size:16px">VS</div>
             <div class="scoreCtrl">
               <button type="button" class="scBtn" id="asMinus">−</button>
-              <input class="scoreInput" id="as" type="number" value="0" min="0" max="99" readonly disabled>
+              <input class="scoreInput" id="as" type="number" value="0" min="0" max="99" readonly>
               <button type="button" class="scBtn" id="asPlus">+</button>
             </div>
           </div>
+
           <div class="btns">
-            <button class="btn btnPrimary" id="btnSend" type="submit" disabled>⛔ รออนุมัติ</button>
+            <button class="btn btnPrimary" id="btnSubmit" type="submit" disabled>⛔ ต้องเช็คสิทธิ์ก่อน</button>
           </div>
         </div>
 
@@ -280,7 +178,7 @@ body{
 
 <script>
 /* ================== CONFIG ================== */
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzyX96P4Lx5uqvxnxqpuIX89chRVvaKvElibZuhy0hF3hxC_vuBOD9BFakAEUcJvI2m1Q/exec"; // /exec
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby5GCmB9SMm0u72NatNctbYTO7ZuZRGxx-9uY4Ftk0ww5dmFi-I4W-_j0VqWp91_Ch4rA/exec"; // /exec
 const HOME_NAME = "สเปอร์ส";
 const AWAY_NAME = "ลิเวอร์พูล";
 const HOME_LOGO = "https://media.api-sports.io/football/teams/47.png";
@@ -313,104 +211,9 @@ function getDeviceId(){
 const deviceId = getDeviceId();
 $("devMini").textContent = deviceId.slice(0,8)+"…";
 
-const LS_USER = "RR365_LAST_USER_" + deviceId;
-const LS_ST   = "RR365_LAST_STATUS_" + deviceId;
-
-const LS_KICK = "RR365_KICK_" + deviceId;   // HOME/AWAY
-const LS_FIRST= "RR365_FIRST_" + deviceId;  // HOME/AWAY/NONE
-
-function lockScore(disabled){
-  $("hs").disabled = disabled;
-  $("as").disabled = disabled;
-  $("hsMinus").disabled = disabled;
-  $("hsPlus").disabled  = disabled;
-  $("asMinus").disabled = disabled;
-  $("asPlus").disabled  = disabled;
-}
-
-function setChoiceActive(groupEl, key, value){
-  [...groupEl.querySelectorAll(".choiceBtn")].forEach(b=>{
-    const v = b.dataset[key];
-    b.classList.toggle("active", v === value);
-  });
-}
-
-function getKick(){ return localStorage.getItem(LS_KICK) || ""; }
-function getFirst(){ return localStorage.getItem(LS_FIRST) || ""; }
-function setKick(v){ localStorage.setItem(LS_KICK, v); setChoiceActive($("kickGrid"), "kick", v); }
-function setFirst(v){ localStorage.setItem(LS_FIRST, v); setChoiceActive($("firstGrid"), "first", v); }
-
-function canSubmitNow(){
-  const st = $("stText").textContent;
-  if(st !== "APPROVED") return false;
-  const kick = getKick();
-  const first = getFirst();
-  if(!(kick==="HOME" || kick==="AWAY")) return false;
-  if(!(first==="HOME" || first==="AWAY" || first==="NONE")) return false;
-  return true;
-}
-
-function refreshSubmitBtn(){
-  if($("stText").textContent==="APPROVED"){
-    lockScore(false);
-    $("btnSend").disabled = !canSubmitNow();
-    $("btnSend").textContent = canSubmitNow() ? "✅ ส่งคำทาย" : "⚠️ เลือกเขี่ยก่อน/ยิงก่อนให้ครบ";
-    setTop("ok","อนุมัติแล้ว");
-    $("btnReq").disabled=true;
-    $("btnReq").textContent="✅ อนุมัติแล้ว";
-    return;
-  }
-  $("btnSend").disabled = true;
-  $("btnSend").textContent = "⛔ รออนุมัติ";
-}
-
-function setStatus(st){
-  st = String(st||"NONE").toUpperCase();
-  $("stText").textContent = st;
-  localStorage.setItem(LS_ST, st);
-
-  $("btnReq").disabled=false;
-  $("btnReq").textContent="🧾 ขอสิทธิ์ (ครั้งเดียว)";
-  $("btnStatus").disabled=false;
-  $("user").disabled=false;
-
-  if(st==="APPROVED"){
-    $("btnReq").disabled=true;
-    $("btnReq").textContent="✅ อนุมัติแล้ว";
-    refreshSubmitBtn();
-    return;
-  }
-  lockScore(true);
-  $("btnSend").disabled=true;
-  $("btnSend").textContent="⛔ รออนุมัติ";
-
-  if(st==="PENDING"){
-    $("btnReq").disabled=true;
-    $("btnReq").textContent="🧾 ส่งคำขอแล้ว (ห้ามส่งซ้ำ)";
-    setTop("warn","รออนุมัติในชีท");
-    return;
-  }
-  if(st==="USED"){
-    $("btnSend").disabled=true; $("btnSend").textContent="✅ ใช้สิทธิ์แล้ว";
-    $("btnReq").disabled=true; $("btnStatus").disabled=true; $("user").disabled=true;
-    setTop("ok","ใช้สิทธิ์แล้ว");
-    return;
-  }
-  if(st==="BLOCKED"){ $("btnReq").disabled=true; $("btnReq").textContent="⛔ ถูกบล็อก"; setTop("bad","ถูกบล็อก"); return; }
-  if(st==="REJECTED"){ $("btnReq").disabled=true; $("btnReq").textContent="⛔ ถูกปฏิเสธ"; setTop("bad","ถูกปฏิเสธ"); return; }
-
-  setTop("warn","พร้อมใช้งาน");
-}
-
-async function post(body){
-  const res = await fetch(WEB_APP_URL, {
-    method:"POST",
-    headers: {"Content-Type":"text/plain;charset=utf-8"},
-    body: JSON.stringify(body)
-  });
-  const t = await res.text();
-  return JSON.parse(t);
-}
+const LS_OK = "RR365_CHECK_OK_" + deviceId;
+const LS_KICK = "RR365_KICK_" + deviceId;
+const LS_FIRST= "RR365_FIRST_" + deviceId;
 
 function setLoading(btn, on, text){
   if(on){
@@ -423,13 +226,65 @@ function setLoading(btn, on, text){
   }
 }
 
-function getPhone(){
-  const d = onlyDigits($("user").value);
-  $("user").value = d.slice(0,10);
-  return $("user").value;
+async function post(body){
+  const res = await fetch(WEB_APP_URL, {
+    method:"POST",
+    headers: {"Content-Type":"text/plain;charset=utf-8"},
+    body: JSON.stringify(body)
+  });
+  const t = await res.text();
+  return JSON.parse(t);
 }
 
-/* init team names */
+function setChoiceActive(groupEl, key, value){
+  [...groupEl.querySelectorAll(".choiceBtn")].forEach(b=>{
+    const v = b.dataset[key];
+    b.classList.toggle("active", v === value);
+  });
+}
+function setKick(v){ localStorage.setItem(LS_KICK, v); setChoiceActive($("kickGrid"), "kick", v); }
+function setFirst(v){ localStorage.setItem(LS_FIRST, v); setChoiceActive($("firstGrid"), "first", v); }
+function getKick(){ return localStorage.getItem(LS_KICK) || ""; }
+function getFirst(){ return localStorage.getItem(LS_FIRST) || ""; }
+
+function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+function changeScore(id, step){
+  const el=$(id);
+  let v=parseInt(el.value||"0",10);
+  if(Number.isNaN(v)) v=0;
+  el.value=String(clamp(v+step, 0, 99));
+}
+$("hsMinus").addEventListener("click", ()=>changeScore("hs",-1));
+$("hsPlus").addEventListener("click",  ()=>changeScore("hs", 1));
+$("asMinus").addEventListener("click", ()=>changeScore("as",-1));
+$("asPlus").addEventListener("click",  ()=>changeScore("as", 1));
+
+$("kickGrid").addEventListener("click", (e)=>{
+  const b = e.target.closest(".choiceBtn"); if(!b) return;
+  setKick(b.dataset.kick);
+  refreshSubmit();
+});
+$("firstGrid").addEventListener("click", (e)=>{
+  const b = e.target.closest(".choiceBtn"); if(!b) return;
+  setFirst(b.dataset.first);
+  refreshSubmit();
+});
+
+function refreshSubmit(){
+  const ok = localStorage.getItem(LS_OK)==="1";
+  const kickOk = (getKick()==="HOME" || getKick()==="AWAY");
+  const firstOk = (getFirst()==="HOME" || getFirst()==="AWAY" || getFirst()==="NONE");
+  $("btnSubmit").disabled = !(ok && kickOk && firstOk);
+  $("btnSubmit").textContent = ok ? ( (kickOk && firstOk) ? "✅ ส่งคำทาย" : "⚠️ เลือกเขี่ยก่อน/ยิงก่อนให้ครบ" ) : "⛔ ต้องเช็คสิทธิ์ก่อน";
+}
+
+function getPhone(){
+  const d = onlyDigits($("phone").value);
+  $("phone").value = d.slice(0,10);
+  return $("phone").value;
+}
+
+/* init */
 $("homeName").textContent = HOME_NAME;
 $("awayName").textContent = AWAY_NAME;
 $("kickHomeTxt").textContent = HOME_NAME;
@@ -437,153 +292,97 @@ $("kickAwayTxt").textContent = AWAY_NAME;
 $("firstHomeTxt").textContent = HOME_NAME;
 $("firstAwayTxt").textContent = AWAY_NAME;
 
-/* logos */
 $("homeLogo").src = HOME_LOGO;
 $("awayLogo").src = AWAY_LOGO;
 $("homeLogo").onerror=function(){this.onerror=null; this.src="https://ramruay365.co/wp-content/uploads/2025/12/1735020594-1.png";}
 $("awayLogo").onerror=function(){this.onerror=null; this.src="https://ramruay365.co/wp-content/uploads/2025/12/1735020594-1.png";}
 
-function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
-function changeScore(id, step){
-  const el=$(id);
-  if(el.disabled) return;
-  const min=Number(el.min||0), max=Number(el.max||99);
-  let v=parseInt(el.value||"0",10);
-  if(Number.isNaN(v)) v=0;
-  el.value=String(clamp(v+step,min,max));
-}
-$("hsMinus").addEventListener("click", ()=>changeScore("hs",-1));
-$("hsPlus").addEventListener("click",  ()=>changeScore("hs", 1));
-$("asMinus").addEventListener("click", ()=>changeScore("as",-1));
-$("asPlus").addEventListener("click",  ()=>changeScore("as", 1));
+setTop("warn","รอเช็คสิทธิ์");
+refreshSubmit();
 
-/* choices */
-$("kickGrid").addEventListener("click", (e)=>{
-  const b = e.target.closest(".choiceBtn");
-  if(!b) return;
-  setKick(b.dataset.kick);
-  refreshSubmitBtn();
-});
-$("firstGrid").addEventListener("click", (e)=>{
-  const b = e.target.closest(".choiceBtn");
-  if(!b) return;
-  setFirst(b.dataset.first);
-  refreshSubmitBtn();
-});
-
-/* load saved */
-(function init(){
-  const lastUser = localStorage.getItem(LS_USER) || "";
-  if(lastUser) $("user").value = lastUser;
-
-  const kick = getKick(); if(kick) setKick(kick);
-  const first = getFirst(); if(first) setFirst(first);
-
-  setStatus(localStorage.getItem(LS_ST) || "NONE");
-  refreshSubmitBtn();
-})();
-
-/* buttons */
-$("btnReq").addEventListener("click", async ()=>{
+/* check eligibility */
+$("btnCheck").addEventListener("click", async ()=>{
   const phone = getPhone();
   if(!isValidPhone(phone)) return showMsg("err","กรุณากรอกเบอร์ให้ถูกต้อง (เช่น 096xxxxxxx)");
   if(!WEB_APP_URL || WEB_APP_URL.includes("ใส่ลิงก์")) return showMsg("err","ยังไม่ได้ใส่ WEB_APP_URL");
 
-  setLoading($("btnReq"), true, "กำลังส่งคำขอ...");
+  setLoading($("btnCheck"), true, "กำลังเช็คสิทธิ์...");
   try{
-    const data = await post({action:"request", username: phone, deviceId, userAgent:navigator.userAgent});
-    localStorage.setItem(LS_USER, phone);
+    const data = await post({ action:"check", phone, deviceId, userAgent:navigator.userAgent });
 
-    if(data.ok){ showMsg("ok", data.msg || "ส่งคำขอสำเร็จ"); setStatus(data.status || "PENDING"); }
-    else { showMsg("warn", data.msg || "ไม่สำเร็จ"); setStatus(data.status || "NONE"); }
-    refreshSubmitBtn();
+    if(data.ok){
+      localStorage.setItem(LS_OK, "1");
+      showMsg("ok", data.msg || "ผ่านสิทธิ์แล้ว ✅");
+      setTop("ok","ผ่านสิทธิ์แล้ว");
+    }else{
+      localStorage.setItem(LS_OK, "0");
+      showMsg("warn", data.msg || "ไม่ผ่านสิทธิ์");
+      setTop("warn","ไม่ผ่าน/ส่งแล้ว");
+    }
+    refreshSubmit();
   }catch(e){
     showMsg("err","เชื่อมต่อไม่สำเร็จ ตรวจสอบ Web App / Deploy / เน็ต");
     setTop("bad","เชื่อมต่อไม่ได้");
+    localStorage.setItem(LS_OK, "0");
+    refreshSubmit();
   }finally{
-    if($("stText").textContent==="NONE"){
-      setLoading($("btnReq"), false);
-      $("btnReq").textContent="🧾 ขอสิทธิ์ (ครั้งเดียว)";
-    }
+    setLoading($("btnCheck"), false);
+    $("btnCheck").textContent="✅ เช็คสิทธิ์";
   }
 });
 
-$("btnStatus").addEventListener("click", async ()=>{
-  const phone = getPhone();
-  if(!isValidPhone(phone)) return showMsg("err","กรุณากรอกเบอร์ให้ถูกต้อง (เช่น 096xxxxxxx)");
-  if(!WEB_APP_URL || WEB_APP_URL.includes("ใส่ลิงก์")) return showMsg("err","ยังไม่ได้ใส่ WEB_APP_URL");
-
-  setLoading($("btnStatus"), true, "กำลังเช็ค...");
-  try{
-    const data = await post({action:"status", username: phone, deviceId, userAgent:navigator.userAgent});
-    localStorage.setItem(LS_USER, phone);
-
-    if(data.ok){ showMsg("ok", data.msg || "เช็คสถานะสำเร็จ"); setStatus(data.status || "APPROVED"); }
-    else { showMsg("warn", data.msg || "ยังไม่พบข้อมูล"); setStatus(data.status || "PENDING"); } // auto-create -> PENDING
-    refreshSubmitBtn();
-  }catch(e){
-    showMsg("err","เชื่อมต่อไม่สำเร็จ");
-    setTop("bad","เชื่อมต่อไม่ได้");
-  }finally{
-    setLoading($("btnStatus"), false);
-    $("btnStatus").textContent="🔄 เช็คสถานะ";
-  }
-});
-
+/* submit */
 $("f").addEventListener("submit", async (e)=>{
   e.preventDefault();
   const phone = getPhone();
-  if(!isValidPhone(phone)) return showMsg("err","กรุณากรอกเบอร์ให้ถูกต้อง (เช่น 096xxxxxxx)");
-  if(!WEB_APP_URL || WEB_APP_URL.includes("ใส่ลิงก์")) return showMsg("err","ยังไม่ได้ใส่ WEB_APP_URL");
-  if(!canSubmitNow()) return showMsg("warn","กรุณาเลือก “เขี่ยก่อน” และ “ยิงก่อน” ให้ครบก่อนส่ง");
+  if(!isValidPhone(phone)) return showMsg("err","กรุณากรอกเบอร์ให้ถูกต้อง");
+  if(localStorage.getItem(LS_OK)!=="1") return showMsg("warn","ต้องเช็คสิทธิ์ผ่านก่อน");
+  const kick = getKick();
+  const first = getFirst();
+  if(!(kick==="HOME"||kick==="AWAY")) return showMsg("warn","กรุณาเลือกทีมเขี่ยก่อน");
+  if(!(first==="HOME"||first==="AWAY"||first==="NONE")) return showMsg("warn","กรุณาเลือกทีมยิงก่อน");
 
-  setLoading($("btnSend"), true, "กำลังส่ง...");
+  setLoading($("btnSubmit"), true, "กำลังส่งคำทาย...");
   try{
     const data = await post({
       action:"submit",
-      username: phone,
+      phone,
       deviceId,
+      kickOffTeam: kick,
+      firstGoalTeam: first,
       homeScore: $("hs").value,
       awayScore: $("as").value,
-      kickOffTeam: getKick(),      // HOME/AWAY
-      firstGoalTeam: getFirst(),   // HOME/AWAY/NONE
       userAgent: navigator.userAgent
     });
 
     if(data.ok){
-      showMsg("ok", data.msg || "ส่งคำทายสำเร็จ");
-      setStatus("USED");
+      showMsg("ok", data.msg || "ส่งสำเร็จ ✅");
+      setTop("ok","ส่งแล้ว");
+      // ✅ หลังส่ง ให้ล็อกจนกว่าจะลบในชีท (ลูกค้าจะกดเช็คสิทธิ์อีกครั้ง แล้วจะเจอ “ส่งแล้ว”)
+      localStorage.setItem(LS_OK, "0");
     }else{
-      showMsg("err", data.msg || "ส่งไม่สำเร็จ");
-      setStatus(data.status || $("stText").textContent);
+      showMsg("warn", data.msg || "ส่งไม่สำเร็จ");
+      setTop("warn","ส่งไม่สำเร็จ");
     }
-    refreshSubmitBtn();
+    refreshSubmit();
   }catch(e){
     showMsg("err","ส่งไม่สำเร็จ ตรวจสอบ Web App / Deploy / เน็ต");
     setTop("bad","ส่งไม่สำเร็จ");
+    refreshSubmit();
   }finally{
-    if($("stText").textContent==="APPROVED"){
-      setLoading($("btnSend"), false);
-      refreshSubmitBtn();
-    }
+    setLoading($("btnSubmit"), false);
+    refreshSubmit();
   }
 });
 
-$("btnUnlock").addEventListener("click", ()=>{
-  if(!confirm("ยืนยันรีเซ็ตเครื่องนี้?")) return;
-  localStorage.removeItem(LS_USER);
-  localStorage.removeItem(LS_ST);
-  localStorage.removeItem(LS_KICK);
-  localStorage.removeItem(LS_FIRST);
-  $("user").disabled=false;
-  $("btnStatus").disabled=false;
-  $("user").value="";
-  $("hs").value="0";
-  $("as").value="0";
+/* clear */
+$("btnClear").addEventListener("click", ()=>{
   $("msg").innerHTML="";
-  setStatus("NONE");
-  showMsg("ok","รีเซ็ตเครื่องนี้แล้ว ✅");
-  refreshSubmitBtn();
+  setTop("warn","รอเช็คสิทธิ์");
+  // ไม่ล้างตัวเลือกไว้ก็ได้ แต่ถ้าอยากล้างด้วยให้เปิด 2 บรรทัดนี้
+  // localStorage.removeItem(LS_KICK); localStorage.removeItem(LS_FIRST);
+  // localStorage.removeItem(LS_OK);
+  refreshSubmit();
 });
 </script>
 </body>
