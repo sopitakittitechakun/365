@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>RR365 Admin</title>
+<style>
+  body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;background:#0b0b0b;color:#fff;margin:0;padding:18px}
+  .wrap{max-width:1200px;margin:auto}
+  .card{background:#141414;border:1px solid rgba(255,60,60,.25);border-radius:14px;padding:14px;margin-bottom:14px}
+  h1{margin:0 0 10px}
+  label{font-size:12px;color:#ffb3b3}
+  input,select{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,60,60,.25);background:#000;color:#fff}
+  button{padding:10px 12px;border:none;border-radius:10px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,#ff2b2b,#b80000);color:#fff}
+  button.ghost{background:#222;border:1px solid rgba(255,60,60,.25)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  @media(max-width:900px){.row{grid-template-columns:1fr}}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th,td{border-bottom:1px solid rgba(255,255,255,.08);padding:8px;vertical-align:top}
+  th{color:#ffb3b3;text-align:left}
+  .ok{padding:10px;border-radius:10px;background:rgba(54,211,153,.12);border:1px solid rgba(54,211,153,.25);margin-top:10px}
+  .err{padding:10px;border-radius:10px;background:rgba(255,90,95,.14);border:1px solid rgba(255,90,95,.25);margin-top:10px}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;border:1px solid rgba(255,60,60,.25);background:#000}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>RR365 Admin <span class="pill" id="mk">—</span></h1>
+
+  <div class="card">
+    <div class="row">
+      <div>
+        <label>ADMIN KEY (ต้องตรงกับใน Code.gs)</label>
+        <input id="key" placeholder="ใส่คีย์ลับ">
+      </div>
+      <div>
+        <label>WEB APP URL (exec)</label>
+        <input id="url" placeholder="https://script.google.com/macros/s/.../exec">
+      </div>
+      <div style="display:flex;gap:10px;align-items:end">
+        <button onclick="loadAll()">โหลดข้อมูล</button>
+        <button class="ghost" onclick="fillFromQuery()">ดึงจาก URL</button>
+      </div>
+    </div>
+    <div id="msg"></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3 style="margin:0 0 10px">✅ อนุมัติสิทธิ์ (Allow)</h3>
+      <label>เบอร์โทร</label>
+      <input id="ap_phone" placeholder="0XXXXXXXXX">
+      <div class="row">
+        <div>
+          <label>อนุมัติ</label>
+          <select id="ap_ok">
+            <option value="true">TRUE</option>
+            <option value="false">FALSE</option>
+          </select>
+        </div>
+        <div>
+          <label>หมายเหตุ</label>
+          <input id="ap_note" placeholder="ฝากครบแล้ว / ผ่านเงื่อนไข">
+        </div>
+        <div style="display:flex;gap:10px;align-items:end">
+          <button onclick="setApprove()">บันทึก</button>
+        </div>
+      </div>
+      <div style="font-size:12px;color:#bbb;margin-top:10px">
+        * ต้องตั้ง allow = TRUE ก่อน ลูกค้าถึงจะ “ตรวจสิทธิ์” ผ่าน
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 10px">⛔ แบน/ปลดแบน (Blocks)</h3>
+      <div class="row">
+        <div>
+          <label>เบอร์ (เว้นได้)</label>
+          <input id="bl_phone" placeholder="0XXXXXXXXX">
+        </div>
+        <div>
+          <label>deviceId (เว้นได้)</label>
+          <input id="bl_dev" placeholder="RR365_DEVICE_ID">
+        </div>
+        <div>
+          <label>เหตุผล</label>
+          <input id="bl_reason" placeholder="manual / abuse / multi-device">
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:10px">
+        <button onclick="blockIt()">แบน</button>
+        <button class="ghost" onclick="unblockIt()">ปลดแบน</button>
+      </div>
+      <div style="font-size:12px;color:#bbb;margin-top:10px">
+        * auto-block จะบันทึกทั้ง phone และ deviceId ลง blocks อัตโนมัติ
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin:0 0 10px">📌 Allow</h3>
+    <div style="overflow:auto;max-height:300px">
+      <table id="t_allow">
+        <thead><tr><th>phone</th><th>approved</th><th>note</th><th>updatedAt</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin:0 0 10px">⛔ Blocks</h3>
+    <div style="overflow:auto;max-height:300px">
+      <table id="t_blocks">
+        <thead><tr><th>phone</th><th>deviceId</th><th>reason</th><th>blockedAt</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin:0 0 10px">📱 Devices ล่าสุด</h3>
+    <div style="overflow:auto;max-height:300px">
+      <table id="t_devices">
+        <thead><tr><th>phone</th><th>deviceId</th><th>status</th><th>firstSeenAt</th><th>lastSeenAt</th><th>note</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin:0 0 10px">🔒 Used ล่าสุด</h3>
+    <div style="overflow:auto;max-height:300px">
+      <table id="t_used">
+        <thead><tr><th>matchKey</th><th>phone</th><th>deviceId</th><th>usedAt</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const m = (type, text) => $("msg").innerHTML = `<div class="${type}">${text}</div>`;
+
+function fillFromQuery(){
+  const u = new URL(location.href);
+  const key = u.searchParams.get("key");
+  if(key) $("key").value = key;
+  $("url").value = location.href.split("?")[0];
+}
+
+async function post(action, payload={}){
+  const url = $("url").value.trim();
+  const key = $("key").value.trim();
+  if(!url) throw new Error("กรอก WEB APP URL ก่อน");
+  if(!key) throw new Error("กรอก ADMIN KEY ก่อน");
+
+  const res = await fetch(url, { method:"POST", body: JSON.stringify({ action, key, ...payload }) });
+  const text = await res.text();
+  try { return JSON.parse(text); }
+  catch { throw new Error("INVALID_JSON: " + text); }
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function renderTable(tid, rows, cols){
+  const tb = document.querySelector(`#${tid} tbody`);
+  tb.innerHTML = rows.map(r=>`<tr>${cols.map(c=>`<td>${escapeHtml(r[c] ?? "")}</td>`).join("")}</tr>`).join("");
+}
+
+async function loadAll(){
+  try{
+    m("ok","กำลังโหลด...");
+    const data = await post("admin_list");
+    if(!data.ok) return m("err", data.msg || "โหลดไม่สำเร็จ");
+    $("mk").textContent = data.matchKey || "—";
+
+    renderTable("t_allow", data.allow || [], ["phone","approved","note","updatedAt"]);
+    renderTable("t_blocks", data.blocks || [], ["phone","deviceId","reason","blockedAt"]);
+    renderTable("t_devices", data.devices || [], ["phone","deviceId","status","firstSeenAt","lastSeenAt","note"]);
+    renderTable("t_used", data.used || [], ["matchKey","phone","deviceId","usedAt"]);
+    m("ok","โหลดสำเร็จ");
+  }catch(e){
+    m("err", e.message || String(e));
+  }
+}
+
+async function setApprove(){
+  try{
+    const phone = $("ap_phone").value.trim();
+    const approved = $("ap_ok").value;
+    const note = $("ap_note").value.trim();
+    const data = await post("admin_set_approve", { phone, approved, note });
+    if(!data.ok) return m("err", data.msg || "บันทึกไม่สำเร็จ");
+    m("ok","บันทึกอนุมัติแล้ว");
+    await loadAll();
+  }catch(e){ m("err", e.message || String(e)); }
+}
+
+async function blockIt(){
+  try{
+    const phone = $("bl_phone").value.trim();
+    const deviceId = $("bl_dev").value.trim();
+    const reason = $("bl_reason").value.trim() || "manual";
+    const data = await post("admin_block", { phone, deviceId, reason });
+    if(!data.ok) return m("err", data.msg || "แบนไม่สำเร็จ");
+    m("ok","แบนแล้ว");
+    await loadAll();
+  }catch(e){ m("err", e.message || String(e)); }
+}
+
+async function unblockIt(){
+  try{
+    const phone = $("bl_phone").value.trim();
+    const deviceId = $("bl_dev").value.trim();
+    const data = await post("admin_unblock", { phone, deviceId });
+    if(!data.ok) return m("err", data.msg || "ปลดแบนไม่สำเร็จ");
+    m("ok","ปลดแบนแล้ว");
+    await loadAll();
+  }catch(e){ m("err", e.message || String(e)); }
+}
+</script>
+</body>
+</html>
