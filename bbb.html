@@ -32,7 +32,7 @@
   <div class="card">
     <div class="row">
       <div>
-        <label>ADMIN KEY (ต้องตรงกับใน Code.gs)</label>
+        <label>ADMIN KEY</label>
         <input id="key" placeholder="ใส่คีย์ลับ">
       </div>
       <div>
@@ -41,7 +41,6 @@
       </div>
       <div style="display:flex;gap:10px;align-items:end">
         <button onclick="loadAll()">โหลดข้อมูล</button>
-        <button class="ghost" onclick="fillFromQuery()">ดึงจาก URL</button>
       </div>
     </div>
     <div id="msg"></div>
@@ -68,13 +67,10 @@
           <button onclick="setApprove()">บันทึก</button>
         </div>
       </div>
-      <div style="font-size:12px;color:#bbb;margin-top:10px">
-        * ต้องตั้ง allow = TRUE ก่อน ลูกค้าถึงจะ “ตรวจสิทธิ์” ผ่าน
-      </div>
     </div>
 
     <div class="card">
-      <h3 style="margin:0 0 10px">⛔ แบน/ปลดแบน (Blocks)</h3>
+      <h3 style="margin:0 0 10px">⛔ แบน / ปลดแบน</h3>
       <div class="row">
         <div>
           <label>เบอร์ (เว้นได้)</label>
@@ -94,14 +90,14 @@
         <button class="ghost" onclick="unblockIt()">ปลดแบน</button>
       </div>
       <div style="font-size:12px;color:#bbb;margin-top:10px">
-        * auto-block จะบันทึกทั้ง phone และ deviceId ลง blocks อัตโนมัติ
+        * โหมด 1 คน 1 เครื่อง: เบอร์เดิมมาเครื่องใหม่ = ระบบบล็อกอัตโนมัติ
       </div>
     </div>
   </div>
 
   <div class="card">
     <h3 style="margin:0 0 10px">📌 Allow</h3>
-    <div style="overflow:auto;max-height:300px">
+    <div style="overflow:auto;max-height:280px">
       <table id="t_allow">
         <thead><tr><th>phone</th><th>approved</th><th>note</th><th>updatedAt</th></tr></thead>
         <tbody></tbody>
@@ -111,7 +107,7 @@
 
   <div class="card">
     <h3 style="margin:0 0 10px">⛔ Blocks</h3>
-    <div style="overflow:auto;max-height:300px">
+    <div style="overflow:auto;max-height:280px">
       <table id="t_blocks">
         <thead><tr><th>phone</th><th>deviceId</th><th>reason</th><th>blockedAt</th></tr></thead>
         <tbody></tbody>
@@ -121,7 +117,7 @@
 
   <div class="card">
     <h3 style="margin:0 0 10px">📱 Devices ล่าสุด</h3>
-    <div style="overflow:auto;max-height:300px">
+    <div style="overflow:auto;max-height:280px">
       <table id="t_devices">
         <thead><tr><th>phone</th><th>deviceId</th><th>status</th><th>firstSeenAt</th><th>lastSeenAt</th><th>note</th></tr></thead>
         <tbody></tbody>
@@ -131,7 +127,7 @@
 
   <div class="card">
     <h3 style="margin:0 0 10px">🔒 Used ล่าสุด</h3>
-    <div style="overflow:auto;max-height:300px">
+    <div style="overflow:auto;max-height:280px">
       <table id="t_used">
         <thead><tr><th>matchKey</th><th>phone</th><th>deviceId</th><th>usedAt</th></tr></thead>
         <tbody></tbody>
@@ -144,13 +140,6 @@
 const $ = id => document.getElementById(id);
 const m = (type, text) => $("msg").innerHTML = `<div class="${type}">${text}</div>`;
 
-function fillFromQuery(){
-  const u = new URL(location.href);
-  const key = u.searchParams.get("key");
-  if(key) $("key").value = key;
-  $("url").value = location.href.split("?")[0];
-}
-
 async function post(action, payload={}){
   const url = $("url").value.trim();
   const key = $("key").value.trim();
@@ -159,8 +148,7 @@ async function post(action, payload={}){
 
   const res = await fetch(url, { method:"POST", body: JSON.stringify({ action, key, ...payload }) });
   const text = await res.text();
-  try { return JSON.parse(text); }
-  catch { throw new Error("INVALID_JSON: " + text); }
+  return JSON.parse(text);
 }
 
 function escapeHtml(s){
@@ -177,7 +165,6 @@ async function loadAll(){
     const data = await post("admin_list");
     if(!data.ok) return m("err", data.msg || "โหลดไม่สำเร็จ");
     $("mk").textContent = data.matchKey || "—";
-
     renderTable("t_allow", data.allow || [], ["phone","approved","note","updatedAt"]);
     renderTable("t_blocks", data.blocks || [], ["phone","deviceId","reason","blockedAt"]);
     renderTable("t_devices", data.devices || [], ["phone","deviceId","status","firstSeenAt","lastSeenAt","note"]);
