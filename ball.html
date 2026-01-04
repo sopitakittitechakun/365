@@ -8,283 +8,794 @@
 
 <style>
 :root{
-  --bg:#0b0b0b;
-  --card:#141414;
-  --line:rgba(255,255,255,.12);
-  --txt:#fff;
-  --muted:#cfcfcf;
+  --bg0:#040102; --bg1:#0b0506;
+  --card:rgba(255,255,255,.06);
+  --card2:rgba(0,0,0,.35);
+  --line:rgba(255,90,90,.22);
+  --line2:rgba(255,90,90,.38);
+  --txt:#fff2f2;
+  --muted:rgba(255,220,220,.72);
   --accent:#ff2b2b;
   --accent2:#b80000;
   --ok:#36d399;
   --warn:#facc15;
   --bad:#ff5a5f;
-  --radius:18px;
+  --info:#7dd3fc;
+
+  --r12:12px; --r16:16px; --r20:20px; --r24:24px;
+  --shadow:0 26px 90px rgba(0,0,0,.65);
+  --shadow2:0 14px 50px rgba(0,0,0,.45);
+  --shadow3:0 10px 26px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
 body{
-  margin:0;
-  padding:24px;
+  margin:0; padding:18px 14px 72px;
   font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
-  background:
-    radial-gradient(800px 400px at 50% -10%, rgba(255,60,60,.18), transparent 60%),
-    var(--bg);
   color:var(--txt);
+  background:
+    radial-gradient(1100px 650px at 20% 8%, rgba(255,0,0,.18), transparent 60%),
+    radial-gradient(950px 600px at 85% 12%, rgba(255,0,0,.12), transparent 62%),
+    radial-gradient(900px 650px at 50% 120%, rgba(255,0,0,.10), transparent 55%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
+  overflow-x:hidden;
 }
-.wrap{max-width:720px;margin:auto}
+.wrap{width:min(1080px,100%);margin:0 auto}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;margin:6px 0 14px;
+}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .logo{
+  width:46px;height:46px;border-radius:14px;
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--line2);
+  box-shadow:var(--shadow2);
+  display:grid;place-items:center;overflow:hidden
+}
+.brand .logo img{width:100%;height:100%;object-fit:cover}
+.brand .t b{font-size:14px}
+.brand .t span{display:block;font-size:12px;color:rgba(255,210,210,.55)}
+
+.chip{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 12px;border-radius:999px;
+  border:1px solid var(--line2);
+  background:rgba(0,0,0,.18);
+  box-shadow:var(--shadow2);
+  font-size:12px;color:rgba(255,210,210,.75);
+  user-select:none;white-space:nowrap
+}
+.dot{width:9px;height:9px;border-radius:99px;background:var(--warn);box-shadow:0 0 18px rgba(250,204,21,.35)}
+.dot.ok{background:var(--ok);box-shadow:0 0 18px rgba(54,211,153,.55)}
+.dot.bad{background:var(--bad);box-shadow:0 0 18px rgba(255,90,90,.55)}
+.dot.info{background:var(--info);box-shadow:0 0 18px rgba(125,211,252,.45)}
+
 .card{
-  background:linear-gradient(180deg,#161616,#0f0f0f);
+  border-radius:var(--r24);
+  background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
   border:1px solid var(--line);
-  border-radius:var(--radius);
-  box-shadow:0 20px 60px rgba(0,0,0,.6);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  backdrop-filter:blur(10px);
+}
+.hero{
+  padding:18px;
+  border-bottom:1px solid var(--line);
+  background:
+    radial-gradient(700px 260px at 50% 0%, rgba(255,43,43,.22), transparent 65%),
+    linear-gradient(180deg, rgba(0,0,0,.22), transparent);
+}
+.heroHead{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  flex-wrap:wrap;
+}
+.heroTitle{
+  display:flex;align-items:flex-start;gap:12px;
+}
+.heroBadge{
+  width:46px;height:46px;border-radius:16px;
+  display:grid;place-items:center;
+  border:1px solid rgba(255,90,90,.28);
+  background:rgba(0,0,0,.18);
+  box-shadow:var(--shadow3);
+  font-size:22px;
+}
+.heroTitle h1{margin:0;font-size:20px;font-weight:1100;letter-spacing:.2px}
+.heroTitle p{margin:6px 0 0;font-size:12px;color:var(--muted);line-height:1.55}
+
+.countdown{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:999px;
+  border:1px solid rgba(255,90,90,.26);
+  background:rgba(0,0,0,.18);
+  color:rgba(255,230,230,.9);
+  box-shadow:var(--shadow2);
+}
+.countdown b{font-size:12px}
+.timeBox{
+  display:flex;align-items:center;gap:6px;
+  font-variant-numeric:tabular-nums;
+}
+.timePill{
+  padding:7px 10px;border-radius:12px;
+  border:1px solid rgba(255,90,90,.20);
+  background:rgba(255,255,255,.05);
+  font-weight:1000;font-size:12px;
+}
+
+.matchCard{
+  margin-top:14px;
+  border-radius:var(--r20);
+  border:1px solid rgba(255,90,90,.22);
+  background:rgba(0,0,0,.18);
   overflow:hidden;
 }
-.header{
-  padding:22px;
-  text-align:center;
-  border-bottom:1px solid var(--line);
+.matchTop{
+  padding:12px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  border-bottom:1px solid rgba(255,90,90,.16);
 }
-.logo{
-  width:120px;
-  margin:auto;
-  filter:drop-shadow(0 0 18px rgba(255,0,0,.5));
-}
-.h-title{font-size:24px;font-weight:900;margin:14px 0 6px}
-.h-sub{font-size:13px;color:var(--muted)}
-
-.status{
-  margin-top:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  padding:10px 14px;
-  border-radius:999px;
-  font-size:13px;
-  background:#0d0d0d;
-  border:1px solid var(--line);
-}
-.dot{
-  width:10px;height:10px;border-radius:50%;
-  background:var(--warn);
-}
-.dot.ok{background:var(--ok)}
-.dot.bad{background:var(--bad)}
-
-.body{padding:22px}
-.section{margin-bottom:22px}
-.label{font-size:13px;color:var(--muted);margin-bottom:8px}
-
-input{
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  background:#0e0e0e;
-  border:1px solid var(--line);
-  color:#fff;
-  font-size:15px;
-}
-input:focus{
-  outline:none;
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(255,43,43,.25);
-}
-
-.grid2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-.grid3{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:12px;
-}
-.btn{
-  padding:14px;
-  border-radius:14px;
-  font-weight:900;
-  cursor:pointer;
-  border:1px solid var(--line);
-  background:#121212;
-  color:#fff;
-  transition:.15s;
-}
-.btn:hover{transform:translateY(-1px)}
-.btn.active{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  border-color:transparent;
-}
-.btn-main{
-  width:100%;
-  margin-top:12px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  border:none;
-  padding:16px;
-  font-size:16px;
-}
-.btn-main:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
-
-.score{
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  gap:10px;
-  align-items:center;
-}
-.score input{
-  text-align:center;
-  font-size:22px;
-  font-weight:900;
-}
-
-.alert{
-  margin-top:16px;
-  padding:14px;
-  border-radius:14px;
-  font-size:14px;
-  line-height:1.5;
-}
-.alert.ok{background:rgba(54,211,153,.15);border:1px solid rgba(54,211,153,.35)}
-.alert.warn{background:rgba(250,204,21,.15);border:1px solid rgba(250,204,21,.35)}
-.alert.bad{background:rgba(255,90,90,.15);border:1px solid rgba(255,90,90,.35)}
-
-.footer{
-  text-align:center;
+.league{
+  display:flex;align-items:center;gap:10px;color:rgba(255,220,220,.82);
   font-size:12px;
-  color:#777;
-  padding:14px;
-  border-top:1px solid var(--line);
+}
+.league .tag{
+  padding:6px 10px;border-radius:999px;
+  border:1px solid rgba(255,90,90,.22);
+  background:rgba(255,255,255,.05);
+  font-weight:900;
+}
+.deviceTag{
+  padding:6px 10px;border-radius:999px;
+  border:1px solid rgba(255,90,90,.18);
+  background:rgba(255,255,255,.04);
+  font-size:12px;color:rgba(255,220,220,.75);
+}
+.matchMain{
+  padding:16px 14px;
+  display:grid;
+  grid-template-columns: 1.1fr .8fr 1.1fr;
+  gap:14px;
+  align-items:center;
+}
+.team{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.crest{
+  width:104px;height:104px;border-radius:26px;
+  border:1px solid rgba(255,90,90,.28);
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.10));
+  box-shadow:0 16px 44px rgba(0,0,0,.45);
+  display:grid;place-items:center;overflow:hidden;
+}
+.crest img{width:76px;height:76px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(0,0,0,.5))}
+.teamName{
+  font-size:14px;font-weight:1100;color:rgba(255,240,240,.95);
+  text-align:center;
+}
+.subMini{
+  font-size:12px;color:rgba(255,210,210,.58);
+}
+.vsBox{
+  display:grid;place-items:center;gap:10px;
+}
+.vs{
+  font-weight:1200;letter-spacing:2px;
+  font-size:18px;color:rgba(255,210,210,.82);
+}
+.matchMeta{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+}
+.metaPill{
+  padding:7px 10px;border-radius:999px;
+  border:1px solid rgba(255,90,90,.18);
+  background:rgba(255,255,255,.04);
+  font-size:12px;color:rgba(255,220,220,.75);
+}
+.metaPill strong{color:#fff;font-weight:1000}
+.body{padding:18px}
+.row{margin-bottom:14px}
+.label{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  color:rgba(255,210,210,.78);font-size:13px;margin-bottom:8px}
+.mini{font-size:11px;color:rgba(255,210,210,.55)}
+.input{
+  width:100%;
+  padding:13px 14px;border-radius:var(--r12);
+  border:1px solid rgba(255,90,90,.22);
+  background:rgba(0,0,0,.24);
+  color:var(--txt);
+  outline:none;font-size:15px;
+  transition:.2s ease;
+}
+.input:focus{
+  border-color:rgba(255,43,43,.85);
+  box-shadow:0 0 0 4px rgba(255,43,43,.22)
+}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.btn{
+  cursor:pointer;border:none;border-radius:var(--r12);
+  padding:12px 14px;font-weight:1000;font-size:14px;
+  transition:.18s ease;user-select:none;
+}
+.btn:active{transform:translateY(1px) scale(.99)}
+.btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
+.btnGhost{
+  background:rgba(255,255,255,.06);
+  color:var(--txt);
+  border:1px solid rgba(255,90,90,.18)
+}
+.btnPrimary{
+  flex:1;min-width:240px;color:#fff;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 18px 40px rgba(255,43,43,.15)
+}
+.btnSoftInfo{
+  background:rgba(125,211,252,.10);
+  border:1px solid rgba(125,211,252,.26);
+  color:rgba(220,245,255,.92)
+}
+.box{
+  padding:12px;border-radius:var(--r16);
+  border:1px dashed rgba(255,90,90,.32);
+  background:rgba(0,0,0,.18);
+}
+.choiceGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choice3{grid-template-columns:1fr 1fr 1fr}
+.choiceBtn{
+  border:1px solid rgba(255,90,90,.22);
+  background:rgba(255,255,255,.06);
+  color:var(--txt);
+  padding:12px 10px;border-radius:var(--r12);
+  cursor:pointer;font-weight:1000;font-size:13px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:.15s ease;
+}
+.choiceBtn:hover{transform:translateY(-1px)}
+.choiceBtn.active{
+  border-color:rgba(54,211,153,.55);
+  box-shadow:0 0 0 4px rgba(54,211,153,.14);
+  background:rgba(54,211,153,.10)
+}
+.scoreBox{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center}
+.scoreCtrl{display:flex;align-items:center;gap:10px;justify-content:center}
+.scBtn{
+  width:46px;height:46px;border-radius:14px;
+  border:1px solid rgba(255,90,90,.22);
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;font-size:22px;font-weight:1200;
+  cursor:pointer;
+  box-shadow:0 10px 22px rgba(255,0,0,.25);
+}
+.scBtn:active{transform:scale(.95)}
+.score{
+  width:82px;text-align:center;
+  font-size:26px;font-weight:1200;
+  padding:10px 0;border-radius:14px;
+  border:1px solid rgba(255,90,90,.35);
+  background:rgba(0,0,0,.35);color:#fff;
+  font-variant-numeric:tabular-nums;
+}
+.alert{
+  margin-top:12px;padding:12px;border-radius:var(--r16);
+  border:1px solid rgba(255,90,90,.18);
+  background:rgba(0,0,0,.14);
+  font-size:13px;line-height:1.55;
+}
+.ok{border-color:rgba(54,211,153,.28);background:rgba(54,211,153,.10)}
+.err{border-color:rgba(255,90,90,.30);background:rgba(255,90,90,.10)}
+.warn{border-color:rgba(250,204,21,.30);background:rgba(250,204,21,.10)}
+.info{border-color:rgba(125,211,252,.30);background:rgba(125,211,252,.08)}
+.smallmono{
+  font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:11px;color:rgba(255,210,210,.55);word-break:break-all;margin-top:8px
+}
+.hr{
+  height:1px;background:rgba(255,90,90,.12);
+  margin:14px 0;border:none;
+}
+.footer{
+  margin-top:14px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  color:rgba(255,210,210,.55);font-size:12px;
+}
+@media (max-width:860px){
+  .matchMain{grid-template-columns:1fr;gap:12px}
+  .team{flex-direction:row;justify-content:center}
+  .crest{width:92px;height:92px;border-radius:24px}
+  .crest img{width:68px;height:68px}
+  .vsBox{order:3}
+  .footer{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
 
 <body>
 <div class="wrap">
-  <div class="card">
-    <div class="header">
-      <img class="logo" src="https://ramruay365.co/wp-content/uploads/2025/12/1735020594-1.png">
-      <div class="h-title">ทายผลบอล</div>
-      <div class="h-sub">ส่งคำทายได้ทันที • แอดมินอนุมัติภายหลัง</div>
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">
+        <img src="https://ramruay365.co/wp-content/uploads/2025/12/1735020594-1.png" alt="RR365">
+      </div>
+      <div class="t">
+        <b>Rumruay365</b>
+        <span>เว็บทายผลบอล • ส่งได้เลย • แอดมินอนุมัติภายหลัง</span>
+      </div>
+    </div>
 
-      <div class="status">
-        <span id="dot" class="dot"></span>
-        <span id="statusText">กรอกเบอร์เพื่อเริ่ม</span>
+    <div class="chip">
+      <span id="dot" class="dot"></span>
+      <span id="statusTop">กรอกเบอร์เพื่อเริ่ม</span>
+    </div>
+  </div>
+
+  <section class="card">
+    <div class="hero">
+      <div class="heroHead">
+        <div class="heroTitle">
+          <div class="heroBadge">⚽</div>
+          <div>
+            <h1>ทายผลบอล (เหมือนเว็บจริง)</h1>
+            <p>กรอกเบอร์ → ผ่านเครื่อง → เลือกคำทาย → ส่งได้ทันที (สถานะจะเป็น <b>PENDING</b> รอแอดมินอนุมัติภายหลัง)</p>
+          </div>
+        </div>
+
+        <div class="countdown" title="นับถอยหลังปิดรับทาย">
+          <b>ปิดรับทาย:</b>
+          <div class="timeBox">
+            <span class="timePill" id="cd_h">--</span>
+            <span class="timePill" id="cd_m">--</span>
+            <span class="timePill" id="cd_s">--</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="matchCard">
+        <div class="matchTop">
+          <div class="league">
+            <span class="tag" id="leagueTag">Match</span>
+            <span id="matchTimeText">—</span>
+          </div>
+          <div class="deviceTag">เครื่อง: <b id="devMini">—</b></div>
+        </div>
+
+        <div class="matchMain">
+          <div class="team">
+            <div class="crest"><img id="homeLogo" alt="HOME"></div>
+            <div style="text-align:center">
+              <div class="teamName" id="homeName">ทีมเหย้า</div>
+              <div class="subMini" id="homeShort">HOME</div>
+            </div>
+          </div>
+
+          <div class="vsBox">
+            <div class="vs">VS</div>
+            <div class="matchMeta">
+              <div class="metaPill">สถานะ: <strong id="stateText">รอเช็คสิทธิ์</strong></div>
+              <div class="metaPill">ส่งแล้ว: <strong id="sentText">ยัง</strong></div>
+            </div>
+          </div>
+
+          <div class="team">
+            <div class="crest"><img id="awayLogo" alt="AWAY"></div>
+            <div style="text-align:center">
+              <div class="teamName" id="awayName">ทีมเยือน</div>
+              <div class="subMini" id="awayShort">AWAY</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="body">
-      <div class="section">
-        <div class="label">เบอร์โทรที่สมัคร (1 คน / 1 เครื่อง)</div>
-        <input id="phone" placeholder="เช่น 096xxxxxxx">
+      <div class="row">
+        <div class="label">
+          <span>เบอร์โทรที่สมัคร</span>
+          <span class="mini">* 1 คน / 1 เครื่อง</span>
+        </div>
+        <input class="input" id="phone" type="tel" inputmode="numeric" autocomplete="tel"
+               placeholder="เช่น 096xxxxxxx" maxlength="12">
+
+        <div class="btns">
+          <button type="button" class="btn btnGhost" id="btnCheck">✅ เช็คสิทธิ์</button>
+          <button type="button" class="btn btnSoftInfo" id="btnDebug">🛠️ Debug</button>
+          <button type="button" class="btn btnGhost" id="btnReset">ล้างค่า</button>
+        </div>
+
+        <div id="msg"></div>
       </div>
 
-      <div class="section">
-        <div class="label">ทีมเขี่ยก่อน</div>
-        <div class="grid2">
-          <button class="btn" onclick="pickKick('HOME',this)">ทีมเหย้า</button>
-          <button class="btn" onclick="pickKick('AWAY',this)">ทีมเยือน</button>
+      <hr class="hr"/>
+
+      <div class="row">
+        <div class="label"><span>ทีมไหนเขี่ยก่อน</span><span class="mini">เลือก 1 ทีม</span></div>
+        <div class="box">
+          <div class="choiceGrid" id="kickGrid">
+            <button type="button" class="choiceBtn" data-kick="HOME">🏁 <span id="kickHomeTxt">ทีมเหย้า</span></button>
+            <button type="button" class="choiceBtn" data-kick="AWAY">🏁 <span id="kickAwayTxt">ทีมเยือน</span></button>
+          </div>
         </div>
       </div>
 
-      <div class="section">
-        <div class="label">ทีมยิงประตูแรก</div>
-        <div class="grid3">
-          <button class="btn" onclick="pickFirst('HOME',this)">เหย้า</button>
-          <button class="btn" onclick="pickFirst('AWAY',this)">เยือน</button>
-          <button class="btn" onclick="pickFirst('NONE',this)">ไม่มี</button>
+      <div class="row">
+        <div class="label"><span>ทีมไหนยิงก่อน</span><span class="mini">เลือก 1 ตัวเลือก</span></div>
+        <div class="box">
+          <div class="choiceGrid choice3" id="firstGrid">
+            <button type="button" class="choiceBtn" data-first="HOME">⚽ <span id="firstHomeTxt">ทีมเหย้า</span></button>
+            <button type="button" class="choiceBtn" data-first="AWAY">⚽ <span id="firstAwayTxt">ทีมเยือน</span></button>
+            <button type="button" class="choiceBtn" data-first="NONE">🚫 ไม่มีประตู</button>
+          </div>
         </div>
       </div>
 
-      <div class="section">
-        <div class="label">สกอร์ที่ทาย</div>
-        <div class="score">
-          <input id="hs" type="number" value="0">
-          <b>:</b>
-          <input id="as" type="number" value="0">
+      <div class="row">
+        <div class="label"><span>ทายสกอร์</span><span class="mini">กด +/- เหมือนเว็บจริง</span></div>
+        <div class="box">
+          <div class="scoreBox">
+            <div class="scoreCtrl">
+              <button type="button" class="scBtn" id="hsMinus">−</button>
+              <div class="score" id="hs">0</div>
+              <button type="button" class="scBtn" id="hsPlus">+</button>
+            </div>
+            <div class="vs" style="font-size:16px">:</div>
+            <div class="scoreCtrl">
+              <button type="button" class="scBtn" id="asMinus">−</button>
+              <div class="score" id="as">0</div>
+              <button type="button" class="scBtn" id="asPlus">+</button>
+            </div>
+          </div>
+
+          <div class="btns" style="margin-top:12px">
+            <button type="button" class="btn btnPrimary" id="btnSubmit" disabled>
+              ⛔ ต้องเช็คสิทธิ์ก่อน
+            </button>
+          </div>
         </div>
       </div>
 
-      <button id="submitBtn" class="btn btn-main" onclick="submitGuess()" disabled>
-        ส่งคำทาย
-      </button>
-
-      <div id="msg"></div>
+      <div class="footer">
+        <div>ระบบตรวจสอบอัตโนมัติ • RR365</div>
+        <div id="hint">Tip: อนุมัติภายหลัง = แอดมินเช็คยอด/เงื่อนไขได้ก่อน</div>
+      </div>
     </div>
-
-    <div class="footer">
-      ระบบตรวจสอบอัตโนมัติ • Rumruay365
-    </div>
-  </div>
+  </section>
 </div>
 
 <script>
-/* ===== CONFIG ===== */
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwTaOHSv5PgzBiWcwdNLexU9gitMaf5b6SAwRqyS7tPm56ONJuwrBD4BjsfuNZeBGAR/exec";
-/* ================= */
+/* ================== CONFIG ================== */
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwTaOHSv5PgzBiWcwdNLexU9gitMaf5b6SAwRqyS7tPm56ONJuwrBD4BjsfuNZeBGAR/exec"; // ✅ ใส่ลิงก์ /exec ที่ Deploy
 
-const deviceId = localStorage.deviceId || (localStorage.deviceId = crypto.randomUUID());
-let kick="", first="";
+const MATCH = {
+  league: "พรีเมียร์ลีก",
+  matchTimeText: "วันนี้ 20:00",
+  // เวลา “ปิดรับทาย” (ตั้งเป็นเวลาจริงของคุณ) : รูปแบบ "YYYY-MM-DDTHH:MM:SS+07:00"
+  cutoffISO: "2026-01-04T19:55:00+07:00",
 
-function setStatus(type,text){
-  const dot=document.getElementById("dot");
-  dot.className="dot "+(type||"");
-  document.getElementById("statusText").innerText=text;
+  home: { name:"สเปอร์ส", short:"TOT", logo:"https://media.api-sports.io/football/teams/47.png" },
+  away: { name:"ลิเวอร์พูล", short:"LIV", logo:"https://media.api-sports.io/football/teams/40.png" }
+};
+
+const AUTO_INTERVAL_MS = 5000;
+/* =========================================== */
+
+const $ = (id)=>document.getElementById(id);
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
-function alertBox(type,text){
-  document.getElementById("msg").innerHTML=
-    `<div class="alert ${type}">${text}</div>`;
-}
-function cleanPhone(p){return p.replace(/[^\d]/g,"");}
+function onlyDigits(s){ return String(s||"").replace(/[^\d]/g,""); }
+function isValidPhone(d){ return /^0\d{8,9}$/.test(String(d||"")); }
 
-function post(data){
-  return fetch(WEB_APP_URL,{
+function setTopStatus(mode, text){
+  $("statusTop").textContent = text;
+  const dot = $("dot");
+  dot.className = "dot";
+  if(mode==="ok") dot.classList.add("ok");
+  else if(mode==="bad") dot.classList.add("bad");
+  else if(mode==="info") dot.classList.add("info");
+}
+function setStateText(s){
+  $("stateText").textContent = s;
+}
+function setSentText(s){
+  $("sentText").textContent = s;
+}
+
+function alertBox(type, html, debugObj){
+  const cls = type==="ok" ? "alert ok" : type==="info" ? "alert info" : type==="warn" ? "alert warn" : "alert err";
+  const dbg = debugObj ? `<div class="smallmono">DEBUG: ${escapeHtml(JSON.stringify(debugObj))}</div>` : "";
+  $("msg").innerHTML = `<div class="${cls}">${html}${dbg}</div>`;
+}
+
+function getDeviceId(){
+  const key="RR365_DEVICE_ID";
+  let v=localStorage.getItem(key);
+  if(!v){
+    v=(crypto && crypto.randomUUID) ? crypto.randomUUID()
+      : ("dev_"+Math.random().toString(16).slice(2)+Date.now());
+    localStorage.setItem(key,v);
+  }
+  return v;
+}
+const deviceId = getDeviceId();
+$("devMini").textContent = deviceId.slice(0,8)+"…";
+
+const LS_CAN_SUBMIT = "RR365_CAN_SUBMIT_" + deviceId;
+const LS_KICK  = "RR365_KICK_" + deviceId;
+const LS_FIRST = "RR365_FIRST_" + deviceId;
+
+function getPhone(){
+  const d = onlyDigits($("phone").value);
+  $("phone").value = d.slice(0,10);
+  return $("phone").value;
+}
+function scoreClamp(x){ return Math.max(0, Math.min(99, x)); }
+function setScore(id, v){ $(id).textContent = String(scoreClamp(v)); }
+function getScore(id){ return parseInt($(id).textContent || "0", 10) || 0; }
+
+async function post(body){
+  const res = await fetch(WEB_APP_URL, {
     method:"POST",
-    body:JSON.stringify(data)
-  }).then(r=>r.json());
+    headers: {"Content-Type":"text/plain;charset=utf-8"},
+    body: JSON.stringify(body)
+  });
+  const t = await res.text();
+  return JSON.parse(t);
 }
 
-document.getElementById("phone").addEventListener("input",()=>{
-  const p=cleanPhone(phone.value);
-  phone.value=p;
-  if(p.length>=9){
-    post({action:"check",phone:p,deviceId,userAgent:navigator.userAgent})
-    .then(r=>{
-      setStatus(r.ok?"ok":"warn",r.msg);
-      document.getElementById("submitBtn").disabled=!r.ok;
+/* ====== UI init match ====== */
+$("leagueTag").textContent = MATCH.league || "Match";
+$("matchTimeText").textContent = MATCH.matchTimeText || "—";
+
+$("homeName").textContent = MATCH.home.name;
+$("awayName").textContent = MATCH.away.name;
+$("homeShort").textContent = MATCH.home.short || "HOME";
+$("awayShort").textContent = MATCH.away.short || "AWAY";
+
+$("homeLogo").src = MATCH.home.logo;
+$("awayLogo").src = MATCH.away.logo;
+
+$("kickHomeTxt").textContent = MATCH.home.name;
+$("kickAwayTxt").textContent = MATCH.away.name;
+$("firstHomeTxt").textContent = MATCH.home.name;
+$("firstAwayTxt").textContent = MATCH.away.name;
+
+/* ====== countdown ====== */
+function pad2(n){ return String(n).padStart(2,"0"); }
+function updateCountdown(){
+  const end = new Date(MATCH.cutoffISO).getTime();
+  const now = Date.now();
+  let diff = Math.max(0, end - now);
+  const h = Math.floor(diff/3600000); diff%=3600000;
+  const m = Math.floor(diff/60000); diff%=60000;
+  const s = Math.floor(diff/1000);
+
+  $("cd_h").textContent = pad2(h)+"h";
+  $("cd_m").textContent = pad2(m)+"m";
+  $("cd_s").textContent = pad2(s)+"s";
+
+  // ปิดรับทาย
+  if(end - now <= 0){
+    setTopStatus("bad","ปิดรับทายแล้ว");
+    $("btnSubmit").disabled = true;
+    $("btnSubmit").textContent = "⛔ ปิดรับทายแล้ว";
+    setStateText("ปิดรับทาย");
+  }
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* ====== choices ====== */
+function setActive(group, attr, val){
+  [...group.querySelectorAll(".choiceBtn")].forEach(b=>{
+    b.classList.toggle("active", b.dataset[attr] === val);
+  });
+}
+$("kickGrid").addEventListener("click", (e)=>{
+  const b = e.target.closest(".choiceBtn"); if(!b) return;
+  localStorage.setItem(LS_KICK, b.dataset.kick);
+  setActive($("kickGrid"), "kick", b.dataset.kick);
+  refreshSubmit();
+});
+$("firstGrid").addEventListener("click", (e)=>{
+  const b = e.target.closest(".choiceBtn"); if(!b) return;
+  localStorage.setItem(LS_FIRST, b.dataset.first);
+  setActive($("firstGrid"), "first", b.dataset.first);
+  refreshSubmit();
+});
+
+/* ====== scores ====== */
+$("hsMinus").onclick = ()=> setScore("hs", getScore("hs")-1);
+$("hsPlus").onclick  = ()=> setScore("hs", getScore("hs")+1);
+$("asMinus").onclick = ()=> setScore("as", getScore("as")-1);
+$("asPlus").onclick  = ()=> setScore("as", getScore("as")+1);
+
+/* ====== submit gating ====== */
+function refreshSubmit(){
+  const can = localStorage.getItem(LS_CAN_SUBMIT)==="1";
+  const kick = localStorage.getItem(LS_KICK)||"";
+  const first = localStorage.getItem(LS_FIRST)||"";
+  const kickOk = (kick==="HOME"||kick==="AWAY");
+  const firstOk = (first==="HOME"||first==="AWAY"||first==="NONE");
+
+  // ถ้าปิดรับทายแล้ว ให้ล็อค
+  const end = new Date(MATCH.cutoffISO).getTime();
+  const closed = Date.now() >= end;
+
+  $("btnSubmit").disabled = closed || !(can && kickOk && firstOk);
+  $("btnSubmit").textContent = closed
+    ? "⛔ ปิดรับทายแล้ว"
+    : (can ? (kickOk && firstOk ? "✅ ส่งคำทาย (รอแอดมินอนุมัติ)" : "⚠️ เลือกให้ครบก่อนส่ง") : "⛔ ต้องเช็คสิทธิ์ก่อน");
+}
+refreshSubmit();
+
+/* ====== check permission ====== */
+async function doCheck(silent=false){
+  const phone = getPhone();
+
+  if(!isValidPhone(phone)){
+    localStorage.setItem(LS_CAN_SUBMIT,"0");
+    setTopStatus("","กรอกเบอร์ให้ถูกต้อง");
+    setStateText("รอเช็คสิทธิ์");
+    refreshSubmit();
+    if(!silent) alertBox("warn","กรุณากรอกเบอร์ให้ถูกต้อง");
+    return;
+  }
+  if(!WEB_APP_URL || WEB_APP_URL.includes("PUT_YOUR")){
+    setTopStatus("bad","ยังไม่ได้ใส่ WEB_APP_URL");
+    setStateText("เชื่อมต่อไม่ได้");
+    if(!silent) alertBox("err","ยังไม่ได้ใส่ WEB_APP_URL (/exec)");
+    return;
+  }
+
+  try{
+    const data = await post({ action:"check", phone, deviceId, userAgent:navigator.userAgent });
+
+    if(data.ok){
+      localStorage.setItem(LS_CAN_SUBMIT,"1");
+
+      // โฟลว์นี้: ACTIVE = ทายได้ / PENDING = ส่งแล้วรอ / APPROVED = อนุมัติแล้ว
+      if(data.code === "PENDING"){
+        setTopStatus("info","ส่งแล้ว • รออนุมัติ");
+        setStateText("PENDING");
+        setSentText("แล้ว");
+        if(!silent) alertBox("info", escapeHtml(data.msg || "ส่งแล้วรออนุมัติ"));
+      }else if(data.code === "APPROVED"){
+        setTopStatus("ok","อนุมัติแล้ว");
+        setStateText("APPROVED");
+        setSentText("แล้ว");
+        if(!silent) alertBox("ok", escapeHtml(data.msg || "อนุมัติแล้ว"));
+      }else{
+        setTopStatus("ok","ทายได้เลย");
+        setStateText("ACTIVE");
+        setSentText("ยัง");
+        if(!silent) alertBox("ok", escapeHtml(data.msg || "พร้อมทายได้"));
+      }
+    }else{
+      localStorage.setItem(LS_CAN_SUBMIT,"0");
+      if(data.code === "DEVICE"){
+        setTopStatus("bad","เครื่องไม่ผ่าน");
+        setStateText("อุปกรณ์ไม่ผ่าน");
+        if(!silent) alertBox("err", escapeHtml(data.msg || "อุปกรณ์นี้เคยใช้เบอร์อื่น"));
+      }else if(data.code === "BLOCK"){
+        setTopStatus("bad","ถูกระงับสิทธิ์");
+        setStateText("BLOCK");
+        if(!silent) alertBox("err", escapeHtml(data.msg || "ถูกระงับสิทธิ์"));
+      }else{
+        setTopStatus("bad","เช็คไม่ผ่าน");
+        setStateText("เช็คไม่ผ่าน");
+        if(!silent) alertBox("warn", escapeHtml(data.msg || "เช็คไม่ผ่าน"));
+      }
+    }
+
+    refreshSubmit();
+  }catch(e){
+    localStorage.setItem(LS_CAN_SUBMIT,"0");
+    setTopStatus("bad","เชื่อมต่อไม่ได้");
+    setStateText("เชื่อมต่อไม่ได้");
+    refreshSubmit();
+    if(!silent) alertBox("err","เชื่อมต่อไม่ได้ ตรวจสอบ Deploy/URL");
+  }
+}
+
+/* ====== submit guess ====== */
+async function doSubmit(){
+  const phone = getPhone();
+  if(!isValidPhone(phone)) return alertBox("warn","กรุณากรอกเบอร์ให้ถูกต้อง");
+  if(localStorage.getItem(LS_CAN_SUBMIT)!=="1") return alertBox("warn","⛔ ต้องเช็คสิทธิ์ก่อน");
+
+  const kick = localStorage.getItem(LS_KICK)||"";
+  const first = localStorage.getItem(LS_FIRST)||"";
+  if(!(kick==="HOME"||kick==="AWAY")) return alertBox("warn","กรุณาเลือกทีมเขี่ยก่อน");
+  if(!(first==="HOME"||first==="AWAY"||first==="NONE")) return alertBox("warn","กรุณาเลือกทีมยิงก่อน");
+
+  // ถ้าปิดรับทายแล้ว ไม่ให้ส่ง
+  const end = new Date(MATCH.cutoffISO).getTime();
+  if(Date.now() >= end){
+    setTopStatus("bad","ปิดรับทายแล้ว");
+    return alertBox("err","⛔ ปิดรับทายแล้ว");
+  }
+
+  try{
+    const data = await post({
+      action:"submit",
+      phone,
+      deviceId,
+      kickOffTeam: kick,
+      firstGoalTeam: first,
+      homeScore: getScore("hs"),
+      awayScore: getScore("as"),
+      userAgent: navigator.userAgent
     });
+
+    if(data.ok){
+      setTopStatus("info","ส่งแล้ว • รออนุมัติ");
+      setStateText("PENDING");
+      setSentText("แล้ว");
+      alertBox("info", escapeHtml(data.msg || "📌 ส่งแล้ว รอแอดมินอนุมัติภายหลัง"));
+      // หลังส่ง: ปุ่มยังอยู่ แต่ให้เช็คสถานะต่อได้
+      refreshSubmit();
+    }else{
+      setTopStatus("bad","ส่งไม่สำเร็จ");
+      alertBox("err", escapeHtml(data.msg || "ส่งไม่สำเร็จ"));
+      refreshSubmit();
+    }
+  }catch(e){
+    setTopStatus("bad","ส่งไม่สำเร็จ");
+    alertBox("err","ส่งไม่สำเร็จ ตรวจสอบ WebApp/Deploy/เน็ต");
+    refreshSubmit();
+  }
+}
+
+/* ====== buttons ====== */
+$("btnCheck").addEventListener("click", ()=>doCheck(false));
+$("btnDebug").addEventListener("click", async ()=>{
+  try{
+    const d = await post({ action:"debug" });
+    alertBox("info","Debug OK", d);
+  }catch(e){
+    alertBox("err","Debug ไม่ได้");
+  }
+});
+$("btnReset").addEventListener("click", ()=>{
+  $("phone").value = "";
+  localStorage.setItem(LS_CAN_SUBMIT,"0");
+  localStorage.removeItem(LS_KICK);
+  localStorage.removeItem(LS_FIRST);
+  setActive($("kickGrid"), "kick", ""); 
+  setActive($("firstGrid"), "first", "");
+  setScore("hs",0); setScore("as",0);
+  setTopStatus("","กรอกเบอร์เพื่อเริ่ม");
+  setStateText("รอเช็คสิทธิ์");
+  setSentText("ยัง");
+  $("msg").innerHTML = "";
+  refreshSubmit();
+});
+$("btnSubmit").addEventListener("click", doSubmit);
+
+/* ====== AUTO-CHECK ====== */
+setInterval(()=>{
+  const p = getPhone();
+  if(isValidPhone(p)) doCheck(true);
+}, AUTO_INTERVAL_MS);
+
+$("phone").addEventListener("input", ()=>{
+  const p = getPhone();
+  if(isValidPhone(p)) doCheck(true);
+});
+
+document.addEventListener("visibilitychange", ()=>{
+  if(!document.hidden){
+    const p = getPhone();
+    if(isValidPhone(p)) doCheck(true);
   }
 });
 
-function pickKick(v,btn){
-  kick=v;
-  document.querySelectorAll(".grid2 .btn").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-}
-function pickFirst(v,btn){
-  first=v;
-  document.querySelectorAll(".grid3 .btn").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-}
-
-function submitGuess(){
-  const phoneVal=cleanPhone(phone.value);
-  if(!kick||!first) return alertBox("warn","กรุณาเลือกให้ครบ");
-  post({
-    action:"submit",
-    phone:phoneVal,
-    deviceId,
-    kickOffTeam:kick,
-    firstGoalTeam:first,
-    homeScore:hs.value,
-    awayScore:as.value,
-    userAgent:navigator.userAgent
-  }).then(r=>{
-    setStatus(r.ok?"warn":"bad",r.msg);
-    alertBox(r.ok?"warn":"bad",r.msg);
-  });
-}
+/* first paint */
+setTopStatus("","กรอกเบอร์เพื่อเริ่ม");
+setStateText("รอเช็คสิทธิ์");
+setSentText("ยัง");
+refreshSubmit();
 </script>
+
 </body>
 </html>
