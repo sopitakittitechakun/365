@@ -8,15 +8,11 @@
 <style>
 :root{
   --bg0:#050102; --bg1:#0b0304;
-  --card:rgba(255,255,255,.06);
-  --line:rgba(255,90,90,.22);
-  --line2:rgba(255,90,90,.34);
-  --txt:#fff2f2;
-  --muted:rgba(255,220,220,.72);
+  --line:rgba(255,90,90,.22); --line2:rgba(255,90,90,.34);
+  --txt:#fff2f2; --muted:rgba(255,220,220,.72);
   --accent:#ff2b2b; --accent2:#b80000;
   --ok:#36d399; --bad:#ff5a5f; --warn:#ffcc66; --info:#7dd3fc;
-  --shadow:0 26px 90px rgba(0,0,0,.65);
-  --shadow2:0 14px 50px rgba(0,0,0,.45);
+  --shadow:0 26px 90px rgba(0,0,0,.65); --shadow2:0 14px 50px rgba(0,0,0,.45);
   --r12:12px; --r16:16px; --r20:20px;
 }
 *{box-sizing:border-box}
@@ -29,219 +25,79 @@ body{
     radial-gradient(950px 600px at 85% 16%, rgba(255,0,0,.12), transparent 62%),
     radial-gradient(900px 650px at 50% 120%, rgba(255,0,0,.10), transparent 55%),
     linear-gradient(180deg, var(--bg0), var(--bg1));
-  overflow-x:hidden;
 }
 .wrap{width:min(1080px,100%);margin:0 auto}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
 .brand{display:flex;align-items:center;gap:12px}
-.brand .logo{
-  width:46px;height:46px;border-radius:14px;
-  background:rgba(255,255,255,.06);
-  border:1px solid var(--line2);
-  box-shadow:var(--shadow2);
-  display:grid;place-items:center;overflow:hidden
-}
+.brand .logo{width:46px;height:46px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid var(--line2);box-shadow:var(--shadow2);overflow:hidden}
 .brand .logo img{width:100%;height:100%;object-fit:cover}
 .brand .t b{font-size:14px}
 .brand .t span{display:block;font-size:12px;color:rgba(255,210,210,.55)}
-.chip{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:10px 12px;border-radius:999px;
-  border:1px solid var(--line2);
-  background:rgba(0,0,0,.18);
-  box-shadow:var(--shadow2);
-  font-size:12px;color:rgba(255,210,210,.75);
-  user-select:none;white-space:nowrap
-}
-.dot{width:8px;height:8px;border-radius:99px;background:var(--warn);box-shadow:0 0 18px rgba(255,204,102,.6)}
-.dot.ok{background:var(--ok);box-shadow:0 0 18px rgba(54,211,153,.65)}
-.dot.bad{background:var(--bad);box-shadow:0 0 18px rgba(255,90,90,.6)}
-.dot.info{background:var(--info);box-shadow:0 0 18px rgba(125,211,252,.55)}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:999px;border:1px solid var(--line2);background:rgba(0,0,0,.18);box-shadow:var(--shadow2);font-size:12px;color:rgba(255,210,210,.75)}
+.dot{width:8px;height:8px;border-radius:99px;background:var(--warn)}
+.dot.ok{background:var(--ok)} .dot.bad{background:var(--bad)} .dot.info{background:var(--info)}
 
-.card{
-  border-radius:var(--r20);
-  background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
-  border:1px solid var(--line);
-  box-shadow:var(--shadow);
-  overflow:hidden;
-  backdrop-filter:blur(10px);
-}
-.hero{
-  padding:18px;
-  border-bottom:1px solid var(--line);
-  background:
-    radial-gradient(700px 260px at 50% 0%, rgba(255,43,43,.20), transparent 65%),
-    linear-gradient(180deg, rgba(0,0,0,.22), transparent);
-  text-align:center;
-}
+.card{border-radius:var(--r20);background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;backdrop-filter:blur(10px)}
+.hero{padding:18px;border-bottom:1px solid var(--line);background:radial-gradient(700px 260px at 50% 0%, rgba(255,43,43,.20), transparent 65%);text-align:center}
 .heroLogo{display:flex;justify-content:center;margin-bottom:10px}
-.heroLogo .pill{
-  padding:12px 16px;border-radius:999px;
-  border:1px solid rgba(255,90,90,.28);
-  background:rgba(0,0,0,.18);
-  box-shadow:0 14px 40px rgba(0,0,0,.45);
-}
+.heroLogo .pill{padding:12px 16px;border-radius:999px;border:1px solid rgba(255,90,90,.28);background:rgba(0,0,0,.18);box-shadow:0 14px 40px rgba(0,0,0,.45)}
 .heroLogo img{width:180px;max-width:80vw;height:auto;display:block;filter:drop-shadow(0 0 18px rgba(255,0,0,.45))}
 .hTitle{margin:0;font-weight:1000;font-size:26px}
 .hSub{margin-top:8px;font-size:13px;color:var(--muted);line-height:1.55}
 
-/* 🔥 แถบแจ้งสถานะอนุมัติ */
-.approvalBar{
-  margin-top:14px;
-  padding:12px 12px;
-  border-radius:16px;
-  border:1px solid rgba(255,90,90,.22);
-  background:rgba(0,0,0,.18);
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  text-align:left;
-}
+.approvalBar{margin-top:14px;padding:12px;border-radius:16px;border:1px solid rgba(255,90,90,.22);background:rgba(0,0,0,.18);display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left}
 .approvalLeft{display:flex;align-items:center;gap:10px}
-.stateIcon{
-  width:42px;height:42px;border-radius:14px;
-  display:grid;place-items:center;
-  border:1px solid rgba(255,90,90,.25);
-  background:rgba(255,255,255,.06);
-  box-shadow:0 10px 26px rgba(0,0,0,.35);
-  font-size:20px;
-}
+.stateIcon{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;border:1px solid rgba(255,90,90,.25);background:rgba(255,255,255,.06);box-shadow:0 10px 26px rgba(0,0,0,.35);font-size:20px}
 .stateTitle{font-weight:1000}
 .stateSub{font-size:12px;color:rgba(255,220,220,.70);margin-top:2px}
 .approvalRight{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
-.pillMini{
-  padding:8px 10px;border-radius:999px;font-size:12px;
-  border:1px solid rgba(255,90,90,.18);background:rgba(255,255,255,.05);
-  color:rgba(255,220,220,.80);user-select:none
-}
+.pillMini{padding:8px 10px;border-radius:999px;font-size:12px;border:1px solid rgba(255,90,90,.18);background:rgba(255,255,255,.05);color:rgba(255,220,220,.80)}
 
-.grid{
-  display:grid;gap:14px;
-  grid-template-columns: 1.1fr .8fr 1.1fr;
-  align-items:center;
-  margin-top:14px;
-  padding:14px;
-  border-radius:var(--r16);
-  border:1px solid rgba(255,90,90,.22);
-  background:rgba(0,0,0,.20);
-}
+.grid{display:grid;gap:14px;grid-template-columns: 1.1fr .8fr 1.1fr;align-items:center;margin-top:14px;padding:14px;border-radius:var(--r16);border:1px solid rgba(255,90,90,.22);background:rgba(0,0,0,.20)}
 .club{display:flex;flex-direction:column;align-items:center;gap:8px}
-.badge{
-  width:108px;height:108px;border-radius:24px;
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,90,90,.30);
-  box-shadow:0 14px 40px rgba(0,0,0,.45);
-  display:grid;place-items:center;overflow:hidden;
-}
-.badge img{
-  width:78px;height:78px;object-fit:contain;object-position:center;display:block;
-  filter: drop-shadow(0 0 10px rgba(0,0,0,.35));
-}
+.badge{width:108px;height:108px;border-radius:24px;background:rgba(255,255,255,.05);border:1px solid rgba(255,90,90,.30);box-shadow:0 14px 40px rgba(0,0,0,.45);display:grid;place-items:center;overflow:hidden}
+.badge img{width:78px;height:78px;object-fit:contain}
 .clubName{font-size:13px;color:rgba(255,235,235,.92);font-weight:800}
 .vsBox{display:grid;place-items:center;gap:8px}
 .vs{font-weight:1100;letter-spacing:2px;font-size:18px;color:rgba(255,200,200,.88)}
-.kickoff{
-  font-size:12px;color:rgba(255,210,210,.6);
-  padding:8px 10px;border-radius:999px;
-  border:1px solid rgba(255,90,90,.22);
-  background:rgba(0,0,0,.16);
-}
+.kickoff{font-size:12px;color:rgba(255,210,210,.6);padding:8px 10px;border-radius:999px;border:1px solid rgba(255,90,90,.22);background:rgba(0,0,0,.16)}
 
 .body{padding:18px}
 .row{margin-bottom:14px}
 .label{display:flex;align-items:center;justify-content:space-between;gap:10px;color:rgba(255,210,210,.75);font-size:13px;margin-bottom:8px}
 .mini{font-size:11px;color:rgba(255,210,210,.55)}
-.input{
-  width:100%;padding:13px 14px;border-radius:var(--r12);
-  border:1px solid rgba(255,90,90,.22);
-  background:rgba(0,0,0,.24);color:var(--txt);
-  outline:none;font-size:15px;transition:.2s ease;
-}
+.input{width:100%;padding:13px 14px;border-radius:var(--r12);border:1px solid rgba(255,90,90,.22);background:rgba(0,0,0,.24);color:var(--txt);outline:none;font-size:15px}
 .input:focus{border-color:rgba(255,43,43,.85);box-shadow:0 0 0 4px rgba(255,43,43,.22)}
 
 .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-.btn{
-  cursor:pointer;border:none;border-radius:var(--r12);
-  padding:12px 14px;font-weight:950;font-size:14px;
-  transition:.18s ease;user-select:none;
-}
+.btn{cursor:pointer;border:none;border-radius:var(--r12);padding:12px 14px;font-weight:950;font-size:14px;transition:.18s ease}
 .btn:active{transform:translateY(1px) scale(.99)}
 .btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
 .btnGhost{background:rgba(255,255,255,.06);color:var(--txt);border:1px solid rgba(255,90,90,.18)}
-.btnPrimary{
-  flex:1;min-width:240px;color:#fff;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  box-shadow:0 18px 40px rgba(255,43,43,.15)
-}
-.btnWarn{
-  background:rgba(255,204,102,.15);
-  border:1px solid rgba(255,204,102,.30);
-  color:rgba(255,235,200,.95)
-}
-.btnInfo{
-  background:rgba(125,211,252,.12);
-  border:1px solid rgba(125,211,252,.30);
-  color:rgba(220,245,255,.92)
-}
+.btnPrimary{flex:1;min-width:240px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 18px 40px rgba(255,43,43,.15)}
+.btnWarn{background:rgba(255,204,102,.15);border:1px solid rgba(255,204,102,.30);color:rgba(255,235,200,.95)}
+.btnInfo{background:rgba(125,211,252,.12);border:1px solid rgba(125,211,252,.30);color:rgba(220,245,255,.92)}
 
-.box{
-  padding:12px;border-radius:var(--r16);
-  border:1px dashed rgba(255,90,90,.35);
-  background:rgba(0,0,0,.20);
-}
+.box{padding:12px;border-radius:var(--r16);border:1px dashed rgba(255,90,90,.35);background:rgba(0,0,0,.20)}
 .choiceGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .choice3{grid-template-columns:1fr 1fr 1fr}
-.choiceBtn{
-  border:1px solid rgba(255,90,90,.22);
-  background:rgba(255,255,255,.06);
-  color:var(--txt);
-  padding:12px 10px;border-radius:var(--r12);
-  cursor:pointer;font-weight:900;font-size:13px;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  transition:.15s ease;
-}
-.choiceBtn.active{
-  border-color:rgba(54,211,153,.55);
-  box-shadow:0 0 0 4px rgba(54,211,153,.14);
-  background:rgba(54,211,153,.10)
-}
+.choiceBtn{border:1px solid rgba(255,90,90,.22);background:rgba(255,255,255,.06);color:var(--txt);padding:12px 10px;border-radius:var(--r12);cursor:pointer;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px}
+.choiceBtn.active{border-color:rgba(54,211,153,.55);box-shadow:0 0 0 4px rgba(54,211,153,.14);background:rgba(54,211,153,.10)}
 
 .scoreBox{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center}
 .scoreCtrl{display:flex;align-items:center;gap:10px;justify-content:center}
-.scBtn{
-  width:46px;height:46px;border-radius:14px;
-  border:1px solid rgba(255,90,90,.22);
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#fff;font-size:22px;font-weight:1000;
-  cursor:pointer;box-shadow:0 10px 22px rgba(255,0,0,.28)
-}
-.scBtn:active{transform:scale(.95)}
-.score{
-  width:78px;text-align:center;font-size:24px;font-weight:1000;
-  padding:10px 0;border-radius:14px;
-  border:1px solid rgba(255,90,90,.35);
-  background:rgba(0,0,0,.35);color:#fff
-}
+.scBtn{width:46px;height:46px;border-radius:14px;border:1px solid rgba(255,90,90,.22);background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:22px;font-weight:1000;cursor:pointer}
+.score{width:78px;text-align:center;font-size:24px;font-weight:1000;padding:10px 0;border-radius:14px;border:1px solid rgba(255,90,90,.35);background:rgba(0,0,0,.35);color:#fff}
 
-.alert{
-  margin-top:12px;padding:12px;border-radius:var(--r16);
-  border:1px solid rgba(255,90,90,.18);
-  background:rgba(0,0,0,.16);
-  font-size:13px;line-height:1.55;
-}
+.alert{margin-top:12px;padding:12px;border-radius:var(--r16);border:1px solid rgba(255,90,90,.18);background:rgba(0,0,0,.16);font-size:13px;line-height:1.55}
 .ok{border-color:rgba(54,211,153,.28);background:rgba(54,211,153,.10)}
 .err{border-color:rgba(255,90,90,.30);background:rgba(255,90,90,.10)}
 .warn{border-color:rgba(255,204,102,.35);background:rgba(255,204,102,.12)}
 .info{border-color:rgba(125,211,252,.35);background:rgba(125,211,252,.08)}
-
 .smallmono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:rgba(255,210,210,.55);word-break:break-all;margin-top:8px}
 .spin{width:16px;height:16px;border-radius:99px;border:2px solid rgba(255,255,255,.25);border-top-color: rgba(255,255,255,.95);display:inline-block;animation:rot .7s linear infinite;vertical-align:-3px;margin-right:8px}
 @keyframes rot{to{transform:rotate(360deg)}}
-
-@media (max-width:860px){
-  .grid{grid-template-columns:1fr;gap:12px}
-  .vsBox{order:2}
-  .approvalBar{flex-direction:column;align-items:flex-start}
-  .approvalRight{justify-content:flex-start}
-}
+@media (max-width:860px){.grid{grid-template-columns:1fr}.approvalBar{flex-direction:column;align-items:flex-start}.approvalRight{justify-content:flex-start}}
 </style>
 </head>
 
@@ -250,7 +106,7 @@ body{
   <div class="topbar">
     <div class="brand">
       <div class="logo"><img src="https://ramruay365.co/wp-content/uploads/2025/12/1735020594-1.png" alt="RR365"></div>
-      <div class="t"><b>Rumruay365</b><span>ทายผลบอล • ต้องได้รับอนุมัติก่อนส่งคำทาย</span></div>
+      <div class="t"><b>Rumruay365</b><span>ทายผลบอล • ต้องอนุมัติก่อนส่งคำทาย</span></div>
     </div>
     <div class="chip"><span id="dot" class="dot"></span><span id="status">รอเช็คสิทธิ์</span></div>
   </div>
@@ -259,13 +115,9 @@ body{
     <div class="hero">
       <div class="heroLogo"><div class="pill"><img src="https://ramruay365.co/wp-content/uploads/2025/12/1735020594-1.png" alt="ร่ำรวย365"></div></div>
       <h2 class="hTitle">ทายผลบอล (รอแอดมินอนุมัติ)</h2>
-      <div class="hSub">
-        ✅ 1 คนต่อ 1 เครื่อง • กด “เช็คสิทธิ์” หลังแอดมินอนุมัติแล้ว<br>
-        <b style="color:#fff">ถ้าเครื่องนี้เคยใช้เบอร์อื่น ระบบจะขึ้นเตือนทันที</b>
-      </div>
+      <div class="hSub">กด “เช็คสิทธิ์” เพื่อเข้าคิว • ถ้าอนุมัติแล้วจะปลดล็อคปุ่ม “ส่งคำทาย” อัตโนมัติ</div>
 
-      <!-- แถบสถานะ -->
-      <div class="approvalBar" id="approvalBar">
+      <div class="approvalBar">
         <div class="approvalLeft">
           <div class="stateIcon" id="stateIcon">🕒</div>
           <div>
@@ -298,12 +150,8 @@ body{
     <div class="body">
       <form id="f" autocomplete="off">
         <div class="row">
-          <div class="label">
-            <span>เบอร์โทรที่สมัคร</span>
-            <span class="mini">* ส่งคำทายได้เมื่อ “อนุมัติแล้ว”</span>
-          </div>
-          <input class="input" id="phone" type="tel" inputmode="numeric" autocomplete="tel"
-                 placeholder="เช่น 096xxxxxxx" maxlength="12" required>
+          <div class="label"><span>เบอร์โทรที่สมัคร</span><span class="mini">* อนุมัติแล้วค่อยส่งคำทาย</span></div>
+          <input class="input" id="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="เช่น 096xxxxxxx" maxlength="12" required>
           <div class="btns">
             <button type="button" class="btn btnGhost" id="btnCheck">✅ เช็คสิทธิ์</button>
             <button type="button" class="btn btnWarn" id="btnAuto">🔄 เปิด Auto-check</button>
@@ -317,8 +165,8 @@ body{
           <div class="label"><span>ทีมไหนเขี่ยก่อน</span><span class="mini">เลือก 1 ทีม</span></div>
           <div class="box">
             <div class="choiceGrid" id="kickGrid">
-              <button type="button" class="choiceBtn" data-kick="HOME" id="kickHome">🏁 <span id="kickHomeTxt">สเปอร์ส</span></button>
-              <button type="button" class="choiceBtn" data-kick="AWAY" id="kickAway">🏁 <span id="kickAwayTxt">ลิเวอร์พูล</span></button>
+              <button type="button" class="choiceBtn" data-kick="HOME">🏁 <span id="kickHomeTxt">สเปอร์ส</span></button>
+              <button type="button" class="choiceBtn" data-kick="AWAY">🏁 <span id="kickAwayTxt">ลิเวอร์พูล</span></button>
             </div>
           </div>
         </div>
@@ -335,7 +183,7 @@ body{
         </div>
 
         <div class="row">
-          <div class="label"><span>ทายสกอร์ (กด +/-)</span><span class="mini">ส่งได้เมื่อ “อนุมัติแล้ว”</span></div>
+          <div class="label"><span>ทายสกอร์ (กด +/-)</span><span class="mini">ปลดล็อคเมื่อ APPROVED</span></div>
           <div class="box">
             <div class="scoreBox">
               <div class="scoreCtrl">
@@ -364,11 +212,10 @@ body{
 </div>
 
 <script>
-/* ================== CONFIG ================== */
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxotyfzxCJxEvuQiOV6DhSprX7538u5ImteKQnJldXZZNOVHDLNhwAZETepEFBbyb8P/exec";
-
-// ใส่ลิงก์แชทแอดมินของคุณ (แก้ได้)
+/* ====== CONFIG ====== */
+const WEB_APP_URL   = "https://script.google.com/macros/s/AKfycbyYMV9whSoAbtkNmkrHtsDqaIMb991-IBLXyVgGVXpyEIsnofeyH94Lb5Vz0at61TiA/exec";
 const ADMIN_CHAT_URL = "https://lin.ee/htI2IHg";
+const AUTO_INTERVAL_MS = 6000;
 
 const MATCH = {
   homeName: "สเปอร์ส",
@@ -377,88 +224,34 @@ const MATCH = {
   awayLogo: "https://media.api-sports.io/football/teams/40.png",
   cutoffText: "ปิดรับทาย: 23:59 น."
 };
-
-const AUTO_INTERVAL_MS = 6000;
-/* =========================================== */
-
+/* =================== */
 const $ = (id)=>document.getElementById(id);
 
 function setStatus(mode, text){
   $("status").textContent = text;
   const dot = $("dot");
-  dot.className = "dot";
-  if(mode==="ok") dot.classList.add("ok");
-  else if(mode==="bad") dot.classList.add("bad");
-  else if(mode==="info") dot.classList.add("info");
+  dot.className = "dot" + (mode==="ok" ? " ok" : mode==="bad" ? " bad" : mode==="info" ? " info" : "");
 }
-
 function setApprovalUI(state, sub){
-  // state: IDLE/WAIT/APPROVED/SUBMITTED/BLOCK/DEVICE_MISMATCH/ERROR
-  const icon = $("stateIcon");
-  const title = $("stateTitle");
-  const subEl = $("stateSub");
+  const icon = $("stateIcon"), title=$("stateTitle"), subEl=$("stateSub");
 
-  if(state === "APPROVED"){
-    icon.textContent="✅";
-    title.textContent="แอดมินอนุมัติแล้ว";
-    subEl.textContent=sub || "ตอนนี้สามารถส่งคำทายได้";
-    setStatus("ok","อนุมัติแล้ว");
-    return;
+  if(state==="APPROVED"){ icon.textContent="✅"; title.textContent="อนุมัติแล้ว"; subEl.textContent=sub||"สามารถส่งคำทายได้"; setStatus("ok","อนุมัติแล้ว"); return; }
+  if(state==="WAIT"){ icon.textContent="⏳"; title.textContent="รอแอดมินอนุมัติ"; subEl.textContent=sub||"รอสักครู่ แล้วเช็คอีกครั้ง"; setStatus("","รออนุมัติ"); return; }
+  if(state==="SUBMITTED"){ icon.textContent="📌"; title.textContent="ส่งคำทายแล้ว"; subEl.textContent=sub||"ถ้าจะทายใหม่ แอดมินต้องปลดล็อค"; setStatus("info","ส่งแล้ว"); return; }
+  if(state==="BLOCK"){ icon.textContent="⛔"; title.textContent="ถูกระงับสิทธิ์"; subEl.textContent=sub||"ติดต่อแอดมิน"; setStatus("bad","ระงับสิทธิ์"); return; }
+  if(state==="DEVICE_BOUND_OTHER_PHONE"){
+    icon.textContent="❌"; title.textContent="เครื่องนี้เคยใช้เบอร์อื่น"; subEl.textContent=sub||"ให้แอดมินกด “รีเซ็ตเครื่อง”"; setStatus("bad","อุปกรณ์ติดผูก"); return;
   }
-  if(state === "WAIT"){
-    icon.textContent="⏳";
-    title.textContent="รอแอดมินอนุมัติ";
-    subEl.textContent=sub || "รอสักครู่ แล้วกดเช็คสิทธิ์อีกครั้ง";
-    setStatus("","รออนุมัติ");
-    return;
-  }
-  if(state === "SUBMITTED"){
-    icon.textContent="📌";
-    title.textContent="ส่งคำทายแล้ว";
-    subEl.textContent=sub || "ถ้าจะทายใหม่ แอดมินต้องลบแถวในชีทก่อน";
-    setStatus("info","ส่งแล้ว");
-    return;
-  }
-  if(state === "BLOCK"){
-    icon.textContent="⛔";
-    title.textContent="ถูกระงับสิทธิ์";
-    subEl.textContent=sub || "กรุณาติดต่อแอดมิน";
-    setStatus("bad","ระงับสิทธิ์");
-    return;
-  }
-  if(state === "DEVICE_MISMATCH"){
-    icon.textContent="❌";
-    title.textContent="เครื่องนี้เคยใช้เบอร์อื่นแล้ว";
-    subEl.textContent=sub || "ระบบ 1 คน/1 เครื่อง ไม่อนุญาตให้เปลี่ยนเบอร์บนอุปกรณ์เดิม";
-    setStatus("bad","อุปกรณ์ไม่ตรงเงื่อนไข");
-    return;
-  }
-  if(state === "ERROR"){
-    icon.textContent="⚠️";
-    title.textContent="เชื่อมต่อไม่ได้";
-    subEl.textContent=sub || "ตรวจสอบ Deploy (Anyone) และ URL /exec";
-    setStatus("bad","เชื่อมต่อไม่ได้");
-    return;
-  }
-  // IDLE
-  icon.textContent="🕒";
-  title.textContent="รอเช็คสิทธิ์";
-  subEl.textContent=sub || "กรอกเบอร์แล้วกด “เช็คสิทธิ์”";
-  setStatus("","รอเช็คสิทธิ์");
+  if(state==="ERROR"){ icon.textContent="⚠️"; title.textContent="เชื่อมต่อไม่ได้"; subEl.textContent=sub||"ตรวจสอบ WebApp/Deploy"; setStatus("bad","เชื่อมต่อไม่ได้"); return; }
+
+  icon.textContent="🕒"; title.textContent="รอเช็คสิทธิ์"; subEl.textContent=sub||"กรอกเบอร์แล้วกดเช็คสิทธิ์"; setStatus("","รอเช็คสิทธิ์");
 }
 
-function alertBox(type, html, debugObj){
-  const cls = type==="ok" ? "alert ok"
-    : type==="info" ? "alert info"
-    : type==="warn" ? "alert warn"
-    : "alert err";
-  const dbg = debugObj ? `<div class="smallmono">DEBUG: ${escapeHtml(JSON.stringify(debugObj))}</div>` : "";
-  $("msg").innerHTML = `<div class="${cls}">${html}${dbg}</div>`;
+function alertBox(type, html){
+  const cls = type==="ok" ? "alert ok" : type==="info" ? "alert info" : type==="warn" ? "alert warn" : "alert err";
+  $("msg").innerHTML = `<div class="${cls}">${html}</div>`;
 }
-
-function escapeHtml(s){
-  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-}
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 function onlyDigits(s){ return String(s||"").replace(/[^\d]/g,""); }
 function isValidPhone(d){ return /^0\d{8,9}$/.test(d); }
 
@@ -466,8 +259,7 @@ function getDeviceId(){
   const key="RR365_DEVICE_ID";
   let v=localStorage.getItem(key);
   if(!v){
-    v=(crypto && crypto.randomUUID) ? crypto.randomUUID()
-      : ("dev_"+Math.random().toString(16).slice(2)+Date.now());
+    v=(crypto && crypto.randomUUID) ? crypto.randomUUID() : ("dev_"+Math.random().toString(16).slice(2)+Date.now());
     localStorage.setItem(key,v);
   }
   return v;
@@ -475,150 +267,91 @@ function getDeviceId(){
 const deviceId = getDeviceId();
 $("devMini").textContent = deviceId.slice(0,8)+"…";
 
-const LS_OK    = "RR365_OK_" + deviceId;
-const LS_KICK  = "RR365_KICK_" + deviceId;
-const LS_FIRST = "RR365_FIRST_" + deviceId;
-const LS_AUTO  = "RR365_AUTO_" + deviceId;
-
-let autoTimer = null;
-
-function setLoading(btn, on, text){
-  if(on){
-    btn.dataset.prev = btn.textContent;
-    btn.disabled = true;
-    btn.innerHTML = `<span class="spin"></span>${text || "กำลังทำรายการ..."}`;
-  }else{
-    btn.disabled = false;
-    btn.textContent = btn.dataset.prev || btn.textContent;
-  }
-}
+const LS_OK="RR365_OK_"+deviceId, LS_KICK="RR365_KICK_"+deviceId, LS_FIRST="RR365_FIRST_"+deviceId, LS_AUTO="RR365_AUTO_"+deviceId;
+let autoTimer=null;
 
 async function post(body){
-  const res = await fetch(WEB_APP_URL, {
-    method:"POST",
-    headers: {"Content-Type":"text/plain;charset=utf-8"},
-    body: JSON.stringify(body)
-  });
+  const res = await fetch(WEB_APP_URL, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body: JSON.stringify(body) });
   const t = await res.text();
   return JSON.parse(t);
 }
 
 function setActive(group, attr, val){
-  [...group.querySelectorAll(".choiceBtn")].forEach(b=>{
-    b.classList.toggle("active", b.dataset[attr] === val);
-  });
+  [...group.querySelectorAll(".choiceBtn")].forEach(b=> b.classList.toggle("active", b.dataset[attr]===val));
 }
-
 function getPhone(){
   const d = onlyDigits($("phone").value);
   $("phone").value = d.slice(0,10);
   return $("phone").value;
 }
-
 function scoreClamp(x){ return Math.max(0, Math.min(99, x)); }
 function setScore(id, v){ $(id).textContent = String(scoreClamp(v)); }
 function getScore(id){ return parseInt($(id).textContent || "0", 10) || 0; }
 
 function refreshSubmit(){
-  const ok = localStorage.getItem(LS_OK) === "1";
-  const kick = localStorage.getItem(LS_KICK) || "";
-  const first = localStorage.getItem(LS_FIRST) || "";
-
-  const kickOk = (kick==="HOME" || kick==="AWAY");
-  const firstOk = (first==="HOME" || first==="AWAY" || first==="NONE");
-
+  const ok = localStorage.getItem(LS_OK)==="1";
+  const kick = localStorage.getItem(LS_KICK)||"";
+  const first = localStorage.getItem(LS_FIRST)||"";
+  const kickOk = (kick==="HOME"||kick==="AWAY");
+  const firstOk = (first==="HOME"||first==="AWAY"||first==="NONE");
   $("btnSubmit").disabled = !(ok && kickOk && firstOk);
-  $("btnSubmit").textContent = ok
-    ? ((kickOk && firstOk) ? "✅ ส่งคำทาย" : "⚠️ เลือกให้ครบก่อนส่ง")
-    : "⛔ ต้องอนุมัติก่อน";
+  $("btnSubmit").textContent = ok ? ((kickOk && firstOk) ? "✅ ส่งคำทาย" : "⚠️ เลือกให้ครบก่อนส่ง") : "⛔ ต้องอนุมัติก่อน";
 }
 
 function setAutoUI(on){
   $("autoPill").textContent = "Auto-check: " + (on ? "เปิด" : "ปิด");
   $("btnAuto").textContent = on ? "⏹ ปิด Auto-check" : "🔄 เปิด Auto-check";
-  if(on){
-    $("btnAuto").classList.remove("btnWarn");
-    $("btnAuto").classList.add("btnGhost");
-  }else{
-    $("btnAuto").classList.add("btnWarn");
-    $("btnAuto").classList.remove("btnGhost");
-  }
+  $("btnAuto").className = "btn " + (on ? "btnGhost" : "btnWarn");
 }
-
 function startAutoCheck(){
   stopAutoCheck();
   localStorage.setItem(LS_AUTO,"1");
   setAutoUI(true);
   autoTimer = setInterval(async ()=>{
-    const phone = getPhone();
+    const phone=getPhone();
     if(!isValidPhone(phone)) return;
     if(localStorage.getItem(LS_OK)==="1"){ stopAutoCheck(); return; }
     await doCheck(true);
   }, AUTO_INTERVAL_MS);
 }
-
 function stopAutoCheck(){
   localStorage.setItem(LS_AUTO,"0");
   setAutoUI(false);
-  if(autoTimer){ clearInterval(autoTimer); autoTimer = null; }
-}
-
-function classifyMsg(msg){
-  const m = String(msg||"");
-  if(m.includes("อุปกรณ์นี้เคยใช้เบอร์อื่น") || m.includes("อุปกรณ์นี้เคยใช้เบอร์อื่นแล้ว")) return "DEVICE_MISMATCH";
-  if(m.includes("ระงับ") || m.includes("BLOCK")) return "BLOCK";
-  if(m.includes("ส่งคำทาย") || m.includes("ส่งไปแล้ว")) return "SUBMITTED";
-  if(m.includes("อนุมัติ") && m.includes("แล้ว")) return "APPROVED";
-  if(m.includes("รอแอดมิน") || m.includes("รอ") || m.includes("WAIT")) return "WAIT";
-  return "";
+  if(autoTimer){ clearInterval(autoTimer); autoTimer=null; }
 }
 
 async function doCheck(silent=false){
-  const phone = getPhone();
+  const phone=getPhone();
   if(!isValidPhone(phone)){
-    if(!silent) alertBox("err","กรุณากรอกเบอร์ให้ถูกต้อง (เช่น 096xxxxxxx)");
-    setApprovalUI("IDLE","กรอกเบอร์ให้ถูกต้อง แล้วกดเช็คสิทธิ์");
+    if(!silent) alertBox("err","กรุณากรอกเบอร์ให้ถูกต้อง");
+    setApprovalUI("IDLE","กรอกเบอร์แล้วกดเช็คสิทธิ์");
     return;
   }
   if(!WEB_APP_URL || WEB_APP_URL.includes("ใส่ลิงก์")){
-    alertBox("err","ยังไม่ได้ใส่ WEB_APP_URL (/exec)");
-    setApprovalUI("ERROR","ยังไม่ได้ตั้งค่า WEB_APP_URL");
+    setApprovalUI("ERROR","ยังไม่ได้ใส่ WEB_APP_URL");
+    if(!silent) alertBox("err","ยังไม่ได้ใส่ WEB_APP_URL (/exec)");
     return;
   }
 
-  if(!silent) setLoading($("btnCheck"), true, "กำลังเช็คสิทธิ์...");
   try{
     const data = await post({ action:"check", phone, deviceId, userAgent:navigator.userAgent });
 
     if(data.ok){
-      localStorage.setItem(LS_OK, "1");
-      setApprovalUI("APPROVED", data.msg || "✅ อนุมัติแล้ว");
-      if(!silent) alertBox("ok", data.msg || "✅ แอดมินอนุมัติแล้ว", data.debug);
-      refreshSubmit();
+      localStorage.setItem(LS_OK,"1");
+      setApprovalUI("APPROVED", data.msg);
+      if(!silent) alertBox("ok", escapeHtml(data.msg||"อนุมัติแล้ว"));
       stopAutoCheck();
     }else{
-      localStorage.setItem(LS_OK, "0");
-
-      const state = classifyMsg(data.msg) || "WAIT";
-      setApprovalUI(state, data.msg || "⏳ รอแอดมินอนุมัติ");
-
-      if(state === "DEVICE_MISMATCH"){
-        if(!silent) alertBox("err", "❌ " + escapeHtml(data.msg || "อุปกรณ์นี้เคยใช้เบอร์อื่นแล้ว") + "<br>📌 ถ้าเป็นเบอร์ของคุณจริง ให้ติดต่อแอดมินตรวจสอบ", data.debug);
-      }else{
-        if(!silent) alertBox("warn", data.msg || "⏳ รอแอดมินอนุมัติ", data.debug);
-      }
-      refreshSubmit();
+      localStorage.setItem(LS_OK,"0");
+      setApprovalUI(data.code || "WAIT", data.msg);
+      if(!silent) alertBox(data.code==="DEVICE_BOUND_OTHER_PHONE" ? "err" : "warn", escapeHtml(data.msg||"รออนุมัติ"));
     }
-  }catch(err){
-    localStorage.setItem(LS_OK, "0");
-    setApprovalUI("ERROR","เชื่อมต่อไม่สำเร็จ ตรวจสอบ Deploy (Anyone) และ URL /exec");
-    if(!silent) alertBox("err","เชื่อมต่อไม่สำเร็จ ตรวจสอบ Deploy (Anyone) และ URL /exec");
     refreshSubmit();
-  }finally{
-    if(!silent){
-      setLoading($("btnCheck"), false);
-      $("btnCheck").textContent="✅ เช็คสิทธิ์";
-    }
+  }catch(e){
+    localStorage.setItem(LS_OK,"0");
+    setApprovalUI("ERROR","เชื่อมต่อไม่ได้ ตรวจสอบ Deploy/URL");
+    if(!silent) alertBox("err","เชื่อมต่อไม่ได้ ตรวจสอบ Deploy/URL");
+    refreshSubmit();
   }
 }
 
@@ -633,114 +366,89 @@ $("firstAwayTxt").textContent = MATCH.awayName;
 $("homeLogo").src = MATCH.homeLogo;
 $("awayLogo").src = MATCH.awayLogo;
 
-/* init UI */
 setApprovalUI("IDLE");
-refreshSubmit();
 setAutoUI(localStorage.getItem(LS_AUTO)==="1");
+refreshSubmit();
 
-/* score buttons */
-$("hsMinus").onclick = ()=> setScore("hs", getScore("hs")-1);
-$("hsPlus").onclick  = ()=> setScore("hs", getScore("hs")+1);
-$("asMinus").onclick = ()=> setScore("as", getScore("as")-1);
-$("asPlus").onclick  = ()=> setScore("as", getScore("as")+1);
+/* score */
+$("hsMinus").onclick=()=>setScore("hs",getScore("hs")-1);
+$("hsPlus").onclick =()=>setScore("hs",getScore("hs")+1);
+$("asMinus").onclick=()=>setScore("as",getScore("as")-1);
+$("asPlus").onclick =()=>setScore("as",getScore("as")+1);
 
 /* choices */
-$("kickGrid").addEventListener("click", (e)=>{
-  const b = e.target.closest(".choiceBtn"); if(!b) return;
-  localStorage.setItem(LS_KICK, b.dataset.kick);
-  setActive($("kickGrid"), "kick", b.dataset.kick);
+$("kickGrid").addEventListener("click",(e)=>{
+  const b=e.target.closest(".choiceBtn"); if(!b) return;
+  localStorage.setItem(LS_KICK,b.dataset.kick);
+  setActive($("kickGrid"),"kick",b.dataset.kick);
   refreshSubmit();
 });
-$("firstGrid").addEventListener("click", (e)=>{
-  const b = e.target.closest(".choiceBtn"); if(!b) return;
-  localStorage.setItem(LS_FIRST, b.dataset.first);
-  setActive($("firstGrid"), "first", b.dataset.first);
+$("firstGrid").addEventListener("click",(e)=>{
+  const b=e.target.closest(".choiceBtn"); if(!b) return;
+  localStorage.setItem(LS_FIRST,b.dataset.first);
+  setActive($("firstGrid"),"first",b.dataset.first);
   refreshSubmit();
 });
 
 /* buttons */
-$("btnCheck").addEventListener("click", async ()=>{ await doCheck(false); });
-
-$("btnAuto").addEventListener("click", ()=>{
+$("btnCheck").onclick=()=>doCheck(false);
+$("btnAuto").onclick=()=>{
   const on = localStorage.getItem(LS_AUTO)==="1";
-  if(on) stopAutoCheck();
-  else startAutoCheck();
-});
-
-$("btnContact").addEventListener("click", ()=>{
-  window.open(ADMIN_CHAT_URL, "_blank");
-});
-
-$("btnDebug").addEventListener("click", async ()=>{
-  if(!WEB_APP_URL) return alertBox("err","ยังไม่ได้ใส่ WEB_APP_URL (/exec)");
-  setLoading($("btnDebug"), true, "ดึง Debug...");
+  on ? stopAutoCheck() : startAutoCheck();
+};
+$("btnContact").onclick=()=>window.open(ADMIN_CHAT_URL,"_blank");
+$("btnDebug").onclick=async()=>{
   try{
-    const data = await post({ action:"debug" });
-    alertBox("info", "Debug จากเซิร์ฟเวอร์ ✅", data.debug);
+    const d = await post({ action:"debug" });
+    alertBox("info", "Debug: " + escapeHtml(JSON.stringify(d.debug||{})));
   }catch(e){
-    alertBox("err","Debug ไม่ได้ ตรวจสอบ URL /exec และ Deploy");
-  }finally{
-    setLoading($("btnDebug"), false);
-    $("btnDebug").textContent="🛠️ Debug";
+    alertBox("err","Debug ไม่ได้");
   }
-});
-
-$("btnReset").addEventListener("click", ()=>{
-  // ล้างเฉพาะสถานะ “ผ่านสิทธิ์” ไม่ยุ่ง deviceId (กันหลุดกฎ 1 เครื่อง)
+};
+$("btnReset").onclick=()=>{
   localStorage.setItem(LS_OK,"0");
-  setApprovalUI("IDLE","ล้างค่าแล้ว กรุณากรอกเบอร์และเช็คสิทธิ์ใหม่");
+  setApprovalUI("IDLE","ล้างค่าแล้ว กรอกเบอร์และเช็คสิทธิ์ใหม่");
   refreshSubmit();
-});
+};
 
 /* submit */
 $("f").addEventListener("submit", async (e)=>{
   e.preventDefault();
-  const phone = getPhone();
+  const phone=getPhone();
   if(!isValidPhone(phone)) return alertBox("err","กรุณากรอกเบอร์ให้ถูกต้อง");
-  if(localStorage.getItem(LS_OK)!=="1") return alertBox("warn","⛔ ยังไม่ได้รับการอนุมัติจากแอดมิน (กดเช็คสิทธิ์หลังอนุมัติ)");
+  if(localStorage.getItem(LS_OK)!=="1") return alertBox("warn","⛔ ยังไม่ได้รับการอนุมัติ (กดเช็คสิทธิ์หลังอนุมัติ)");
 
-  const kick = localStorage.getItem(LS_KICK) || "";
-  const first = localStorage.getItem(LS_FIRST) || "";
+  const kick=localStorage.getItem(LS_KICK)||"";
+  const first=localStorage.getItem(LS_FIRST)||"";
   if(!(kick==="HOME"||kick==="AWAY")) return alertBox("warn","กรุณาเลือกทีมเขี่ยก่อน");
   if(!(first==="HOME"||first==="AWAY"||first==="NONE")) return alertBox("warn","กรุณาเลือกทีมยิงก่อน");
 
-  setLoading($("btnSubmit"), true, "กำลังส่งคำทาย...");
   try{
     const data = await post({
-      action:"submit",
-      phone,
-      deviceId,
-      kickOffTeam: kick,
-      firstGoalTeam: first,
-      homeScore: getScore("hs"),
-      awayScore: getScore("as"),
-      userAgent: navigator.userAgent
+      action:"submit", phone, deviceId,
+      kickOffTeam:kick, firstGoalTeam:first,
+      homeScore:getScore("hs"), awayScore:getScore("as"),
+      userAgent:navigator.userAgent
     });
 
     if(data.ok){
-      localStorage.setItem(LS_OK, "0");
-      setApprovalUI("SUBMITTED", data.msg || "ส่งคำทายเรียบร้อย ✅");
-      alertBox("ok", data.msg || "ส่งสำเร็จ ✅", data.debug);
+      localStorage.setItem(LS_OK,"0");
+      setApprovalUI("SUBMITTED", data.msg);
+      alertBox("ok", escapeHtml(data.msg||"ส่งแล้ว"));
     }else{
-      const state = classifyMsg(data.msg) || "WAIT";
-      setApprovalUI(state, data.msg || "ส่งไม่สำเร็จ");
-      alertBox(state==="DEVICE_MISMATCH" ? "err" : "warn", data.msg || "ส่งไม่สำเร็จ", data.debug);
+      setApprovalUI(data.code || "WAIT", data.msg);
+      alertBox(data.code==="DEVICE_BOUND_OTHER_PHONE" ? "err" : "warn", escapeHtml(data.msg||"ส่งไม่สำเร็จ"));
     }
     refreshSubmit();
-  }catch(err){
+  }catch(e){
     setApprovalUI("ERROR","ส่งไม่สำเร็จ ตรวจสอบ WebApp/Deploy/เน็ต");
     alertBox("err","ส่งไม่สำเร็จ ตรวจสอบ WebApp/Deploy/เน็ต");
-    refreshSubmit();
-  }finally{
-    setLoading($("btnSubmit"), false);
     refreshSubmit();
   }
 });
 
-/* auto-start */
-if(localStorage.getItem(LS_AUTO)==="1"){
-  startAutoCheck();
-}
+/* auto start */
+if(localStorage.getItem(LS_AUTO)==="1") startAutoCheck();
 </script>
 </body>
 </html>
