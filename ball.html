@@ -14,14 +14,14 @@
   --txt:#fff2f2;
   --muted:rgba(255,220,220,.72);
   --accent:#ff2b2b; --accent2:#b80000;
-  --ok:#36d399; --bad:#ff5a5f; --warn:#ffcc66;
+  --ok:#36d399; --bad:#ff5a5f; --warn:#ffcc66; --info:#7dd3fc;
   --shadow:0 26px 90px rgba(0,0,0,.65);
   --shadow2:0 14px 50px rgba(0,0,0,.45);
   --r12:12px; --r16:16px; --r20:20px;
 }
 *{box-sizing:border-box}
 body{
-  margin:0; padding:18px 14px 60px;
+  margin:0; padding:18px 14px 64px;
   font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
   color:var(--txt);
   background:
@@ -32,10 +32,7 @@ body{
   overflow-x:hidden;
 }
 .wrap{width:min(1080px,100%);margin:0 auto}
-.topbar{
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  margin-bottom:14px
-}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
 .brand{display:flex;align-items:center;gap:12px}
 .brand .logo{
   width:46px;height:46px;border-radius:14px;
@@ -47,7 +44,6 @@ body{
 .brand .logo img{width:100%;height:100%;object-fit:cover}
 .brand .t b{font-size:14px}
 .brand .t span{display:block;font-size:12px;color:rgba(255,210,210,.55)}
-
 .chip{
   display:inline-flex;align-items:center;gap:8px;
   padding:10px 12px;border-radius:999px;
@@ -60,6 +56,7 @@ body{
 .dot{width:8px;height:8px;border-radius:99px;background:var(--warn);box-shadow:0 0 18px rgba(255,204,102,.6)}
 .dot.ok{background:var(--ok);box-shadow:0 0 18px rgba(54,211,153,.65)}
 .dot.bad{background:var(--bad);box-shadow:0 0 18px rgba(255,90,90,.6)}
+.dot.info{background:var(--info);box-shadow:0 0 18px rgba(125,211,252,.55)}
 
 .card{
   border-radius:var(--r20);
@@ -69,7 +66,6 @@ body{
   overflow:hidden;
   backdrop-filter:blur(10px);
 }
-
 .hero{
   padding:18px;
   border-bottom:1px solid var(--line);
@@ -85,14 +81,11 @@ body{
   background:rgba(0,0,0,.18);
   box-shadow:0 14px 40px rgba(0,0,0,.45);
 }
-.heroLogo img{
-  width:180px;max-width:80vw;height:auto;display:block;
-  filter:drop-shadow(0 0 18px rgba(255,0,0,.45));
-}
+.heroLogo img{width:180px;max-width:80vw;height:auto;display:block;filter:drop-shadow(0 0 18px rgba(255,0,0,.45))}
 .hTitle{margin:0;font-weight:1000;font-size:26px}
 .hSub{margin-top:8px;font-size:13px;color:var(--muted);line-height:1.55}
 
-/* 🔥 แถบสถานะอนุมัติ */
+/* 🔥 แถบแจ้งสถานะอนุมัติ */
 .approvalBar{
   margin-top:14px;
   padding:12px 12px;
@@ -103,7 +96,7 @@ body{
   text-align:left;
 }
 .approvalLeft{display:flex;align-items:center;gap:10px}
-.badgeState{
+.stateIcon{
   width:42px;height:42px;border-radius:14px;
   display:grid;place-items:center;
   border:1px solid rgba(255,90,90,.25);
@@ -113,9 +106,7 @@ body{
 }
 .stateTitle{font-weight:1000}
 .stateSub{font-size:12px;color:rgba(255,220,220,.70);margin-top:2px}
-.approvalRight{
-  display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end
-}
+.approvalRight{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
 .pillMini{
   padding:8px 10px;border-radius:999px;font-size:12px;
   border:1px solid rgba(255,90,90,.18);background:rgba(255,255,255,.05);
@@ -153,6 +144,7 @@ body{
   border:1px solid rgba(255,90,90,.22);
   background:rgba(0,0,0,.16);
 }
+
 .body{padding:18px}
 .row{margin-bottom:14px}
 .label{display:flex;align-items:center;justify-content:space-between;gap:10px;color:rgba(255,210,210,.75);font-size:13px;margin-bottom:8px}
@@ -183,6 +175,11 @@ body{
   background:rgba(255,204,102,.15);
   border:1px solid rgba(255,204,102,.30);
   color:rgba(255,235,200,.95)
+}
+.btnInfo{
+  background:rgba(125,211,252,.12);
+  border:1px solid rgba(125,211,252,.30);
+  color:rgba(220,245,255,.92)
 }
 
 .box{
@@ -233,6 +230,7 @@ body{
 .ok{border-color:rgba(54,211,153,.28);background:rgba(54,211,153,.10)}
 .err{border-color:rgba(255,90,90,.30);background:rgba(255,90,90,.10)}
 .warn{border-color:rgba(255,204,102,.35);background:rgba(255,204,102,.12)}
+.info{border-color:rgba(125,211,252,.35);background:rgba(125,211,252,.08)}
 
 .smallmono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:rgba(255,210,210,.55);word-break:break-all;margin-top:8px}
 .spin{width:16px;height:16px;border-radius:99px;border:2px solid rgba(255,255,255,.25);border-top-color: rgba(255,255,255,.95);display:inline-block;animation:rot .7s linear infinite;vertical-align:-3px;margin-right:8px}
@@ -252,7 +250,7 @@ body{
   <div class="topbar">
     <div class="brand">
       <div class="logo"><img src="https://ramruay365.co/wp-content/uploads/2025/12/1735020594-1.png" alt="RR365"></div>
-      <div class="t"><b>Rumruay365</b><span>ทายผลบอล • ต้องได้รับอนุมัติก่อน</span></div>
+      <div class="t"><b>Rumruay365</b><span>ทายผลบอล • ต้องได้รับอนุมัติก่อนส่งคำทาย</span></div>
     </div>
     <div class="chip"><span id="dot" class="dot"></span><span id="status">รอเช็คสิทธิ์</span></div>
   </div>
@@ -262,17 +260,17 @@ body{
       <div class="heroLogo"><div class="pill"><img src="https://ramruay365.co/wp-content/uploads/2025/12/1735020594-1.png" alt="ร่ำรวย365"></div></div>
       <h2 class="hTitle">ทายผลบอล (รอแอดมินอนุมัติ)</h2>
       <div class="hSub">
-        1 คนต่อ 1 เครื่อง • กรอกเบอร์แล้วกดเช็คสิทธิ์<br>
-        <b>ถ้ายังไม่อนุมัติ ระบบจะขึ้นเตือน “รอแอดมินอนุมัติ” และเช็คให้เองอัตโนมัติ</b>
+        ✅ 1 คนต่อ 1 เครื่อง • กด “เช็คสิทธิ์” หลังแอดมินอนุมัติแล้ว<br>
+        <b style="color:#fff">ถ้าเครื่องนี้เคยใช้เบอร์อื่น ระบบจะขึ้นเตือนทันที</b>
       </div>
 
-      <!-- ✅ แถบแจ้งเตือนสถานะอนุมัติ -->
+      <!-- แถบสถานะ -->
       <div class="approvalBar" id="approvalBar">
         <div class="approvalLeft">
-          <div class="badgeState" id="stateIcon">⏳</div>
+          <div class="stateIcon" id="stateIcon">🕒</div>
           <div>
-            <div class="stateTitle" id="stateTitle">รอแอดมินอนุมัติ</div>
-            <div class="stateSub" id="stateSub">กรอกเบอร์แล้วกด “เช็คสิทธิ์” เพื่อขึ้นคิว</div>
+            <div class="stateTitle" id="stateTitle">รอเช็คสิทธิ์</div>
+            <div class="stateSub" id="stateSub">กรอกเบอร์แล้วกด “เช็คสิทธิ์”</div>
           </div>
         </div>
         <div class="approvalRight">
@@ -302,13 +300,14 @@ body{
         <div class="row">
           <div class="label">
             <span>เบอร์โทรที่สมัคร</span>
-            <span class="mini">* ต้องได้รับอนุมัติถึงจะทายได้</span>
+            <span class="mini">* ส่งคำทายได้เมื่อ “อนุมัติแล้ว”</span>
           </div>
           <input class="input" id="phone" type="tel" inputmode="numeric" autocomplete="tel"
                  placeholder="เช่น 096xxxxxxx" maxlength="12" required>
           <div class="btns">
             <button type="button" class="btn btnGhost" id="btnCheck">✅ เช็คสิทธิ์</button>
             <button type="button" class="btn btnWarn" id="btnAuto">🔄 เปิด Auto-check</button>
+            <button type="button" class="btn btnInfo" id="btnContact">💬 ติดต่อแอดมิน</button>
             <button type="button" class="btn btnGhost" id="btnDebug">🛠️ Debug</button>
             <button type="reset" class="btn btnGhost" id="btnReset">ล้างค่า</button>
           </div>
@@ -368,6 +367,9 @@ body{
 /* ================== CONFIG ================== */
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxotyfzxCJxEvuQiOV6DhSprX7538u5ImteKQnJldXZZNOVHDLNhwAZETepEFBbyb8P/exec";
 
+// ใส่ลิงก์แชทแอดมินของคุณ (แก้ได้)
+const ADMIN_CHAT_URL = "https://lin.ee/htI2IHg";
+
 const MATCH = {
   homeName: "สเปอร์ส",
   awayName: "ลิเวอร์พูล",
@@ -376,7 +378,6 @@ const MATCH = {
   cutoffText: "ปิดรับทาย: 23:59 น."
 };
 
-// auto-check
 const AUTO_INTERVAL_MS = 6000;
 /* =========================================== */
 
@@ -384,59 +385,73 @@ const $ = (id)=>document.getElementById(id);
 
 function setStatus(mode, text){
   $("status").textContent = text;
-  $("dot").className = "dot" + (mode==="ok" ? " ok" : mode==="bad" ? " bad" : "");
+  const dot = $("dot");
+  dot.className = "dot";
+  if(mode==="ok") dot.classList.add("ok");
+  else if(mode==="bad") dot.classList.add("bad");
+  else if(mode==="info") dot.classList.add("info");
 }
 
 function setApprovalUI(state, sub){
-  // state: WAIT / APPROVED / SUBMITTED / BLOCK / ERROR / IDLE
+  // state: IDLE/WAIT/APPROVED/SUBMITTED/BLOCK/DEVICE_MISMATCH/ERROR
   const icon = $("stateIcon");
   const title = $("stateTitle");
   const subEl = $("stateSub");
 
   if(state === "APPROVED"){
-    icon.textContent = "✅";
-    title.textContent = "แอดมินอนุมัติแล้ว";
-    subEl.textContent = sub || "ตอนนี้สามารถเลือกคำทายและกดส่งได้";
+    icon.textContent="✅";
+    title.textContent="แอดมินอนุมัติแล้ว";
+    subEl.textContent=sub || "ตอนนี้สามารถส่งคำทายได้";
     setStatus("ok","อนุมัติแล้ว");
     return;
   }
   if(state === "WAIT"){
-    icon.textContent = "⏳";
-    title.textContent = "รอแอดมินอนุมัติ";
-    subEl.textContent = sub || "กรุณารอสักครู่ แล้วกดเช็คสิทธิ์อีกครั้ง";
-    setStatus("", "รออนุมัติ");
+    icon.textContent="⏳";
+    title.textContent="รอแอดมินอนุมัติ";
+    subEl.textContent=sub || "รอสักครู่ แล้วกดเช็คสิทธิ์อีกครั้ง";
+    setStatus("","รออนุมัติ");
     return;
   }
   if(state === "SUBMITTED"){
-    icon.textContent = "📌";
-    title.textContent = "ส่งคำทายแล้ว";
-    subEl.textContent = sub || "ถ้าจะทายใหม่ แอดมินต้องลบแถวในชีทก่อน";
-    setStatus("", "ส่งแล้ว");
+    icon.textContent="📌";
+    title.textContent="ส่งคำทายแล้ว";
+    subEl.textContent=sub || "ถ้าจะทายใหม่ แอดมินต้องลบแถวในชีทก่อน";
+    setStatus("info","ส่งแล้ว");
     return;
   }
   if(state === "BLOCK"){
-    icon.textContent = "⛔";
-    title.textContent = "ถูกระงับสิทธิ์";
-    subEl.textContent = sub || "กรุณาติดต่อแอดมิน";
+    icon.textContent="⛔";
+    title.textContent="ถูกระงับสิทธิ์";
+    subEl.textContent=sub || "กรุณาติดต่อแอดมิน";
     setStatus("bad","ระงับสิทธิ์");
     return;
   }
+  if(state === "DEVICE_MISMATCH"){
+    icon.textContent="❌";
+    title.textContent="เครื่องนี้เคยใช้เบอร์อื่นแล้ว";
+    subEl.textContent=sub || "ระบบ 1 คน/1 เครื่อง ไม่อนุญาตให้เปลี่ยนเบอร์บนอุปกรณ์เดิม";
+    setStatus("bad","อุปกรณ์ไม่ตรงเงื่อนไข");
+    return;
+  }
   if(state === "ERROR"){
-    icon.textContent = "⚠️";
-    title.textContent = "เชื่อมต่อไม่ได้";
-    subEl.textContent = sub || "ตรวจสอบลิงก์ WebApp (/exec) และการ Deploy";
+    icon.textContent="⚠️";
+    title.textContent="เชื่อมต่อไม่ได้";
+    subEl.textContent=sub || "ตรวจสอบ Deploy (Anyone) และ URL /exec";
     setStatus("bad","เชื่อมต่อไม่ได้");
     return;
   }
   // IDLE
-  icon.textContent = "🕒";
-  title.textContent = "รอเช็คสิทธิ์";
-  subEl.textContent = sub || "กรอกเบอร์แล้วกด “เช็คสิทธิ์”";
-  setStatus("", "รอเช็คสิทธิ์");
+  icon.textContent="🕒";
+  title.textContent="รอเช็คสิทธิ์";
+  subEl.textContent=sub || "กรอกเบอร์แล้วกด “เช็คสิทธิ์”";
+  setStatus("","รอเช็คสิทธิ์");
 }
 
 function alertBox(type, html, debugObj){
-  const cls = type==="ok" ? "alert ok" : type==="warn" ? "alert warn" : "alert err";
+  const cls = type==="ok" ? "alert ok"
+    : type==="info" ? "alert info"
+    : type==="warn" ? "alert warn"
+    : "alert err";
   const dbg = debugObj ? `<div class="smallmono">DEBUG: ${escapeHtml(JSON.stringify(debugObj))}</div>` : "";
   $("msg").innerHTML = `<div class="${cls}">${html}${dbg}</div>`;
 }
@@ -521,8 +536,13 @@ function refreshSubmit(){
 function setAutoUI(on){
   $("autoPill").textContent = "Auto-check: " + (on ? "เปิด" : "ปิด");
   $("btnAuto").textContent = on ? "⏹ ปิด Auto-check" : "🔄 เปิด Auto-check";
-  if(on) $("btnAuto").classList.add("btnGhost"), $("btnAuto").classList.remove("btnWarn");
-  else $("btnAuto").classList.add("btnWarn"), $("btnAuto").classList.remove("btnGhost");
+  if(on){
+    $("btnAuto").classList.remove("btnWarn");
+    $("btnAuto").classList.add("btnGhost");
+  }else{
+    $("btnAuto").classList.add("btnWarn");
+    $("btnAuto").classList.remove("btnGhost");
+  }
 }
 
 function startAutoCheck(){
@@ -531,12 +551,8 @@ function startAutoCheck(){
   setAutoUI(true);
   autoTimer = setInterval(async ()=>{
     const phone = getPhone();
-    if(!isValidPhone(phone)) return; // ยังไม่กรอกเบอร์ ไม่ทำอะไร
-    // ถ้าผ่านแล้วไม่ต้องเช็คซ้ำ
-    if(localStorage.getItem(LS_OK) === "1"){
-      stopAutoCheck();
-      return;
-    }
+    if(!isValidPhone(phone)) return;
+    if(localStorage.getItem(LS_OK)==="1"){ stopAutoCheck(); return; }
     await doCheck(true);
   }, AUTO_INTERVAL_MS);
 }
@@ -545,6 +561,16 @@ function stopAutoCheck(){
   localStorage.setItem(LS_AUTO,"0");
   setAutoUI(false);
   if(autoTimer){ clearInterval(autoTimer); autoTimer = null; }
+}
+
+function classifyMsg(msg){
+  const m = String(msg||"");
+  if(m.includes("อุปกรณ์นี้เคยใช้เบอร์อื่น") || m.includes("อุปกรณ์นี้เคยใช้เบอร์อื่นแล้ว")) return "DEVICE_MISMATCH";
+  if(m.includes("ระงับ") || m.includes("BLOCK")) return "BLOCK";
+  if(m.includes("ส่งคำทาย") || m.includes("ส่งไปแล้ว")) return "SUBMITTED";
+  if(m.includes("อนุมัติ") && m.includes("แล้ว")) return "APPROVED";
+  if(m.includes("รอแอดมิน") || m.includes("รอ") || m.includes("WAIT")) return "WAIT";
+  return "";
 }
 
 async function doCheck(silent=false){
@@ -566,23 +592,21 @@ async function doCheck(silent=false){
 
     if(data.ok){
       localStorage.setItem(LS_OK, "1");
-      setApprovalUI("APPROVED", data.msg || "อนุมัติแล้ว ✅");
+      setApprovalUI("APPROVED", data.msg || "✅ อนุมัติแล้ว");
       if(!silent) alertBox("ok", data.msg || "✅ แอดมินอนุมัติแล้ว", data.debug);
       refreshSubmit();
-      stopAutoCheck(); // ผ่านแล้วหยุด auto
+      stopAutoCheck();
     }else{
       localStorage.setItem(LS_OK, "0");
 
-      const m = String(data.msg || "");
-      if(m.includes("ส่งคำทาย") || m.includes("ส่งไปแล้ว")){
-        setApprovalUI("SUBMITTED", m);
-      }else if(m.includes("ระงับ") || m.includes("BLOCK") || m.includes("บล็อก")){
-        setApprovalUI("BLOCK", m);
-      }else{
-        setApprovalUI("WAIT", m || "⏳ รอแอดมินอนุมัติ");
-      }
+      const state = classifyMsg(data.msg) || "WAIT";
+      setApprovalUI(state, data.msg || "⏳ รอแอดมินอนุมัติ");
 
-      if(!silent) alertBox("warn", data.msg || "⏳ รอแอดมินอนุมัติ", data.debug);
+      if(state === "DEVICE_MISMATCH"){
+        if(!silent) alertBox("err", "❌ " + escapeHtml(data.msg || "อุปกรณ์นี้เคยใช้เบอร์อื่นแล้ว") + "<br>📌 ถ้าเป็นเบอร์ของคุณจริง ให้ติดต่อแอดมินตรวจสอบ", data.debug);
+      }else{
+        if(!silent) alertBox("warn", data.msg || "⏳ รอแอดมินอนุมัติ", data.debug);
+      }
       refreshSubmit();
     }
   }catch(err){
@@ -634,23 +658,25 @@ $("firstGrid").addEventListener("click", (e)=>{
   refreshSubmit();
 });
 
-/* check button */
+/* buttons */
 $("btnCheck").addEventListener("click", async ()=>{ await doCheck(false); });
 
-/* auto button */
 $("btnAuto").addEventListener("click", ()=>{
   const on = localStorage.getItem(LS_AUTO)==="1";
   if(on) stopAutoCheck();
   else startAutoCheck();
 });
 
-/* debug */
+$("btnContact").addEventListener("click", ()=>{
+  window.open(ADMIN_CHAT_URL, "_blank");
+});
+
 $("btnDebug").addEventListener("click", async ()=>{
   if(!WEB_APP_URL) return alertBox("err","ยังไม่ได้ใส่ WEB_APP_URL (/exec)");
   setLoading($("btnDebug"), true, "ดึง Debug...");
   try{
     const data = await post({ action:"debug" });
-    alertBox("ok", "Debug จากเซิร์ฟเวอร์ ✅", data.debug);
+    alertBox("info", "Debug จากเซิร์ฟเวอร์ ✅", data.debug);
   }catch(e){
     alertBox("err","Debug ไม่ได้ ตรวจสอบ URL /exec และ Deploy");
   }finally{
@@ -659,9 +685,8 @@ $("btnDebug").addEventListener("click", async ()=>{
   }
 });
 
-/* reset */
 $("btnReset").addEventListener("click", ()=>{
-  // ล้างเฉพาะสถานะการผ่านสิทธิ์ของเครื่องนี้
+  // ล้างเฉพาะสถานะ “ผ่านสิทธิ์” ไม่ยุ่ง deviceId (กันหลุดกฎ 1 เครื่อง)
   localStorage.setItem(LS_OK,"0");
   setApprovalUI("IDLE","ล้างค่าแล้ว กรุณากรอกเบอร์และเช็คสิทธิ์ใหม่");
   refreshSubmit();
@@ -672,7 +697,7 @@ $("f").addEventListener("submit", async (e)=>{
   e.preventDefault();
   const phone = getPhone();
   if(!isValidPhone(phone)) return alertBox("err","กรุณากรอกเบอร์ให้ถูกต้อง");
-  if(localStorage.getItem(LS_OK)!=="1") return alertBox("warn","⛔ ยังไม่ได้รับการอนุมัติจากแอดมิน");
+  if(localStorage.getItem(LS_OK)!=="1") return alertBox("warn","⛔ ยังไม่ได้รับการอนุมัติจากแอดมิน (กดเช็คสิทธิ์หลังอนุมัติ)");
 
   const kick = localStorage.getItem(LS_KICK) || "";
   const first = localStorage.getItem(LS_FIRST) || "";
@@ -693,20 +718,13 @@ $("f").addEventListener("submit", async (e)=>{
     });
 
     if(data.ok){
-      localStorage.setItem(LS_OK, "0"); // ล็อกจนกว่าจะลบแถวในชีท
+      localStorage.setItem(LS_OK, "0");
       setApprovalUI("SUBMITTED", data.msg || "ส่งคำทายเรียบร้อย ✅");
       alertBox("ok", data.msg || "ส่งสำเร็จ ✅", data.debug);
     }else{
-      // ถ้าฝั่ง server ส่งว่าไม่อนุมัติ/ส่งแล้ว ฯลฯ จะสะท้อนบนแถบ
-      const m = String(data.msg || "");
-      if(m.includes("ส่งคำทาย") || m.includes("ส่งไปแล้ว")){
-        setApprovalUI("SUBMITTED", m);
-      }else if(m.includes("ระงับ") || m.includes("BLOCK") || m.includes("บล็อก")){
-        setApprovalUI("BLOCK", m);
-      }else if(m.includes("อนุมัติ") || m.includes("รอ")){
-        setApprovalUI("WAIT", m);
-      }
-      alertBox("warn", data.msg || "ส่งไม่สำเร็จ", data.debug);
+      const state = classifyMsg(data.msg) || "WAIT";
+      setApprovalUI(state, data.msg || "ส่งไม่สำเร็จ");
+      alertBox(state==="DEVICE_MISMATCH" ? "err" : "warn", data.msg || "ส่งไม่สำเร็จ", data.debug);
     }
     refreshSubmit();
   }catch(err){
@@ -719,9 +737,8 @@ $("f").addEventListener("submit", async (e)=>{
   }
 });
 
-/* auto-start if saved ON */
+/* auto-start */
 if(localStorage.getItem(LS_AUTO)==="1"){
-  // ให้เริ่ม auto เมื่อมีการเปิดหน้าใหม่
   startAutoCheck();
 }
 </script>
