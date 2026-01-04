@@ -1,75 +1,289 @@
 <!doctype html>
 <html lang="th">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ทายผลบอล | Rumruay365</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Rumruay365 | ทายผลบอล</title>
+<meta name="color-scheme" content="dark"/>
+
 <style>
-body{font-family:sans-serif;background:#0b0b0b;color:#fff;padding:20px}
-button{padding:10px 14px;font-weight:bold}
-.choice.active{background:#36d399;color:#000}
+:root{
+  --bg:#0b0b0b;
+  --card:#141414;
+  --line:rgba(255,255,255,.12);
+  --txt:#fff;
+  --muted:#cfcfcf;
+  --accent:#ff2b2b;
+  --accent2:#b80000;
+  --ok:#36d399;
+  --warn:#facc15;
+  --bad:#ff5a5f;
+  --radius:18px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  padding:24px;
+  font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
+  background:
+    radial-gradient(800px 400px at 50% -10%, rgba(255,60,60,.18), transparent 60%),
+    var(--bg);
+  color:var(--txt);
+}
+.wrap{max-width:720px;margin:auto}
+.card{
+  background:linear-gradient(180deg,#161616,#0f0f0f);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+  overflow:hidden;
+}
+.header{
+  padding:22px;
+  text-align:center;
+  border-bottom:1px solid var(--line);
+}
+.logo{
+  width:120px;
+  margin:auto;
+  filter:drop-shadow(0 0 18px rgba(255,0,0,.5));
+}
+.h-title{font-size:24px;font-weight:900;margin:14px 0 6px}
+.h-sub{font-size:13px;color:var(--muted)}
+
+.status{
+  margin-top:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:10px 14px;
+  border-radius:999px;
+  font-size:13px;
+  background:#0d0d0d;
+  border:1px solid var(--line);
+}
+.dot{
+  width:10px;height:10px;border-radius:50%;
+  background:var(--warn);
+}
+.dot.ok{background:var(--ok)}
+.dot.bad{background:var(--bad)}
+
+.body{padding:22px}
+.section{margin-bottom:22px}
+.label{font-size:13px;color:var(--muted);margin-bottom:8px}
+
+input{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  background:#0e0e0e;
+  border:1px solid var(--line);
+  color:#fff;
+  font-size:15px;
+}
+input:focus{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(255,43,43,.25);
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.grid3{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:12px;
+}
+.btn{
+  padding:14px;
+  border-radius:14px;
+  font-weight:900;
+  cursor:pointer;
+  border:1px solid var(--line);
+  background:#121212;
+  color:#fff;
+  transition:.15s;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn.active{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border-color:transparent;
+}
+.btn-main{
+  width:100%;
+  margin-top:12px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border:none;
+  padding:16px;
+  font-size:16px;
+}
+.btn-main:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.score{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:10px;
+  align-items:center;
+}
+.score input{
+  text-align:center;
+  font-size:22px;
+  font-weight:900;
+}
+
+.alert{
+  margin-top:16px;
+  padding:14px;
+  border-radius:14px;
+  font-size:14px;
+  line-height:1.5;
+}
+.alert.ok{background:rgba(54,211,153,.15);border:1px solid rgba(54,211,153,.35)}
+.alert.warn{background:rgba(250,204,21,.15);border:1px solid rgba(250,204,21,.35)}
+.alert.bad{background:rgba(255,90,90,.15);border:1px solid rgba(255,90,90,.35)}
+
+.footer{
+  text-align:center;
+  font-size:12px;
+  color:#777;
+  padding:14px;
+  border-top:1px solid var(--line);
+}
 </style>
 </head>
+
 <body>
+<div class="wrap">
+  <div class="card">
+    <div class="header">
+      <img class="logo" src="https://ramruay365.co/wp-content/uploads/2025/12/1735020594-1.png">
+      <div class="h-title">ทายผลบอล</div>
+      <div class="h-sub">ส่งคำทายได้ทันที • แอดมินอนุมัติภายหลัง</div>
 
-<h2>⚽ ทายผลบอล (แอดมินอนุมัติภายหลัง)</h2>
+      <div class="status">
+        <span id="dot" class="dot"></span>
+        <span id="statusText">กรอกเบอร์เพื่อเริ่ม</span>
+      </div>
+    </div>
 
-<input id="phone" placeholder="เบอร์โทร"><br><br>
+    <div class="body">
+      <div class="section">
+        <div class="label">เบอร์โทรที่สมัคร (1 คน / 1 เครื่อง)</div>
+        <input id="phone" placeholder="เช่น 096xxxxxxx">
+      </div>
 
-<button onclick="check()">เช็คสิทธิ์</button>
-<div id="status"></div>
+      <div class="section">
+        <div class="label">ทีมเขี่ยก่อน</div>
+        <div class="grid2">
+          <button class="btn" onclick="pickKick('HOME',this)">ทีมเหย้า</button>
+          <button class="btn" onclick="pickKick('AWAY',this)">ทีมเยือน</button>
+        </div>
+      </div>
 
-<hr>
+      <div class="section">
+        <div class="label">ทีมยิงประตูแรก</div>
+        <div class="grid3">
+          <button class="btn" onclick="pickFirst('HOME',this)">เหย้า</button>
+          <button class="btn" onclick="pickFirst('AWAY',this)">เยือน</button>
+          <button class="btn" onclick="pickFirst('NONE',this)">ไม่มี</button>
+        </div>
+      </div>
 
-<h3>ทีมเขี่ยก่อน</h3>
-<button class="choice" onclick="pickKick('HOME')">HOME</button>
-<button class="choice" onclick="pickKick('AWAY')">AWAY</button>
+      <div class="section">
+        <div class="label">สกอร์ที่ทาย</div>
+        <div class="score">
+          <input id="hs" type="number" value="0">
+          <b>:</b>
+          <input id="as" type="number" value="0">
+        </div>
+      </div>
 
-<h3>ทีมยิงก่อน</h3>
-<button class="choice" onclick="pickFirst('HOME')">HOME</button>
-<button class="choice" onclick="pickFirst('AWAY')">AWAY</button>
-<button class="choice" onclick="pickFirst('NONE')">ไม่มี</button>
+      <button id="submitBtn" class="btn btn-main" onclick="submitGuess()" disabled>
+        ส่งคำทาย
+      </button>
 
-<h3>สกอร์</h3>
-<input id="hs" type="number" value="0"> :
-<input id="as" type="number" value="0"><br><br>
+      <div id="msg"></div>
+    </div>
 
-<button onclick="submit()">ส่งคำทาย</button>
+    <div class="footer">
+      ระบบตรวจสอบอัตโนมัติ • Rumruay365
+    </div>
+  </div>
+</div>
 
 <script>
+/* ===== CONFIG ===== */
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwTaOHSv5PgzBiWcwdNLexU9gitMaf5b6SAwRqyS7tPm56ONJuwrBD4BjsfuNZeBGAR/exec";
-const deviceId = localStorage.deviceId || (localStorage.deviceId=crypto.randomUUID());
+/* ================= */
+
+const deviceId = localStorage.deviceId || (localStorage.deviceId = crypto.randomUUID());
 let kick="", first="";
 
-function post(d){
+function setStatus(type,text){
+  const dot=document.getElementById("dot");
+  dot.className="dot "+(type||"");
+  document.getElementById("statusText").innerText=text;
+}
+function alertBox(type,text){
+  document.getElementById("msg").innerHTML=
+    `<div class="alert ${type}">${text}</div>`;
+}
+function cleanPhone(p){return p.replace(/[^\d]/g,"");}
+
+function post(data){
   return fetch(WEB_APP_URL,{
     method:"POST",
-    body:JSON.stringify(d)
+    body:JSON.stringify(data)
   }).then(r=>r.json());
 }
 
-function check(){
-  post({action:"check",phone:phone.value,deviceId,userAgent:navigator.userAgent})
-    .then(r=>status.innerText=r.msg);
+document.getElementById("phone").addEventListener("input",()=>{
+  const p=cleanPhone(phone.value);
+  phone.value=p;
+  if(p.length>=9){
+    post({action:"check",phone:p,deviceId,userAgent:navigator.userAgent})
+    .then(r=>{
+      setStatus(r.ok?"ok":"warn",r.msg);
+      document.getElementById("submitBtn").disabled=!r.ok;
+    });
+  }
+});
+
+function pickKick(v,btn){
+  kick=v;
+  document.querySelectorAll(".grid2 .btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+}
+function pickFirst(v,btn){
+  first=v;
+  document.querySelectorAll(".grid3 .btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
 }
 
-function pickKick(v){kick=v;highlight()}
-function pickFirst(v){first=v;highlight()}
-function highlight(){
-  document.querySelectorAll(".choice").forEach(b=>b.classList.remove("active"));
-}
-
-function submit(){
+function submitGuess(){
+  const phoneVal=cleanPhone(phone.value);
+  if(!kick||!first) return alertBox("warn","กรุณาเลือกให้ครบ");
   post({
     action:"submit",
-    phone:phone.value,
+    phone:phoneVal,
     deviceId,
     kickOffTeam:kick,
     firstGoalTeam:first,
     homeScore:hs.value,
     awayScore:as.value,
     userAgent:navigator.userAgent
-  }).then(r=>status.innerText=r.msg);
+  }).then(r=>{
+    setStatus(r.ok?"warn":"bad",r.msg);
+    alertBox(r.ok?"warn":"bad",r.msg);
+  });
 }
 </script>
 </body>
